@@ -1,3 +1,5 @@
+'use client';
+
 import { NextfurInline } from "../icons/Nextfur";
 import { useTranslations } from "next-intl";
 import HRDivider, { EnfDivider } from "../ui/ornaments/Dividers";

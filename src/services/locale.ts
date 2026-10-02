@@ -1,16 +1,22 @@
-'use server';
+import { Locale, defaultLocale, locales } from '@/config';
 
-import { cookies } from 'next/headers';
-import { Locale, defaultLocale } from '@/config';
-
-// In this example the locale is read from a cookie. You could alternatively
-// also read it from a database, backend service, or any other source.
+// The site is a static export, so the locale lives in a cookie the browser
+// reads and writes; the name is kept from the server-rendered version so
+// existing visitors keep their language.
 const COOKIE_NAME = 'NEXT_LOCALE';
+const ONE_YEAR = 60 * 60 * 24 * 365;
 
-export async function getUserLocale() {
-    return cookies().get(COOKIE_NAME)?.value || defaultLocale;
+export function isLocale(value: unknown): value is Locale {
+    return typeof value === 'string' && (locales as readonly string[]).includes(value);
 }
 
-export async function setUserLocale(locale: Locale) {
-    cookies().set(COOKIE_NAME, locale);
+export function getUserLocale(): Locale {
+    if (typeof document === 'undefined') return defaultLocale;
+    const match = document.cookie.match(new RegExp(`(?:^|; )${COOKIE_NAME}=([^;]*)`));
+    const value = match ? decodeURIComponent(match[1]) : null;
+    return isLocale(value) ? value : defaultLocale;
+}
+
+export function setUserLocale(locale: Locale) {
+    document.cookie = `${COOKIE_NAME}=${encodeURIComponent(locale)}; path=/; max-age=${ONE_YEAR}; samesite=lax`;
 }

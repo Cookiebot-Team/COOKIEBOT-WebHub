@@ -1,15 +1,9 @@
 import type { Metadata } from "next";
 import "@/style/globals.scss";
-import { getLocale, getMessages } from "next-intl/server";
-import { NextIntlClientProvider } from "next-intl";
 import { fonts } from "@/style/fonts";
-import { NextThemeProvider } from "@/providers/themes";
-import Navbar from "@/components/all/Navbar";
-import { Footer } from "@/components/all/Footer";
-import Splash from "@/components/all/Splash";
 import { ReactNode } from "react";
-import { BackgroundImage } from "@/components/ui/MovingBackground";
 import QueryProvider from '../providers/QueryProvider';
+import LocaleProvider from '../providers/LocaleProvider';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://cookiebotfur.net'),
@@ -29,29 +23,24 @@ export const metadata: Metadata = {
   description: "O bot mais crocante do Telegram!",
 };
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: Readonly<{
   children: ReactNode;
 }>) {
-  const locale = await getLocale();
-  const messages = await getMessages();
-
   return (
-    <html lang={locale} className={`${fonts.map(font => font.variable).join(' ')} dark`} suppressHydrationWarning={true}>
+    <html lang="pt" className={`${fonts.map(font => font.variable).join(' ')} dark`} suppressHydrationWarning={true}>
+      <head>
+        {/* Served by the runtime (server/main.ts, or a dev route): per-deployment
+            settings from environment variables, read before the app starts. */}
+        {/* eslint-disable-next-line @next/next/no-sync-scripts */}
+        <script src="/runtime-config.js"></script>
+      </head>
       <body>
         <QueryProvider>
-          <Splash />
-          <div className="fixed top-0 left-0 w-full h-full -z-10"></div>
-          <BackgroundImage>
-            <NextIntlClientProvider messages={messages}>
-              <NextThemeProvider>
-                <Navbar/>
-                {children}
-                <Footer/>
-              </NextThemeProvider>
-            </NextIntlClientProvider>
-          </BackgroundImage>
+          <LocaleProvider>
+            {children}
+          </LocaleProvider>
         </QueryProvider>
       </body>
     </html>
