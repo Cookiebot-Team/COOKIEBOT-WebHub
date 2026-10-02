@@ -1,4 +1,4 @@
-import { Chakra_Petch, Space_Mono, Lobster } from "next/font/google";
+import { Chakra_Petch, Space_Mono, Lobster, Jost, Inter } from "next/font/google";
 
 export const chakraPetch = Chakra_Petch({
     subsets: ['latin'],
@@ -18,8 +18,22 @@ export const lobster = Lobster({
     weight: ["400"]
 })
 
+export const jost = Jost({
+    subsets: ['latin'],
+    variable: "--font-jost",
+    weight: ["300", "400", "500", "700"]
+});
+
+export const inter = Inter({
+    subsets: ['latin'],
+    variable: "--font-inter",
+    weight: ["400", "600"]
+});
+
 export const fonts = [
     chakraPetch,
     spaceMono,
-    lobster
+    lobster,
+    jost,
+    inter
 ];

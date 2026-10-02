@@ -1,3 +1,5 @@
+'use client';
+
 import { Reveal } from "@/components/fx/Motion";
 import { useTranslations } from "next-intl";
 
