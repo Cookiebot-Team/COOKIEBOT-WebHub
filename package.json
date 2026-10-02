@@ -6,7 +6,11 @@
     "dev": "next dev -H 0.0.0.0",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "build:static": "WEBHUB_EXPORT=1 next build",
+    "build:assets": "bun scripts/embed-assets.ts",
+    "build:server": "scriptc build server/main.ts -o dist/webhub --strip --no-keep-llvm",
+    "build:binary": "bun run build:static && bun run build:assets && bun run build:server"
   },
   "dependencies": {
     "@heroicons/react": "^2.1.5",
@@ -31,7 +35,15 @@
     "eslint-config-next": "14.2.5",
     "postcss": "^8",
     "sass": "^1.77.8",
+    "scriptc": "0.2.0",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
-  }
+  },
+  "type": "module",
+  "allowScripts": {
+    "scriptc@0.2.0": true
+  },
+  "trustedDependencies": [
+    "scriptc"
+  ]
 }
