@@ -88,6 +88,7 @@
             "prompt": "Inicia sesión con Telegram para administrar tus grupos.",
             "loginFailed": "No se pudo iniciar sesión. Inténtalo de nuevo.",
             "miniappFailed": "No se pudo verificar tu sesión de Telegram.",
+            "miniappLoading": "Entrando con Telegram…",
             "openInTelegram": "Abre este panel desde Telegram para iniciar sesión.",
             "networkError": "La API de Cookiebot no está disponible.",
             "brandTagline": "Tu comunidad, tus reglas",

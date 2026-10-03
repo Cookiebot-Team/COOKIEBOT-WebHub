@@ -16,6 +16,10 @@ export function AuthGate({ children, requireGroup = true }: { children: ReactNod
 
     if (status === 'authenticated' && (!requireGroup || groupId !== null)) return <>{children}</>;
 
+    // Inside the Mini App the widget can never work: anonymous is a failed exchange.
+    const failed = status === 'error' || (isMiniApp && status === 'anonymous');
+    const errorKey = isMiniApp && (status === 'anonymous' || error === 'loginFailed') ? 'miniappFailed' : (error ?? 'loginFailed');
+
     const content = (
         <>
             <div className="flex justify-center pt-4"><EnvSelector /></div>
@@ -24,17 +28,22 @@ export function AuthGate({ children, requireGroup = true }: { children: ReactNod
                 <h1 className="mt-3 text-[17px] font-bold lg:mt-0 lg:text-2xl">{t('title')}</h1>
             </div>
 
-            {status === 'loading' && <div className="mt-10 flex justify-center"><Spinner /></div>}
+            {status === 'loading' && (
+                <div className="mt-10 flex flex-col items-center gap-3">
+                    <Spinner />
+                    {isMiniApp && <p className="text-sm">{t('miniappLoading')}</p>}
+                </div>
+            )}
 
-            {status === 'error' && (
+            {failed && (
                 <StatusMessage action={<PillButton tone="dark" size="sm" onClick={retry}>{tc('retry')}</PillButton>}>
-                    <p>{t(error ?? 'loginFailed')}</p>
+                    <p>{t(errorKey)}</p>
                 </StatusMessage>
             )}
 
-            {status === 'anonymous' && (
+            {status === 'anonymous' && !isMiniApp && (
                 <StatusMessage>
-                    <p>{t(isMiniApp ? 'openInTelegram' : 'prompt')}</p>
+                    <p>{t('prompt')}</p>
                     {error && <p role="alert" className="text-sm text-cb-danger">{t(error)}</p>}
                     <LoginButton
                         botUsername={runtimeConfig().telegramBotUsername}

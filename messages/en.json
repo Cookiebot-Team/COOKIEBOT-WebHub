@@ -88,6 +88,7 @@
             "prompt": "Sign in with Telegram to manage your groups.",
             "loginFailed": "Could not sign in. Please try again.",
             "miniappFailed": "Could not verify your Telegram session.",
+            "miniappLoading": "Signing in with Telegram…",
             "openInTelegram": "Open this panel from Telegram to sign in.",
             "networkError": "The Cookiebot API is unreachable.",
             "brandTagline": "Your community, your rules",

@@ -7,7 +7,7 @@ Gate for code tasks: `npm run lint && bun run build:static`
 | Task | Status | Notes |
 |------|--------|-------|
 | T1 — SDK in the root layout, provider reuse, landing redirect | ✅ done | provider already reused window.Telegram.WebApp |
-| T2 — AuthGate never shows the widget inside the Mini App | ⏳ not started | |
+| T2 — AuthGate never shows the widget inside the Mini App | ✅ done | simulated launch: redirect, exchange attempt, error + retry |
 | T-final — Close out | ⏳ not started | |
 
 ### T1 — SDK in the root layout, provider reuse, landing redirect

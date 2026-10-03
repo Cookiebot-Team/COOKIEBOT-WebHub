@@ -88,6 +88,7 @@
             "prompt": "Entre com o Telegram para gerenciar seus grupos.",
             "loginFailed": "Não foi possível entrar. Tente novamente.",
             "miniappFailed": "Não foi possível validar sua sessão do Telegram.",
+            "miniappLoading": "Entrando com o Telegram…",
             "openInTelegram": "Abra este painel pelo Telegram para entrar.",
             "networkError": "A API do Cookiebot está inacessível.",
             "brandTagline": "Sua comunidade, suas regras",
