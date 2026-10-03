@@ -66,7 +66,11 @@
             "loginFailed": "Could not sign in. Please try again.",
             "miniappFailed": "Could not verify your Telegram session.",
             "openInTelegram": "Open this panel from Telegram to sign in.",
-            "networkError": "The Cookiebot API is unreachable."
+            "networkError": "The Cookiebot API is unreachable.",
+            "brandTagline": "Your community, your rules",
+            "value1": "Set up moderation, welcomes and rules in one place.",
+            "value2": "Manage every group you admin from a single panel.",
+            "value3": "Changes reach the bot instantly, no commands needed."
         },
         "groups": {
             "active": "Active Group",

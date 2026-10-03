@@ -66,7 +66,11 @@
             "loginFailed": "No se pudo iniciar sesión. Inténtalo de nuevo.",
             "miniappFailed": "No se pudo verificar tu sesión de Telegram.",
             "openInTelegram": "Abre este panel desde Telegram para iniciar sesión.",
-            "networkError": "La API de Cookiebot no está disponible."
+            "networkError": "La API de Cookiebot no está disponible.",
+            "brandTagline": "Tu comunidad, tus reglas",
+            "value1": "Configura moderación, bienvenidas y reglas en un solo lugar.",
+            "value2": "Gestiona todos los grupos que administras desde un solo panel.",
+            "value3": "Los cambios llegan al bot al instante, sin comandos."
         },
         "groups": {
             "active": "Grupo activo",
