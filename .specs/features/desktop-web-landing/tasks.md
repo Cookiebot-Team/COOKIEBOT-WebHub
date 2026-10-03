@@ -10,7 +10,7 @@ code task (run from the repo root):
 |------|--------|-------|
 | T1 [P] — Remove third-party chat prints | ✅ done | |
 | T2 [P] — Desktop sign-in layout | ✅ done | verified 1470 px and 420 px in dev |
-| T3 — Modern landing page | ⏳ not started | after T1 (globals.scss) |
+| T3 — Modern landing page | ✅ done | verified 1470 px and 420 px in dev |
 | T-final — Close out | ⏳ not started | |
 
 ### T1 [P] — Remove third-party chat prints

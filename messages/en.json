@@ -37,7 +37,28 @@
     "HomePage": {
         "inviteme": "Invite Me! ",
         "slogan": "The crispiest bot on Telegram!",
-        "join": "Join now!"
+        "join": "Join now!",
+        "hero": {
+            "eyebrow": "A community bot for Telegram",
+            "lead": "Moderation, welcomes, scheduled posts and fun for your group, all set up from one simple panel.",
+            "openPanel": "Open panel"
+        },
+        "features": {
+            "title": "Everything your group needs",
+            "moderation": { "title": "Moderation and anti-spam", "body": "Filters and rules that keep the group clean without extra work for admins." },
+            "welcome": { "title": "Welcome and captcha", "body": "Greet new members and make sure they are real people." },
+            "schedule": { "title": "Scheduled posts", "body": "Queue announcements and recurring messages to go out at the right time." },
+            "events": { "title": "Events", "body": "Create events, collect RSVPs and remind everyone." },
+            "memes": { "title": "Memes and image search", "body": "Commands like /meme and /searchimage to liven up the chat." },
+            "ai": { "title": "AI chat", "body": "Talk to Cookiebot and ask for help right in the group." }
+        },
+        "how": {
+            "title": "Get started in three steps",
+            "add": { "title": "Add it to your group", "body": "Use the Invite Me! button and pick your group in Telegram." },
+            "admin": { "title": "Make it an admin", "body": "Give Cookiebot permission to moderate and send messages." },
+            "configure": { "title": "Configure it", "body": "Tune everything in the web panel or the Mini App, no commands to memorise." }
+        },
+        "final": { "title": "Ready for a crispier group?", "body": "Add Cookiebot in seconds and set it up your way." }
     },
     "Footer": {
         "rights": {

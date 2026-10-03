@@ -37,7 +37,28 @@
     "HomePage": {
         "inviteme": "Me Convide! ",
         "slogan": "O bot mais crocante do Telegram!",
-        "join": "Entre agora!"
+        "join": "Entre agora!",
+        "hero": {
+            "eyebrow": "Bot de comunidade para Telegram",
+            "lead": "Moderação, boas-vindas, agendamentos e diversão para o seu grupo, tudo configurado em um painel simples.",
+            "openPanel": "Abrir painel"
+        },
+        "features": {
+            "title": "Tudo que o seu grupo precisa",
+            "moderation": { "title": "Moderação e anti-spam", "body": "Filtros e regras que mantêm o grupo limpo sem dar trabalho aos admins." },
+            "welcome": { "title": "Boas-vindas e captcha", "body": "Receba novos membros com uma mensagem e confirme que são pessoas de verdade." },
+            "schedule": { "title": "Posts agendados", "body": "Programe avisos e mensagens recorrentes para saírem na hora certa." },
+            "events": { "title": "Eventos", "body": "Crie eventos, junte confirmações e lembre o pessoal." },
+            "memes": { "title": "Memes e busca de imagens", "body": "Comandos como /meme e /searchimage para animar a conversa." },
+            "ai": { "title": "Chat com IA", "body": "Converse com o Cookiebot e peça ajuda direto no grupo." }
+        },
+        "how": {
+            "title": "Comece em três passos",
+            "add": { "title": "Adicione ao grupo", "body": "Use o botão Me Convide! e escolha o seu grupo no Telegram." },
+            "admin": { "title": "Torne administrador", "body": "Dê ao Cookiebot as permissões para moderar e enviar mensagens." },
+            "configure": { "title": "Configure", "body": "Ajuste tudo no painel web ou no Mini App, sem comandos decorados." }
+        },
+        "final": { "title": "Pronto para ter um grupo mais crocante?", "body": "Adicione o Cookiebot em segundos e configure do seu jeito." }
     },
     "Footer": {
         "rights": {
