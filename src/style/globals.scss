@@ -56,28 +56,6 @@
   }
 }
 
-.bg-main {
-  background-image: url('../../public/Overlay.png');
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 0;
-
-  @media (max-width: 768px) {
-    position: absolute;
-    height: 100vh;
-  }
-}
-
-.bg-main-dark {
-  background-image: url('../../public/bg1.jpg');
-}
-
 @layer utilities {
   .text-balance {
     text-wrap: balance;

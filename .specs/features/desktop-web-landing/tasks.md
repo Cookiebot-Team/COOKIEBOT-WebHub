@@ -8,7 +8,7 @@ code task (run from the repo root):
 
 | Task | Status | Notes |
 |------|--------|-------|
-| T1 [P] — Remove third-party chat prints | ⏳ not started | |
+| T1 [P] — Remove third-party chat prints | ✅ done | |
 | T2 [P] — Desktop sign-in layout | ⏳ not started | |
 | T3 — Modern landing page | ⏳ not started | after T1 (globals.scss) |
 | T-final — Close out | ⏳ not started | |

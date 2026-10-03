@@ -8,7 +8,6 @@ export default function Home() {
 
 	return (
 		<main className="relative min-h-screen w-full flex flex-col overflow-hidden">
-			<div className="bg-main absolute inset-0 w-full h-full" />
 			<div className="relative mt-32 md:mt-48 text-start z-10">
 				<div className="flex flex-col items-center md:items-start text-center px-4 md:px-10">
 					<Reveal>
