@@ -12,15 +12,15 @@ the team's private chat. Neither should ship.
 
 ## Goals
 
-- [ ] A desktop browser user (outside Telegram, viewport ≥ 1024 px) never sees
+- [x] A desktop browser user (outside Telegram, viewport ≥ 1024 px) never sees
       the phone frame: sign-in and every dashboard state use a desktop layout.
-- [ ] Inside the Telegram Mini App, and below 1024 px, the dashboard looks and
+- [x] Inside the Telegram Mini App, and below 1024 px, the dashboard looks and
       behaves exactly as it does today.
-- [ ] `/` is a modern, multi-section landing page with no screenshots of real
+- [x] `/` is a modern, multi-section landing page with no screenshots of real
       chats, translated in pt/en/es.
-- [ ] `Overlay.png` and `Background2.png` are deleted from the repository and
+- [x] `Overlay.png` and `Background2.png` are deleted from the repository and
       the image.
-- [ ] `bun run build:static` and `npm run lint` pass.
+- [x] `bun run build:static` and `npm run lint` pass.
 
 ## Out of Scope
 
@@ -58,3 +58,21 @@ three-step how-it-works, and a closing CTA; responsive 360–1440 px; respects
 `prefers-reduced-motion`; all copy in `messages/{pt,en,es}.json`. The invite
 link uses the deployment's bot (`runtimeConfig().telegramBotUsername`), so UAT
 invites `cookiebot_uat_bot`, not production's bot.
+
+## Close-out (2026-10-03)
+
+Verified in `next dev` against the UAT API: `/dashboard` signed out at
+1470 px (two columns) and 420 px (phone card); `/` at 1470 px and 420 px.
+Gate passes on the final tree (`npm run lint && bun run build:static`).
+
+Awaiting human UAT:
+
+- The Telegram Login Widget renders only on a domain set with BotFather
+  `/setdomain` (`cookiebot-uat.aslamel.net` for UAT); on localhost it shows
+  nothing or "Bot domain invalid".
+- Not checked inside the Mini App on a phone — the change keeps its markup,
+  but it needs a look in Telegram.
+
+Known, not from this feature: `next dev` logs a hydration mismatch from the
+dev-only `EnvSelector` on `/dashboard`; the navbar links stack vertically
+below `sm`.
