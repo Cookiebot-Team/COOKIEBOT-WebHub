@@ -41,6 +41,8 @@
         "hero": {
             "eyebrow": "Un bot de comunidad para Telegram",
             "lead": "Moderación, bienvenidas, publicaciones programadas y diversión para tu grupo, todo desde un panel sencillo.",
+            "chips": { "moderation": "Moderación", "welcome": "Bienvenida", "schedule": "Posts programados", "events": "Eventos", "memes": "Memes", "ai": "Chat con IA" },
+            "avatarAlt": "Cookiebot",
             "openPanel": "Abrir panel"
         },
         "features": {

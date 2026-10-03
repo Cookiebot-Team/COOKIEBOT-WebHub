@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import { R } from "./R";
 
 function Bar({ w, tone = "bg-cb-line" }: { w: string; tone?: string }) {
@@ -7,8 +8,12 @@ function Bar({ w, tone = "bg-cb-line" }: { w: string; tone?: string }) {
 // Decorative mock of the panel and a Telegram chat. Drawn in markup on
 // purpose: no screenshots, no real group or user names.
 export function ProductPreview() {
+	const t = useTranslations("HomePage");
 	return (
-		<div aria-hidden="true" className="relative mx-auto w-full max-w-md lg:max-w-none h-[430px] sm:h-[470px]">
+		<div className="relative mx-auto w-full max-w-md lg:max-w-none h-[430px] sm:h-[470px]">
+			{/* eslint-disable-next-line @next/next/no-img-element */}
+			<img src="/cookiebot_avatar.jpeg" alt={t("hero.avatarAlt")} width={160} height={160} className="hidden lg:block absolute -left-8 -top-10 z-10 w-40 h-40 xl:w-44 xl:h-44 rounded-full object-cover ring-[6px] ring-cb-cream-50 dark:ring-cb-brown-800 shadow-cb-float" />
+			<div aria-hidden="true" className="absolute inset-0">
 			<R className="absolute inset-0">
 				<div className="absolute left-0 top-0 w-[88%] rounded-cb-xl bg-cb-cream-50 dark:bg-cb-brown-800 border border-cb-line dark:border-cb-brown-500 shadow-cb-raised p-5 rotate-[-2deg]">
 					<div className="flex items-center gap-3">
@@ -46,6 +51,7 @@ export function ProductPreview() {
 					<div className="ml-auto w-fit rounded-2xl rounded-br-sm bg-cb-telegram text-white px-3 py-2"><b>/everyone</b></div>
 				</div>
 			</R>
+			</div>
 		</div>
 	);
 }

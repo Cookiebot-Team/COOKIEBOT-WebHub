@@ -11,6 +11,7 @@ code task (run from the repo root):
 | T1 [P] — Remove third-party chat prints | ✅ done | |
 | T2 [P] — Desktop sign-in layout | ✅ done | verified 1470 px and 420 px in dev |
 | T3 — Modern landing page | ✅ done | verified 1470 px and 420 px in dev |
+| T4 — Bot photo and feature summary in the hero | ✅ done | verified 1470 px and 420 px in dev |
 | T-final — Close out | ✅ done | awaiting human UAT |
 
 ### T1 [P] — Remove third-party chat prints
@@ -82,3 +83,22 @@ code task (run from the repo root):
 - **Gate:** none
 - **Commit:** `docs(desktop-web-landing): close out`
 - **→ all**
+
+### T4 — Bot photo and feature summary in the hero
+
+- **Agent:** frontend
+- **Skills:** impeccable
+- **What:** Show the bot's photo (`/cookiebot_avatar.jpeg`) prominently in
+  the hero: a large round avatar with a soft ring, next to or overlapping the
+  `ProductPreview`. Add a brief feature summary to the hero, a row of 4–6
+  short chips such as "Moderação", "Boas-vindas", "Posts", "Eventos",
+  "Memes", "IA", so visitors get the gist without scrolling. The full
+  `Features` section stays. The copy goes in `HomePage.hero.*` in pt/en/es,
+  keeping each file's line endings.
+- **Where:** src/components/pages/home/Hero.tsx, src/components/pages/home/ProductPreview.tsx, messages/{pt,en,es}.json
+- **Depends on:** T3
+- **Reuses:** public/cookiebot_avatar.jpeg
+- **Done when:** the avatar and the chips are visible above the fold at 1440 and 390 px
+- **Gate:** `npm run lint && bun run build:static`
+- **Commit:** `feat(landing): bot photo and feature summary in the hero`
+- **→ R2.2**
