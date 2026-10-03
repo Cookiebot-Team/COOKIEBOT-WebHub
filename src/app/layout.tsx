@@ -35,6 +35,10 @@ export default function RootLayout({
             settings from environment variables, read before the app starts. */}
         {/* eslint-disable-next-line @next/next/no-sync-scripts */}
         <script src="/runtime-config.js"></script>
+        {/* Telegram Mini App SDK: blocking, so window.Telegram.WebApp (and its
+            initData) exists before any app code runs. */}
+        {/* eslint-disable-next-line @next/next/no-sync-scripts */}
+        <script src="https://telegram.org/js/telegram-web-app.js"></script>
       </head>
       <body>
         <QueryProvider>
