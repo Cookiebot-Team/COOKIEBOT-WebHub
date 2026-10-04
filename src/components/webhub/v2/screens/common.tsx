@@ -1,7 +1,7 @@
 'use client';
 
 import clsx from 'clsx';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { KeyboardEvent, ReactNode, useCallback, useEffect, useId, useRef, useState } from 'react';
 import type { EChartsCoreOption } from 'echarts/core';
 import type { DateRange } from '@/lib/cb/types';
@@ -99,6 +99,23 @@ export const KPI_GRID = 'grid grid-cols-2 gap-3 sm:grid-cols-3 xl:grid-cols-6';
 
 export const RANGES = [7, 30, 90] as const;
 export type RangeDays = (typeof RANGES)[number];
+
+// "Updated HH:MM:SS" + a subtle spinner while a background refetch runs.
+export function LiveStamp({ updatedAt, refreshing }: { updatedAt: number; refreshing: boolean }) {
+    const t = useTranslations('WebHub.v2.stats');
+    const locale = useLocale();
+    if (!updatedAt) return null;
+    const time = new Intl.DateTimeFormat(locale, { hour: '2-digit', minute: '2-digit', second: '2-digit' }).format(updatedAt);
+    return (
+        <p className="m-0 inline-flex items-center gap-2 text-xs text-cb-muted" aria-live="off">
+            <span>{t('updated', { time })}</span>
+            {refreshing && (
+                <span role="status" aria-label={t('refreshing')}
+                    className="inline-block size-3 animate-spin rounded-full border-2 border-cb-muted/40 border-t-cb-muted motion-reduce:animate-none" />
+            )}
+        </p>
+    );
+}
 
 // Segmented 7/30/90 control. A radiogroup: one choice, arrow keys / Home / End move it.
 export function RangePicker({ value, onChange, className }: {

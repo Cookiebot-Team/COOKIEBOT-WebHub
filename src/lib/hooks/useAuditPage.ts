@@ -3,6 +3,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { useWebHub } from '@/components/webhub/WebHubProvider';
 import { CbError } from '@/lib/cb/client';
+import { STATS_REFRESH_MS } from './keepSameKey';
 import type { AdminAuditPage, AuditFilters, AuditPage } from '@/lib/cb/types';
 
 export const AUDIT_PAGE_SIZE = 25;
@@ -16,6 +17,10 @@ function keepWithinScope<T>(previous: T | undefined, previousQuery?: { queryKey:
     return previousQuery.queryKey[2] === key[2] && previousQuery.queryKey[3] === key[3] ? previous : undefined;
 }
 
+const livePage = (before?: string) => before === undefined
+    ? { refetchInterval: STATS_REFRESH_MS, refetchIntervalInBackground: false, refetchOnWindowFocus: true }
+    : { refetchInterval: false as const, refetchOnWindowFocus: false };
+
 /** One page of the selected group's trail; `before` is the keyset cursor (undefined = newest page). */
 export function useGroupAuditPage(filters: AuditFilters, before?: string, limit = AUDIT_PAGE_SIZE) {
     const { repo, env, me, groupId } = useWebHub();
@@ -26,6 +31,8 @@ export function useGroupAuditPage(filters: AuditFilters, before?: string, limit 
         queryKey,
         queryFn: () => repo.groupAudit(groupId as number, scoped, before, limit),
         enabled: me !== null && groupId !== null,
+        // Only the newest page is live; older pages are fixed history.
+        ...livePage(before),
         placeholderData: (previous, previousQuery) => keepWithinScope(previous, previousQuery, queryKey),
         retry,
     });
@@ -39,6 +46,8 @@ export function useAdminAuditPage(filters: AuditFilters, before?: string, limit 
         queryKey,
         queryFn: () => repo.adminAudit(filters, before, limit),
         enabled: Boolean(me?.is_bot_admin),
+        // Only the newest page is live; older pages are fixed history.
+        ...livePage(before),
         placeholderData: (previous, previousQuery) => keepWithinScope(previous, previousQuery, queryKey),
         retry,
     });

@@ -350,6 +350,8 @@
             "stats": {
                 "title": "Estatísticas",
                 "lead": "Veja como o grupo tem se movimentado.",
+                "updated": "Atualizado {time}",
+                "refreshing": "Atualizando",
                 "range": {
                     "label": "Intervalo de tempo",
                     "days": "{days} dias"
