@@ -1,0 +1,13 @@
+.git
+.next
+node_modules
+out
+dist
+server/assets.gen.ts
+.scriptc
+.env*
+!.env.example
+*.fig
+.specs
+.replit
+npm-debug.log*

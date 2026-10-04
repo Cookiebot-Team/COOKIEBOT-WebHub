@@ -5,13 +5,14 @@ import { useLocale, useTranslations } from "next-intl";
 import { useTransition } from "react";
 import HRDivider from "../ornaments/Dividers";
 import { GlobeAmericasIcon, LanguageIcon } from "@heroicons/react/24/solid";
-import { setUserLocale } from '@/services/locale';
+import { useSetLocale } from '@/providers/LocaleProvider';
 import { Locale } from "@/config";
 
 export function DropdownLangSelector({ type = "only-icon" }: { type?: "only-icon" | "secondary" }) {
     const t = useTranslations("Common.settings.lang");
     const l = useLocale();
 
+    const setUserLocale = useSetLocale();
     const [isPending, startTransition] = useTransition();
 
     function onChange(value: string) {

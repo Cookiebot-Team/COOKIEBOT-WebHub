@@ -2,6 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
+// The WebHub screens follow their own design; undo the site's element styles
+// there. In the base layer so utility classes on those elements still win.
+@layer base {
+  .webhub :where(h1, h2, h3, h4, h5, h6, p, button) {
+    font: inherit;
+    line-height: inherit;
+    box-shadow: none;
+    border-radius: 0;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .webhub *, .webhub *::before, .webhub *::after {
+      animation: none !important;
+      transition: none !important;
+    }
+  }
+}
+
 :root {
   --light: 240, 240, 240;
   --dark: 33, 33, 36;
@@ -36,28 +54,6 @@
   &.light {
     --secondary: 149, 87, 20;
   }
-}
-
-.bg-main {
-  background-image: url('../../public/Overlay.png');
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 0;
-
-  @media (max-width: 768px) {
-    position: absolute;
-    height: 100vh;
-  }
-}
-
-.bg-main-dark {
-  background-image: url('../../public/bg1.jpg');
 }
 
 @layer utilities {

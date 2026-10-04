@@ -1,10 +1,10 @@
 {
     "Common": {
-        "indev":"Em desenvolvimento",
+        "indev": "Em desenvolvimento",
         "auth": {
             "signin": "Entrar",
             "signup": "Cadastre-se",
-            "signout":"Sair da conta"
+            "signout": "Sair da conta"
         },
         "learn": {
             "more": "Saiba mais",
@@ -25,67 +25,42 @@
                 "en-us": "English - US",
                 "es-es": "Español - ES"
             }
-        }
+        },
+        "comingSoon": "Em breve",
+        "retry": "Tentar novamente"
     },
     "Commands": {
-        "back_home":"Voltar ao inicio",
-        "try_again":"Tentar novamente",
-        "contact_dev":"Contatar desenvolvedor"
+        "back_home": "Voltar ao inicio",
+        "try_again": "Tentar novamente",
+        "contact_dev": "Contatar desenvolvedor"
     },
     "HomePage": {
         "inviteme": "Me Convide! ",
         "slogan": "O bot mais crocante do Telegram!",
-        "join": "Entre agora!"
-    },
-    "DashboardHome": {
-        "welcome": "Bem-vindo ao Painel de Configurações do Cookiebot!",
-        "groupcount": "Atualmente estou em {count} grupos!",
-        "inviteMeText": "Quer me adicionar a um grupo? Selecione “Me Convide!” Ou se deseja mexer em alguma configuração, a selecione! Qualquer dúvida, entre em contato com @MekhyW",
-        "inviteMeButton": "Me convide!",
-        "generalconfig": "Configurações Gerais",
-        "moderationconfig": "Ferramentas de Moderação",
-        "postsconfig": "Posts e Publicações",
-        "mailconfig": "Mural de Publicações",
-        "events": "Quadro de Eventos",
-        "testgroup": "Grupo de testes e assistência",
-        "updateschannel": "Canal de atualizações"
-    },
-    "DashboardGeneral": {
-        "back": "Voltar",
-        "general": "Configurações Gerais",
-        "welcome": "Mensagem de Boas-Vindas",
-        "welcomeLabel": "Digite aqui a mesnagem que aparecerá quando alguém entrar no grupo.",
-        "chatRules": "Regras do Chat",
-        "chatRulesLabel": "Digite aqui as regras do chat que aparecem ao digitar o comando /regras",
-        "checkOptions1": "Evitar comandos conflitantes com outros bots",
-        "checkOptions2": "Bloquear conteúdo NSFW",
-        "checkOptions3": "Funções de entretenimento (memes, IA, etc.)",
-        "checkOptions4": "Funções de Utilidade (como busca de imagens)",
-        "redefine": "Redefinir para o padrão"
-    },
-    "DashboardModeration": {
-        "back": "Voltar",
-        "title": "Moderação",
-        "captchaTitle": "Tempo de Resolução de Captcha",
-        "captchaSubtitle": "Defina o tempo em segundos para o Captcha para Entrar no Grupo",
-        "stickerTitle": "Limitador de Spam de Stickers",
-        "stickerSubtitle": "Defina a quantidade de stickers enviados para acionar aviso/remoção de spam",
-        "timeoutTitle": "Tempo de Espera de Mídias",
-        "timeoutSubtitle": "Defina o tempo em minutos sem enviar mídias quando alguém entra no grupo",
-        "redefine": "Redefinir para o padrão"
-    },
-    "DashboardPosts": {
-        "back": "Voltar",
-        "title": "Posts e Publicações",
-        "sliderTitle": "Limitador de Quantidade de Posts",
-        "sliderSubtitle": "Defina a quantidade máxima de posts enviados pelo Cookiebot diariamente para o seu grupo",
-        "content": "Permitir enviar posts deste grupo para outros",
-        "receive": "Permitir receber posts de outros grupos",
-        "redefine": "Redefinir para o padrão"
-    },
-    "DashboardEventsPage": {
-        "back": "Voltar",
-        "indev": "Em desenvolvimento!"
+        "join": "Entre agora!",
+        "hero": {
+            "eyebrow": "Bot de comunidade para Telegram",
+            "lead": "Moderação, boas-vindas, agendamentos e diversão para o seu grupo, tudo configurado em um painel simples.",
+            "chips": { "moderation": "Moderação", "welcome": "Boas-vindas", "schedule": "Posts agendados", "events": "Eventos", "memes": "Memes", "ai": "Chat com IA" },
+            "avatarAlt": "Cookiebot",
+            "openPanel": "Abrir painel"
+        },
+        "features": {
+            "title": "Tudo que o seu grupo precisa",
+            "moderation": { "title": "Moderação e anti-spam", "body": "Filtros e regras que mantêm o grupo limpo sem dar trabalho aos admins." },
+            "welcome": { "title": "Boas-vindas e captcha", "body": "Receba novos membros com uma mensagem e confirme que são pessoas de verdade." },
+            "schedule": { "title": "Posts agendados", "body": "Programe avisos e mensagens recorrentes para saírem na hora certa." },
+            "events": { "title": "Eventos", "body": "Crie eventos, junte confirmações e lembre o pessoal." },
+            "memes": { "title": "Memes e busca de imagens", "body": "Comandos como /meme e /searchimage para animar a conversa." },
+            "ai": { "title": "Chat com IA", "body": "Converse com o Cookiebot e peça ajuda direto no grupo." }
+        },
+        "how": {
+            "title": "Comece em três passos",
+            "add": { "title": "Adicione ao grupo", "body": "Use o botão Me Convide! e escolha o seu grupo no Telegram." },
+            "admin": { "title": "Torne administrador", "body": "Dê ao Cookiebot as permissões para moderar e enviar mensagens." },
+            "configure": { "title": "Configure", "body": "Ajuste tudo no painel web ou no Mini App, sem comandos decorados." }
+        },
+        "final": { "title": "Pronto para ter um grupo mais crocante?", "body": "Adicione o Cookiebot em segundos e configure do seu jeito." }
     },
     "Footer": {
         "rights": {
@@ -94,9 +69,391 @@
         }
     },
     "HTTPCodes": {
-        "404":"Oops, esta página não existe! Verifique a URL e tente novamente.",
-        "429":"Oops, limitamos o seu acesso à aplicação, tente novamente mais tarde.",
-        "403":"Você não tem permissão para acessar essa página",
-        "500":"Oops, ocorreu um erro bizonho, tente novamente ou contate o desenvolvedor se persistir."
+        "404": "Oops, esta página não existe! Verifique a URL e tente novamente.",
+        "429": "Oops, limitamos o seu acesso à aplicação, tente novamente mais tarde.",
+        "403": "Você não tem permissão para acessar essa página",
+        "500": "Oops, ocorreu um erro bizonho, tente novamente ou contate o desenvolvedor se persistir."
+    },
+    "WebHub": {
+        "nav": {
+            "cancel": "Cancelar",
+            "done": "Salvar"
+        },
+        "env": {
+            "label": "Ambiente da API",
+            "notConfigured": "Não configurado neste servidor"
+        },
+        "auth": {
+            "title": "Painel de Configuração do Cookiebot",
+            "prompt": "Entre com o Telegram para gerenciar seus grupos.",
+            "loginFailed": "Não foi possível entrar. Tente novamente.",
+            "miniappFailed": "Não foi possível validar sua sessão do Telegram.",
+            "miniappLoading": "Entrando com o Telegram…",
+            "openInTelegram": "Abra este painel pelo Telegram para entrar.",
+            "networkError": "A API do Cookiebot está inacessível.",
+            "brandTagline": "Sua comunidade, suas regras",
+            "value1": "Configure moderação, boas-vindas e regras em um só lugar.",
+            "value2": "Gerencie todos os grupos que você administra em um único painel.",
+            "value3": "As mudanças chegam ao bot na hora, sem comandos."
+        },
+        "groups": {
+            "active": "Grupo ativo",
+            "configure": "Configurar!",
+            "empty": "Você ainda não administra nenhum grupo com o Cookiebot.",
+            "addMe": "Me adicione a um grupo",
+            "notAdmin": "Você não é admin deste grupo."
+        },
+        "language": {
+            "title": "Idioma"
+        },
+        "setup": {
+            "title": "Configurar",
+            "welcome": "Bem-vindo ao Painel de Configuração do Cookiebot!",
+            "groupCount": "Estou ativo em {count} grupos!",
+            "intro": "Se quiser me adicionar a um grupo, selecione “Me adicione!” Ou, se quiser ajustar alguma configuração, é só selecioná-la! Dúvidas ou sugestões, fale com @MekhyW",
+            "addMe": "Me adicione!",
+            "general": "Configurações Gerais",
+            "moderation": "Ferramentas de Moderação",
+            "posts": "Posts e Publicações",
+            "events": "Configurações de Eventos",
+            "publicationsBoard": "Mural de Publicações",
+            "eventsBoard": "Mural de Eventos",
+            "testGroup": "Grupo de Testes e Suporte",
+            "privacy": "Política de Privacidade"
+        },
+        "resetDefaults": "Redefinir configurações para o padrão",
+        "general": {
+            "title": "Configurações Gerais",
+            "welcome": "Mensagem de Boas-vindas",
+            "welcomePlaceholder": "Digite aqui a mensagem que aparece quando alguém entra no grupo!",
+            "rules": "Regras do Chat",
+            "rulesPlaceholder": "Digite aqui as regras do chat que aparecem com o comando /rules",
+            "allowFurbots": "Evitar comandos conflitantes com outros bots furry",
+            "sfw": "Bloquear conteúdo “Not Safe For Work”",
+            "fun": "“Funções de Entretenimento”",
+            "utility": "“Funções Utilitárias”"
+        },
+        "moderation": {
+            "title": "Moderação",
+            "captcha": "Tempo para resolver o Captcha",
+            "captchaDescription": "Defina o tempo em segundos para o Captcha de entrada no grupo",
+            "stickers": "Limitador de Spam de Stickers",
+            "stickersDescription": "Defina a quantidade de stickers enviados para acionar o aviso de spam",
+            "images": "Tempo sem imagens",
+            "imagesDescription": "Defina o tempo em minutos sem enviar imagens quando alguém entra no grupo",
+            "externalMedia": "Permitir mídia externa (vídeos ou documentos)",
+            "banLog": "Registro de Banidos"
+        },
+        "bans": {
+            "title": "Moderação",
+            "username": "Usuário",
+            "reasonPlaceholder": "Digite aqui o motivo do ban",
+            "clear": "Limpar lista de banidos"
+        },
+        "posts": {
+            "title": "Posts e Publicações",
+            "send": "Permitir enviar conteúdo deste grupo para outros",
+            "receive": "Permitir receber conteúdo de outros grupos",
+            "limit": "Limitador de Quantidade de Posts",
+            "limitDescription": "Defina a quantidade de posts enviados diariamente pelo Cookiebot ao seu grupo"
+        },
+        "events": {
+            "title": "Mural de Eventos",
+            "name": "Nome do Evento",
+            "namePlaceholder": "Digite o nome do evento aqui",
+            "description": "Descrição do Evento",
+            "descriptionPlaceholder": "Digite a descrição do evento aqui",
+            "date": "Data",
+            "cover": "Enviar capa do evento (opcional)",
+            "save": "Salvar e divulgar evento",
+            "delete": "Excluir evento atual"
+        },
+        "design": {
+            "label": "Design"
+        },
+        "v2": {
+            "panel": "Painel de Configuração",
+            "back": "Voltar",
+            "breadcrumb": "Navegação",
+            "close": "Fechar",
+            "managing": "Gerenciando",
+            "chooseGroup": "Escolha um grupo",
+            "groupsYouAdmin": "{count, plural, one {# grupo que você administra} other {# grupos que você administra}}",
+            "searchGroups": "Buscar grupos",
+            "noMatch": "Nenhum grupo corresponde a “{query}”.",
+            "addAnother": "Adicionar o Cookiebot a outro grupo",
+            "creator": "Criador",
+            "admin": "Admin",
+            "nowManaging": "Agora gerenciando {group}",
+            "sections": "Seções",
+            "settings": "Configurações",
+            "community": "Comunidade",
+            "soon": "Em breve",
+            "open": "Abrir",
+            "signedIn": "Conectado com o Telegram",
+            "signOut": "Sair",
+            "nav": {
+                "overview": "Visão geral",
+                "general": "Configurações gerais",
+                "moderation": "Moderação",
+                "posts": "Posts e publicações",
+                "stats": "Estatísticas",
+                "audit": "Registro de atividade",
+                "admin": "Estatísticas globais",
+                "adminAudit": "Auditoria global",
+                "adminGroup": "Dono do bot",
+                "events": "Eventos"
+            },
+            "links": {
+                "publications": "Mural de publicações",
+                "testGroup": "Grupo de testes e suporte",
+                "privacy": "Política de privacidade"
+            },
+            "welcome": "Bem-vindo ao Painel de Configuração",
+            "activeIn": "Estou ativo em {count} grupos.",
+            "intro": "Escolha o que ajustar no seu grupo ou me convide para um novo.",
+            "addMe": "Me adicione a um grupo",
+            "contact": "Falar com @MekhyW",
+            "groupNote": "As alterações valem só para este grupo e ficam registradas no histórico dele.",
+            "switchGroup": "Trocar de grupo",
+            "glance": {
+                "nsfwBlocked": "NSFW bloqueado",
+                "nsfwAllowed": "NSFW permitido",
+                "captcha": "Captcha {seconds} s",
+                "perDay": "{count, plural, one {# post por dia} other {# posts por dia}}",
+                "notReceiving": "Não recebe posts",
+                "stats": "Gráficos e tendências",
+                "audit": "Quem mudou o quê",
+                "admin": "Todos os grupos",
+                "adminAudit": "Cada mudança, em todo lugar",
+                "drafts": "Rascunhos de eventos"
+            },
+            "lead": {
+                "general": "Boas-vindas, regras e quais tipos de comando o grupo recebe.",
+                "moderation": "Como o Cookiebot recebe novatos e segura o spam.",
+                "posts": "Compartilhe conteúdo com a rede Cookiebot e decida quanto recebe de volta.",
+                "events": "Crie um rascunho de evento e veja como ficará no chat."
+            },
+            "messages": "Mensagens",
+            "behaviour": "Comportamento",
+            "placeholder": {
+                "welcome": "Exibida quando alguém entra no grupo",
+                "rules": "Listadas com o comando /rules",
+                "eventName": "Digite o nome do evento",
+                "eventDescription": "O quê, onde, quem deve ir"
+            },
+            "toggles": {
+                "furbots": "Evitar conflito de comandos",
+                "sfw": "Bloquear conteúdo NSFW",
+                "fun": "Entretenimento",
+                "utility": "Utilitários",
+                "externalMedia": "Mídia externa",
+                "share": "Compartilhar com outros grupos",
+                "receive": "Receber de outros grupos"
+            },
+            "hints": {
+                "furbots": "Ficar quieto quando outro bot furry responde ao mesmo comando",
+                "sfw": "Ocultar resultados e mídias “Not Safe For Work”",
+                "fun": "Memes, chat com IA e jogos",
+                "utility": "Busca de imagens e comandos de ajuda",
+                "captcha": "Segundos que um novo membro tem para resolver o captcha antes de ser removido.",
+                "stickers": "Stickers seguidos antes de um aviso de spam.",
+                "media": "Minutos que um novo membro espera antes de enviar imagens.",
+                "externalMedia": "Permitir vídeos e documentos de fora do grupo",
+                "auditLog": "Quem mudou qual ajuste e quando",
+                "banLog": "Quem foi banido, por quem e por quê",
+                "share": "Permitir que o conteúdo deste grupo vá para outros",
+                "receive": "Receber posts compartilhados por outros grupos",
+                "posts": "Máximo de posts que o Cookiebot envia aqui por dia.",
+                "postsOff": "Ative “Receber de outros grupos” para definir um limite."
+            },
+            "sliders": {
+                "captcha": "Tempo do captcha",
+                "stickers": "Limite de spam de stickers",
+                "media": "Espera de mídia para novatos",
+                "posts": "Limite diário de posts"
+            },
+            "banLog": "Registro de banidos",
+            "unsaved": "{count, plural, one {# alteração não salva} other {# alterações não salvas}} em {group}",
+            "discard": "Descartar",
+            "save": "Salvar",
+            "saving": "Salvando…",
+            "saved": "Salvo em {group}",
+            "publishingSoon": "Publicação em breve",
+            "events": { "wip": { "title": "Em construção", "body": "Os eventos estão em prévia: você pode testar o formulário, mas nada é salvo nem publicado ainda." } },
+            "audit": {
+                "title": "Registro de atividade",
+                "lead": "Quem alterou o quê neste grupo e quando.",
+                "error": "Não foi possível carregar o registro de atividade.",
+                "any": "Qualquer",
+                "selectGroup": "Selecione um grupo para ver o registro de atividade.",
+                "switchGroup": "Trocar de grupo",
+                "filters": {
+                    "toggle": "Filtros",
+                    "action": "Ação",
+                    "surface": "Origem",
+                    "actor": "ID de usuário do autor",
+                    "group": "ID do grupo",
+                    "from": "De",
+                    "to": "Até",
+                    "apply": "Aplicar",
+                    "reset": "Redefinir",
+                    "error": {
+                        "range": "«De» deve ser igual ou anterior a «Até».",
+                        "actor": "O autor deve ser um ID de usuário numérico.",
+                        "group": "O grupo deve ser um ID numérico."
+                    }
+                },
+                "actions": {
+                    "config_updated": "Configurações atualizadas",
+                    "rules_updated": "Regras atualizadas",
+                    "welcome_updated": "Mensagem de boas-vindas atualizada",
+                    "session_started": "Sessão iniciada"
+                },
+                "surfaces": {
+                    "telegram": "Telegram",
+                    "miniapp": "Mini App",
+                    "api": "API",
+                    "system": "Sistema"
+                },
+                "actorKinds": {
+                    "admin": "Admin",
+                    "user": "Usuário",
+                    "anonymous_admin": "Admin anônimo",
+                    "system": "Sistema"
+                },
+                "actor": {
+                    "user": "Usuário {id}",
+                    "none": "Sem autor"
+                },
+                "group": "Grupo: {name}",
+                "diff": {
+                    "show": "Ver alterações",
+                    "hide": "Ocultar alterações",
+                    "none": "Nenhuma alteração nos campos.",
+                    "empty": "(vazio)",
+                    "to": "alterado para"
+                },
+                "pager": {
+                    "label": "Paginação",
+                    "newer": "Mais recentes",
+                    "older": "Mais antigos",
+                    "page": "Página {page}"
+                },
+                "empty": {
+                    "title": "Ainda sem atividade",
+                    "body": "As alterações feitas neste grupo aparecerão aqui.",
+                    "filteredTitle": "Nenhum evento encontrado",
+                    "filteredBody": "Tente outros filtros ou um intervalo de datas maior."
+                }
+            },
+            "stats": {
+                "title": "Estatísticas",
+                "lead": "Veja como o grupo tem se movimentado.",
+                "range": {
+                    "label": "Intervalo de tempo",
+                    "days": "{days} dias"
+                },
+                "kpi": {
+                    "messages": {
+                        "label": "Mensagens",
+                        "hint": "no período"
+                    },
+                    "commands": {
+                        "label": "Comandos",
+                        "hint": "comandos executados"
+                    },
+                    "peak": {
+                        "label": "Pico de usuários ativos",
+                        "hint": "máximo em um dia"
+                    },
+                    "joinsLeaves": {
+                        "label": "Entradas / saídas",
+                        "hint": "novos vs saídas"
+                    },
+                    "captcha": {
+                        "label": "Captchas resolvidos",
+                        "hint": "dos captchas emitidos"
+                    },
+                    "llmCost": {
+                        "label": "Custo de LLM",
+                        "hint": "estimado, USD"
+                    }
+                },
+                "chart": {
+                    "daily": "Atividade diária",
+                    "joinsLeaves": "Entradas vs. saídas",
+                    "topCommands": "Comandos principais"
+                },
+                "series": {
+                    "messages": "Mensagens",
+                    "commands": "Comandos",
+                    "activeUsers": "Usuários ativos",
+                    "joins": "Entradas",
+                    "leaves": "Saídas",
+                    "invocations": "Invocações"
+                },
+                "selectGroup": "Selecione um grupo para ver as estatísticas.",
+                "switchGroup": "Trocar de grupo",
+                "empty": {
+                    "title": "Sem atividade neste período",
+                    "body": "Tente um intervalo maior ou volte quando o grupo tiver atividade.",
+                    "commands": "Nenhum comando foi usado neste período."
+                },
+                "error": {
+                    "reauth": "Sua sessão não tem permissão para ler as estatísticas. Entre novamente para atualizar suas permissões.",
+                    "generic": "Não foi possível carregar as estatísticas."
+                },
+                "na": "n/d"
+            },
+            "admin": {
+                "title": "Estatísticas da frota",
+                "lead": "Atividade em todos os grupos que o Cookiebot atende.",
+                "audit": { "title": "Registro de auditoria da frota", "lead": "Cada alteração feita em todos os grupos que o Cookiebot atende." },
+                "notAvailable": {
+                    "title": "Indisponível",
+                    "body": "Esta página é apenas para os proprietários do bot."
+                },
+                "kpi": {
+                    "groups": { "label": "Grupos", "hint": "{left} abandonados" },
+                    "members": { "label": "Membros", "hint": "{admins} admins" },
+                    "messages": { "label": "Mensagens", "hint": "no período" },
+                    "commands": { "label": "Comandos", "hint": "comandos executados" },
+                    "errors": { "label": "Erros", "hint": "no período" },
+                    "budget": {
+                        "label": "Orçamento LLM",
+                        "of": "de {budget}",
+                        "remaining": "{remaining} restantes neste mês",
+                        "none": "gasto neste mês, sem orçamento definido"
+                    }
+                },
+                "chart": {
+                    "daily": "Atividade diária",
+                    "topGroups": "Principais grupos",
+                    "topCommands": "Principais comandos",
+                    "llm": "Custo LLM por modelo"
+                },
+                "series": {
+                    "messages": "Mensagens",
+                    "commands": "Comandos",
+                    "activeUsers": "Usuários ativos",
+                    "invocations": "Invocações",
+                    "cost": "Custo (USD)"
+                },
+                "empty": {
+                    "groups": "Sem atividade de grupos neste período.",
+                    "commands": "Nenhum comando foi usado neste período.",
+                    "llm": "Sem uso de LLM neste período."
+                }
+            },
+            "eventName": "Nome do evento",
+            "eventDescription": "Descrição",
+            "date": "Data",
+            "cover": "Enviar uma capa (opcional)",
+            "preview": "Prévia no chat",
+            "previewName": "Nome do seu evento",
+            "previewDescription": "A descrição aparece aqui como os membros vão ler.",
+            "publish": "Salvar e divulgar evento"
+        }
     }
 }
