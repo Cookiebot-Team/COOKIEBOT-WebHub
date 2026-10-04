@@ -350,6 +350,8 @@
             "stats": {
                 "title": "Stats",
                 "lead": "How active the group has been.",
+                "updated": "Updated {time}",
+                "refreshing": "Refreshing",
                 "range": {
                     "label": "Time range",
                     "days": "{days} days"
