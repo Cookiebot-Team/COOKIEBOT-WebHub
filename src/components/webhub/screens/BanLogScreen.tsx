@@ -14,7 +14,7 @@ export default function BanLogScreen() {
             footer={(
                 <>
                     <ComingSoon />
-                    <PillButton tone="cream" size="sm" icon={<TrashIcon />} disabled className="w-[289px]">{t('clear')}</PillButton>
+                    <PillButton tone="cream" size="sm" icon={<TrashIcon />} disabled className="w-full max-w-[289px]">{t('clear')}</PillButton>
                 </>
             )}>
             <Panel className="min-h-[509px] px-4 pt-1">

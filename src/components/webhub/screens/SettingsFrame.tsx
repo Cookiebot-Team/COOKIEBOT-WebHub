@@ -37,11 +37,11 @@ export function SettingsFrame({ title, loading, error, onDone, saving, children,
                 ) : loading ? null : (
                     <div className="flex flex-1 flex-col gap-[18px] pb-8 pt-[43px]">{children}</div>
                 )}
-                <div className="mt-auto flex flex-col items-center gap-2 pb-[max(env(safe-area-inset-bottom),52px)]">
+                <div className="mt-auto flex flex-col items-center gap-2 px-4 pb-[max(env(safe-area-inset-bottom),52px)]">
                     {footer}
                     {showReset && (
                         <>
-                            <PillButton tone="cream" size="sm" icon={<ArrowPathIcon />} disabled className="w-[289px]">{t('resetDefaults')}</PillButton>
+                            <PillButton tone="cream" size="sm" icon={<ArrowPathIcon />} disabled className="w-full max-w-[289px]">{t('resetDefaults')}</PillButton>
                             <ComingSoon />
                         </>
                     )}

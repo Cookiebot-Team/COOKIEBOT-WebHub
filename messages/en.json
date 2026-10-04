@@ -270,6 +270,7 @@
             "saving": "Saving…",
             "saved": "Saved to {group}",
             "publishingSoon": "Publishing soon",
+            "events": { "wip": { "title": "Work in progress", "body": "Events are a preview: you can try the form, but nothing is saved or published yet." } },
             "eventName": "Event name",
             "eventDescription": "Description",
             "date": "Date",

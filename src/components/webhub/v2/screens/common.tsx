@@ -2,7 +2,7 @@
 
 import clsx from 'clsx';
 import { useTranslations } from 'next-intl';
-import { ReactNode, useCallback } from 'react';
+import { ReactNode, useCallback, useId } from 'react';
 import { useWebHub } from '../../WebHubProvider';
 import { groupName } from '../GroupPicker';
 import { GroupChip } from '../Shell';
@@ -22,6 +22,26 @@ export function PageIntro({ title, lead, wide, openGroups, aside }: {
                 {aside}
             </div>
         </>
+    );
+}
+
+// Full width on every layout: the Events screen is a local draft, say so
+// where phones and the Mini App can see it too.
+export function WipNotice() {
+    const t = useTranslations('WebHub.v2');
+    const titleId = useId();
+    return (
+        <div role="note" aria-labelledby={titleId}
+            className="flex items-start gap-3 rounded-cb-xl border border-cb-brown-700/15 bg-cb-cream-50 p-3.5 text-black">
+            <svg viewBox="0 0 24 24" aria-hidden className="mt-0.5 size-5 shrink-0 text-cb-brown-700" fill="none" stroke="currentColor"
+                strokeWidth={1.9} strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="12" cy="12" r="9" /><path d="M12 11v5 M12 7.8h.01" />
+            </svg>
+            <div className="min-w-0">
+                <p id={titleId} className="m-0 text-[15px] font-semibold">{t('events.wip.title')}</p>
+                <p className="m-0 mt-0.5 text-sm text-cb-muted">{t('events.wip.body')}</p>
+            </div>
+        </div>
     );
 }
 

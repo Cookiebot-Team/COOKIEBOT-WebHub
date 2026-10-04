@@ -217,16 +217,16 @@ export function Shell({ section, title, children }: {
                                 </>
                             ) : (
                                 <>
-                                    <span className="w-[84px]">
+                                    <span className="w-12 shrink-0 sm:w-[84px]">
                                         {!isMiniApp && (
                                             <button type="button" onClick={back}
                                                 className="flex h-10 items-center gap-0.5 rounded-cb-md px-2 text-base text-cb-telegram hover:bg-cb-cream-100/60">
-                                                <Icon name="chevronLeft" className="size-5" />{t('back')}
+                                                <Icon name="chevronLeft" className="size-5" /><span className="sr-only sm:not-sr-only">{t('back')}</span>
                                             </button>
                                         )}
                                     </span>
-                                    <h1 className="m-0 grow truncate text-center text-[17px] font-bold">{title}</h1>
-                                    <span className="w-[84px]" />
+                                    <h1 className="m-0 min-w-0 grow truncate text-center text-[17px] font-bold">{title}</h1>
+                                    <span className="w-12 shrink-0 sm:w-[84px]" />
                                 </>
                             )}
                         </header>

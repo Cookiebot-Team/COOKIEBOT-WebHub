@@ -4,6 +4,7 @@ import clsx from 'clsx';
 import { ChevronLeftIcon, ChevronRightIcon, MegaphoneIcon, PhotoIcon, TrashIcon } from '@heroicons/react/24/solid';
 import { useLocale, useTranslations } from 'next-intl';
 import { useMemo, useState } from 'react';
+import { WipNotice } from '../v2/screens/common';
 import { ComingSoon, PillButton, TextField } from '../ui';
 import { SettingsFrame } from './SettingsFrame';
 
@@ -64,10 +65,11 @@ export default function EventsScreen() {
             footer={(
                 <>
                     <ComingSoon />
-                    <PillButton tone="cream" size="sm" icon={<MegaphoneIcon />} disabled className="w-[289px]">{t('save')}</PillButton>
-                    <PillButton tone="white" size="sm" icon={<TrashIcon />} disabled className="w-[289px]">{t('delete')}</PillButton>
+                    <PillButton tone="cream" size="sm" icon={<MegaphoneIcon />} disabled className="w-full max-w-[289px]">{t('save')}</PillButton>
+                    <PillButton tone="white" size="sm" icon={<TrashIcon />} disabled className="w-full max-w-[289px]">{t('delete')}</PillButton>
                 </>
             )}>
+            <div className="mx-4"><WipNotice /></div>
             <TextField label={t('name')} placeholder={t('namePlaceholder')} value={name} onChange={setName} rows={1} />
             <TextField label={t('description')} placeholder={t('descriptionPlaceholder')} value={description} onChange={setDescription} />
             <div className="relative mx-4 pt-2">

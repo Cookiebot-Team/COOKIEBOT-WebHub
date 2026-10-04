@@ -270,6 +270,7 @@
             "saving": "Salvando…",
             "saved": "Salvo em {group}",
             "publishingSoon": "Publicação em breve",
+            "events": { "wip": { "title": "Em construção", "body": "Os eventos estão em prévia: você pode testar o formulário, mas nada é salvo nem publicado ainda." } },
             "eventName": "Nome do evento",
             "eventDescription": "Descrição",
             "date": "Data",

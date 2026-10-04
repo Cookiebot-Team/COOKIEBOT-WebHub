@@ -270,6 +270,7 @@
             "saving": "Guardando…",
             "saved": "Guardado en {group}",
             "publishingSoon": "Publicación pronto",
+            "events": { "wip": { "title": "En construcción", "body": "Los eventos están en vista previa: puedes probar el formulario, pero todavía no se guarda ni se publica nada." } },
             "eventName": "Nombre del evento",
             "eventDescription": "Descripción",
             "date": "Fecha",
