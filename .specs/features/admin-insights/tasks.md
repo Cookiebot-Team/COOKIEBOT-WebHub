@@ -8,15 +8,15 @@ Gate for code tasks: `npm run lint && bun run build:static`
 
 | Task | Status | Notes |
 |------|--------|-------|
-| T1 — Events: mobile layout + WIP notice | ⏳ not started | R1 |
-| T2 [P] — ECharts foundation | ⏳ not started | R2 |
-| T3 [P] — Data layer: types, repository, mock, hooks | ⏳ not started | R3 |
-| T4 — Group stats screen | ⏳ not started | R4.1, R4.3, R4.4 |
-| T5 — Fleet stats screen | ⏳ not started | R4.2 |
-| T6 — Audit components + group activity log | ⏳ not started | R5.1, R5.2, R5.4, R5.5 |
-| T7 — Fleet audit log | ⏳ not started | R5.3 |
-| T8 — Navigation | ⏳ not started | R6 |
-| T-final — Close out | ⏳ not started | |
+| T1 — Events: mobile layout + WIP notice | ✅ done | R1; reviewed, 9 fixes applied |
+| T2 [P] — ECharts foundation | ✅ done | R2; replaceMerge series, lazy echarts chunk |
+| T3 [P] — Data layer: types, repository, mock, hooks | ✅ done | R3; mock me is bot admin |
+| T4 — Group stats screen | ✅ done | R4.1, R4.3, R4.4; reviewed, 10 fixes |
+| T5 — Fleet stats screen | ✅ done | R4.2; Shell groupScoped prop |
+| T6 — Audit components + group activity log | ✅ done | R5.1, R5.2, R5.4, R5.5; mock paging scripted-verified |
+| T7 — Fleet audit log | ✅ done | R5.3; 360 mock events paged, no dupes |
+| T8 — Navigation | ✅ done | R6 |
+| T-final — Close out | ✅ done | Browser QA (mock, 360 + 1280, pt/en): no overflow, charts render, audit paging + filter reset OK; QA found dotted i18n keys + KPI wrap → fixed. Pre-existing, not touched: home chat count needs BOTSERVER_URL; EnvSelector hydration warning. telegram-webhub-miniapp spec is untracked user WIP — Out-of-Scope rows not edited. |
 
 ## Tasks
 
