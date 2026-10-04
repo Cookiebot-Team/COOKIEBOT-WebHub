@@ -399,6 +399,7 @@
             "admin": {
                 "title": "Estatísticas da frota",
                 "lead": "Atividade em todos os grupos que o Cookiebot atende.",
+                "audit": { "title": "Registro de auditoria da frota", "lead": "Cada alteração feita em todos os grupos que o Cookiebot atende." },
                 "notAvailable": {
                     "title": "Indisponível",
                     "body": "Esta página é apenas para os proprietários do bot."

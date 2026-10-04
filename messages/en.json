@@ -399,6 +399,7 @@
             "admin": {
                 "title": "Fleet stats",
                 "lead": "Activity across every group Cookiebot serves.",
+                "audit": { "title": "Fleet audit log", "lead": "Every change made in every group Cookiebot serves." },
                 "notAvailable": {
                     "title": "Not available",
                     "body": "This page is only for the bot owners."
