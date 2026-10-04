@@ -2,19 +2,21 @@
 
 import clsx from 'clsx';
 import { useTranslations } from 'next-intl';
-import { KeyboardEvent, ReactNode, useCallback, useEffect, useId, useRef } from 'react';
+import { KeyboardEvent, ReactNode, useCallback, useEffect, useId, useRef, useState } from 'react';
+import type { EChartsCoreOption } from 'echarts/core';
+import type { DateRange } from '@/lib/cb/types';
 import { CbError } from '@/lib/cb/client';
 import { useWebHub } from '../../WebHubProvider';
 import { groupName } from '../GroupPicker';
 import { GroupChip } from '../Shell';
-import { SaveBar, useToast } from '../ui';
+import { Card, SaveBar, SectionLabel, useToast } from '../ui';
 
-export function PageIntro({ title, lead, wide, openGroups, aside }: {
-    title: string; lead: string; wide: boolean; openGroups: () => void; aside?: ReactNode;
+export function PageIntro({ title, lead, wide, openGroups, aside, groupScoped = true }: {
+    title: string; lead: string; wide: boolean; openGroups: () => void; aside?: ReactNode; groupScoped?: boolean;
 }) {
     return (
         <>
-            <div className={clsx(wide && 'lg:hidden')}><GroupChip onOpen={openGroups} /></div>
+            {groupScoped && <div className={clsx(wide && 'lg:hidden')}><GroupChip onOpen={openGroups} /></div>}
             <div className={clsx('hidden items-end justify-between gap-4', wide && 'lg:flex')}>
                 <div>
                     <h1 className="m-0 text-[28px] font-bold">{title}</h1>
@@ -161,3 +163,87 @@ export function StatsError({ error, onRetry }: { error: unknown; onRetry: () => 
         </div>
     );
 }
+
+// Shared by the group and fleet stats screens.
+const DAY_MS = 86_400_000;
+const iso = (t: number) => new Date(t).toISOString().slice(0, 10);
+
+// The viewer's local calendar date as YYYY-MM-DD.
+function localToday(): string {
+    const d = new Date();
+    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+}
+
+export function rangeFor(days: RangeDays, today: string): DateRange {
+    const end = Date.parse(`${today}T00:00:00Z`);
+    return { start: iso(end - (days - 1) * DAY_MS), end: today };
+}
+
+// Re-reads the date on window focus / tab visibility, so a screen left open
+// overnight moves to the new day.
+export function useToday(): string {
+    const [today, setToday] = useState(localToday);
+    useEffect(() => {
+        const refresh = () => setToday(localToday());
+        window.addEventListener('focus', refresh);
+        document.addEventListener('visibilitychange', refresh);
+        return () => {
+            window.removeEventListener('focus', refresh);
+            document.removeEventListener('visibilitychange', refresh);
+        };
+    }, []);
+    return today;
+}
+
+export const compactFrom = 100_000;
+export function countFormat(locale: string) {
+    const plain = new Intl.NumberFormat(locale);
+    const compact = new Intl.NumberFormat(locale, { notation: 'compact', maximumFractionDigits: 1 });
+    return (v: number) => (v >= compactFrom ? compact : plain).format(v);
+}
+
+// USD with 2 decimals, up to 4 for sub-dollar amounts.
+export function usdFormat(locale: string, amount: number) {
+    return new Intl.NumberFormat(locale, {
+        style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: amount < 1 ? 4 : 2,
+    });
+}
+
+// Charts always sit on a cream Card (phone, Mini App and desktop alike), so
+// they use the light tone; the page background behind the cards does not matter.
+export function ChartCard({ title, delay, children }: { title: string; delay?: 0 | 1 | 2; children: ReactNode }) {
+    return (
+        <Card delay={delay} className="flex min-w-0 flex-col gap-2 p-4 lg:p-[22px]">
+            <SectionLabel>{title}</SectionLabel>
+            {children}
+        </Card>
+    );
+}
+
+// One series needs no legend. The category (y) axis of the horizontal bars
+// gets a fixed label width so long command names truncate instead of
+// squeezing the plot on phones.
+export function singleSeries(option: EChartsCoreOption, narrow: boolean): EChartsCoreOption {
+    const o = option as Record<string, any>;
+    return {
+        ...o,
+        legend: { ...o.legend, show: false },
+        grid: { ...o.grid, bottom: 12 },
+        yAxis: { ...o.yAxis, axisLabel: { ...o.yAxis.axisLabel, width: narrow ? 72 : 120, overflow: 'truncate' } },
+    };
+}
+
+
+// Below Tailwind's `sm` (640px).
+export function useNarrow(): boolean {
+    const [narrow, setNarrow] = useState(false);
+    useEffect(() => {
+        const q = window.matchMedia('(max-width: 639px)');
+        const update = () => setNarrow(q.matches);
+        update();
+        q.addEventListener('change', update);
+        return () => q.removeEventListener('change', update);
+    }, []);
+    return narrow;
+}
+

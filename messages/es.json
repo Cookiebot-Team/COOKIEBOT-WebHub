@@ -330,6 +330,45 @@
                 },
                 "na": "n/d"
             },
+            "admin": {
+                "title": "Estadísticas de la flota",
+                "lead": "Actividad en todos los grupos que atiende Cookiebot.",
+                "notAvailable": {
+                    "title": "No disponible",
+                    "body": "Esta página es solo para los propietarios del bot."
+                },
+                "kpi": {
+                    "groups": { "label": "Grupos", "hint": "{left} abandonados" },
+                    "members": { "label": "Miembros", "hint": "{admins} admins" },
+                    "messages": { "label": "Mensajes", "hint": "en el periodo" },
+                    "commands": { "label": "Comandos", "hint": "comandos ejecutados" },
+                    "errors": { "label": "Errores", "hint": "en el periodo" },
+                    "budget": {
+                        "label": "Presupuesto LLM",
+                        "of": "{spent} / {budget}",
+                        "remaining": "{remaining} restantes este mes",
+                        "none": "gastado este mes, sin presupuesto definido"
+                    }
+                },
+                "chart": {
+                    "daily": "Actividad diaria",
+                    "topGroups": "Grupos principales",
+                    "topCommands": "Comandos principales",
+                    "llm": "Costo LLM por modelo"
+                },
+                "series": {
+                    "messages": "Mensajes",
+                    "commands": "Comandos",
+                    "activeUsers": "Usuarios activos",
+                    "invocations": "Invocaciones",
+                    "cost": "Costo (USD)"
+                },
+                "empty": {
+                    "groups": "Sin actividad de grupos en este periodo.",
+                    "commands": "No se usaron comandos en este periodo.",
+                    "llm": "Sin uso de LLM en este periodo."
+                }
+            },
             "eventName": "Nombre del evento",
             "eventDescription": "Descripción",
             "date": "Fecha",

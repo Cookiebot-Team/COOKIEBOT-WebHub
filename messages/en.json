@@ -330,6 +330,45 @@
                 },
                 "na": "n/a"
             },
+            "admin": {
+                "title": "Fleet stats",
+                "lead": "Activity across every group Cookiebot serves.",
+                "notAvailable": {
+                    "title": "Not available",
+                    "body": "This page is only for the bot owners."
+                },
+                "kpi": {
+                    "groups": { "label": "Groups", "hint": "{left} left" },
+                    "members": { "label": "Members", "hint": "{admins} admins" },
+                    "messages": { "label": "Messages", "hint": "in the period" },
+                    "commands": { "label": "Commands", "hint": "commands run" },
+                    "errors": { "label": "Errors", "hint": "in the period" },
+                    "budget": {
+                        "label": "LLM budget",
+                        "of": "{spent} / {budget}",
+                        "remaining": "{remaining} left this month",
+                        "none": "spent this month, no budget set"
+                    }
+                },
+                "chart": {
+                    "daily": "Daily activity",
+                    "topGroups": "Top groups",
+                    "topCommands": "Top commands",
+                    "llm": "LLM cost by model"
+                },
+                "series": {
+                    "messages": "Messages",
+                    "commands": "Commands",
+                    "activeUsers": "Active users",
+                    "invocations": "Invocations",
+                    "cost": "Cost (USD)"
+                },
+                "empty": {
+                    "groups": "No group activity in this period.",
+                    "commands": "No commands were used in this period.",
+                    "llm": "No LLM usage in this period."
+                }
+            },
             "eventName": "Event name",
             "eventDescription": "Description",
             "date": "Date",

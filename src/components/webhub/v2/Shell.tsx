@@ -13,7 +13,7 @@ import { GroupPopover, GroupSheet, groupName } from './GroupPicker';
 import { Icon, IconName } from './icons';
 import { GroupAvatar } from './ui';
 
-export type Section = 'overview' | 'general' | 'moderation' | 'posts' | 'events' | 'stats';
+export type Section = 'overview' | 'general' | 'moderation' | 'posts' | 'events' | 'stats' | 'admin';
 
 const NAV: { section: Section; href: string; icon: IconName; soon?: boolean }[] = [
     { section: 'overview', href: '/dashboard', icon: 'home' },
@@ -162,9 +162,11 @@ export function GroupChip({ onOpen }: { onOpen: () => void }) {
 
 // The frame every v2 screen sits in. `wide` is the desktop layout; the Mini
 // App always gets the phone layout, whatever the viewport says.
-export function Shell({ section, title, children }: {
+export function Shell({ section, title, groupScoped = true, children }: {
     section: Section;
     title: string;
+    /** false for fleet screens: they work with no group selected. */
+    groupScoped?: boolean;
     children: (helpers: { openGroups: () => void; wide: boolean }) => ReactNode;
 }) {
     const t = useTranslations('WebHub.v2');
@@ -187,7 +189,7 @@ export function Shell({ section, title, children }: {
     }, [isMiniApp, isHome, back]);
 
     return (
-        <AuthGate requireGroup={!isHome}>
+        <AuthGate requireGroup={!isHome && groupScoped}>
                 <div className={clsx(
                     'webhub min-h-dvh bg-cb-peach bg-[url(/webhub/setup-pattern.jpg)] bg-cover bg-fixed bg-top font-jost text-cb-brown-900',
                     wide && 'lg:grid lg:grid-cols-[284px_minmax(0,1fr)]',

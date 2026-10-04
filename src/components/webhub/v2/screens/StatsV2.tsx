@@ -2,82 +2,23 @@
 
 import clsx from 'clsx';
 import { useLocale, useTranslations } from 'next-intl';
-import { ReactNode, useEffect, useMemo, useState } from 'react';
-import type { EChartsCoreOption } from 'echarts/core';
+import { useMemo, useState } from 'react';
 import { fillDays } from '@/lib/stats/fillDays';
 import { useGroupStats } from '@/lib/hooks/useGroupStats';
 import type { DailyRow, DateRange, GroupAnalytics } from '@/lib/cb/types';
 import { barOption, lineOption } from '../charts/theme';
 import { EChart } from '../charts/EChart';
 import { Shell } from '../Shell';
-import { Card, SectionLabel } from '../ui';
-import { KPI_GRID, KpiTile, PageIntro, RangeDays, RangePicker, Skeleton, StatsError } from './common';
-
-const DAY_MS = 86_400_000;
-const iso = (t: number) => new Date(t).toISOString().slice(0, 10);
-
-// The viewer's local calendar date as YYYY-MM-DD.
-function localToday(): string {
-    const d = new Date();
-    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
-}
-
-function rangeFor(days: RangeDays, today: string): DateRange {
-    const end = Date.parse(`${today}T00:00:00Z`);
-    return { start: iso(end - (days - 1) * DAY_MS), end: today };
-}
-
-// Re-reads the date on window focus / tab visibility, so a screen left open
-// overnight moves to the new day.
-function useToday(): string {
-    const [today, setToday] = useState(localToday);
-    useEffect(() => {
-        const refresh = () => setToday(localToday());
-        window.addEventListener('focus', refresh);
-        document.addEventListener('visibilitychange', refresh);
-        return () => {
-            window.removeEventListener('focus', refresh);
-            document.removeEventListener('visibilitychange', refresh);
-        };
-    }, []);
-    return today;
-}
-
-const compactFrom = 100_000;
-function countFormat(locale: string) {
-    const plain = new Intl.NumberFormat(locale);
-    const compact = new Intl.NumberFormat(locale, { notation: 'compact', maximumFractionDigits: 1 });
-    return (v: number) => (v >= compactFrom ? compact : plain).format(v);
-}
+import { Card } from '../ui';
+import {
+    ChartCard, KPI_GRID, KpiTile, PageIntro, RangeDays, RangePicker, Skeleton, StatsError,
+    countFormat, rangeFor, singleSeries, useNarrow, useToday,
+} from './common';
 
 const emptyDay = (day: string): DailyRow => ({
     day, messages: 0, commands: 0, joins: 0, leaves: 0, captcha_issued: 0, captcha_solved: 0,
     active_users: 0, errors: 0, p95_latency_ms: null, llm_tokens: 0, llm_cost_usd: 0,
 });
-
-// Charts always sit on a cream Card (phone, Mini App and desktop alike), so
-// they use the light tone; the page background behind the cards does not matter.
-function ChartCard({ title, delay, children }: { title: string; delay?: 0 | 1 | 2; children: ReactNode }) {
-    return (
-        <Card delay={delay} className="flex min-w-0 flex-col gap-2 p-4 lg:p-[22px]">
-            <SectionLabel>{title}</SectionLabel>
-            {children}
-        </Card>
-    );
-}
-
-// One series needs no legend. The category (y) axis of the horizontal bars
-// gets a fixed label width so long command names truncate instead of
-// squeezing the plot on phones.
-function singleSeries(option: EChartsCoreOption, narrow: boolean): EChartsCoreOption {
-    const o = option as Record<string, any>;
-    return {
-        ...o,
-        legend: { ...o.legend, show: false },
-        grid: { ...o.grid, bottom: 12 },
-        yAxis: { ...o.yAxis, axisLabel: { ...o.yAxis.axisLabel, width: narrow ? 72 : 120, overflow: 'truncate' } },
-    };
-}
 
 function Charts({ data, wide, narrow }: { data: GroupAnalytics; wide: boolean; narrow: boolean }) {
     const t = useTranslations('WebHub.v2.stats');
@@ -149,19 +90,6 @@ function Kpis({ data }: { data: GroupAnalytics }) {
             <KpiTile label={t('kpi.llmCost.label')} value={usd.format(cost)} hint={t('kpi.llmCost.hint')} />
         </div>
     );
-}
-
-// Below Tailwind's `sm` (640px).
-function useNarrow(): boolean {
-    const [narrow, setNarrow] = useState(false);
-    useEffect(() => {
-        const q = window.matchMedia('(max-width: 639px)');
-        const update = () => setNarrow(q.matches);
-        update();
-        q.addEventListener('change', update);
-        return () => q.removeEventListener('change', update);
-    }, []);
-    return narrow;
 }
 
 const isQuiet = (d: GroupAnalytics) => d.daily.every((r) => !r.messages && !r.commands && !r.joins && !r.leaves);
