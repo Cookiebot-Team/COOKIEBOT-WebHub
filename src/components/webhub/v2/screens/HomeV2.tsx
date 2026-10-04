@@ -3,12 +3,13 @@
 import clsx from 'clsx';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
+import { Fragment } from 'react';
 import { useGetChatCount } from '@/lib/hooks/useGetChatCount';
 import { useGroupConfig } from '../../useGroupConfig';
 import { useWebHub } from '../../WebHubProvider';
 import { groupName } from '../GroupPicker';
 import { Icon, IconName } from '../icons';
-import { COMMUNITY, Shell } from '../Shell';
+import { ADMIN_NAV, COMMUNITY, Shell } from '../Shell';
 import { GroupAvatar, SectionLabel } from '../ui';
 
 export default function HomeV2() {
@@ -34,7 +35,14 @@ export default function HomeV2() {
             value: config ? (config.publisher_post ? t('v2.glance.perDay', { count: config.max_posts }) : t('v2.glance.notReceiving')) : '…',
         },
         { href: '/dashboard/events', icon: 'calendar', title: t('v2.nav.events'), value: t('v2.glance.drafts'), soon: true },
+        { href: '/dashboard/stats', icon: 'chart', title: t('v2.nav.stats'), value: t('v2.glance.stats') },
+        { href: '/dashboard/audit', icon: 'log', title: t('v2.nav.audit'), value: t('v2.glance.audit') },
     ];
+    // Bot owners also get the fleet screens, which need no group.
+    const adminTiles: typeof tiles = ADMIN_NAV.map((item) => ({
+        href: item.href, icon: item.icon, title: t(`v2.nav.${item.section}`),
+        value: t(item.section === 'admin' ? 'v2.glance.admin' : 'v2.glance.adminAudit'),
+    }));
 
     return (
         <Shell section="overview" title={t('v2.nav.overview')}>
@@ -82,24 +90,29 @@ export default function HomeV2() {
                     </div>
 
                     <SectionLabel className="mx-1 animate-cb-rise text-cb-brown-700 [animation-delay:90ms]">{t('v2.settings')}</SectionLabel>
-                    <div className={clsx('grid animate-cb-rise grid-cols-2 gap-2.5 [animation-delay:120ms]', wide && 'lg:grid-cols-4 lg:gap-4')}>
-                        {tiles.map((tile) => (
-                            <Link key={tile.href} href={tile.href}
-                                className="group flex min-h-[116px] flex-col gap-2.5 rounded-cb-lg bg-white/90 p-3.5 text-cb-brown-900 no-underline shadow-[0_1px_0_rgba(94,65,13,0.08)] transition-[transform,box-shadow] duration-200 hover:-translate-y-0.5 hover:shadow-cb-raised active:scale-[0.98] lg:min-h-[150px] lg:p-5">
-                                <span className="flex items-center justify-between">
-                                    <span className="grid size-[38px] place-items-center rounded-cb-md bg-cb-cream-100 text-cb-brown-700">
-                                        <Icon name={tile.icon} className="size-[22px]" />
+                    {[{ key: 'settings', list: tiles }, ...(me?.is_bot_admin ? [{ key: 'admin', list: adminTiles }] : [])].map(({ key, list }) => (
+                        <Fragment key={key}>
+                            {key === 'admin' && <SectionLabel className="mx-1 animate-cb-rise text-cb-brown-700">{t('v2.nav.adminGroup')}</SectionLabel>}
+                        <div className={clsx('grid animate-cb-rise grid-cols-2 gap-2.5 [animation-delay:120ms]', wide && 'lg:grid-cols-4 lg:gap-4')}>
+                            {list.map((tile) => (
+                                <Link key={tile.href} href={tile.href}
+                                    className="group flex min-h-[116px] min-w-0 flex-col gap-2.5 rounded-cb-lg bg-white/90 p-3.5 text-cb-brown-900 no-underline shadow-[0_1px_0_rgba(94,65,13,0.08)] transition-[transform,box-shadow] duration-200 hover:-translate-y-0.5 hover:shadow-cb-raised active:scale-[0.98] lg:min-h-[150px] lg:p-5">
+                                    <span className="flex items-center justify-between">
+                                        <span className="grid size-[38px] place-items-center rounded-cb-md bg-cb-cream-100 text-cb-brown-700">
+                                            <Icon name={tile.icon} className="size-[22px]" />
+                                        </span>
+                                        {tile.soon && <span className="rounded-full bg-cb-cream-100 px-2 py-0.5 text-[11px] font-semibold text-cb-brown-700">{t('v2.soon')}</span>}
                                     </span>
-                                    {tile.soon && <span className="rounded-full bg-cb-cream-100 px-2 py-0.5 text-[11px] font-semibold text-cb-brown-700">{t('v2.soon')}</span>}
-                                </span>
-                                <span className="text-base font-semibold leading-tight">{tile.title}</span>
-                                <span className="text-[13px] leading-snug text-cb-muted lg:text-lg lg:font-semibold lg:text-cb-brown-900">{tile.value}</span>
-                                <span className="mt-auto hidden items-center gap-1 text-[13px] font-medium text-cb-brown-700 lg:flex">
-                                    {t('v2.open')}<Icon name="chevronRight" className="size-4 transition-transform group-hover:translate-x-0.5" />
-                                </span>
-                            </Link>
-                        ))}
-                    </div>
+                                    <span className="break-words text-base font-semibold leading-tight">{tile.title}</span>
+                                    <span className="break-words text-[13px] leading-snug text-cb-muted lg:text-lg lg:font-semibold lg:text-cb-brown-900">{tile.value}</span>
+                                    <span className="mt-auto hidden items-center gap-1 text-[13px] font-medium text-cb-brown-700 lg:flex">
+                                        {t('v2.open')}<Icon name="chevronRight" className="size-4 transition-transform group-hover:translate-x-0.5" />
+                                    </span>
+                                </Link>
+                            ))}
+                        </div>
+                        </Fragment>
+                    ))}
 
                     <div className={clsx('flex animate-cb-rise flex-col gap-2.5 [animation-delay:180ms]', wide && 'lg:hidden')}>
                         <SectionLabel className="mx-1 text-cb-brown-700">{t('v2.community')}</SectionLabel>

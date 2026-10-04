@@ -12,6 +12,8 @@ import type {
 import { barOption, lineOption } from '../charts/theme';
 import { EChart } from '../charts/EChart';
 import { useWebHub } from '../../WebHubProvider';
+import Link from 'next/link';
+import { Icon } from '../icons';
 import { Shell } from '../Shell';
 import { Card } from '../ui';
 import {
@@ -173,12 +175,19 @@ function Body({ wide }: { wide: boolean }) {
 
 export default function AdminStatsV2() {
     const t = useTranslations('WebHub.v2.admin');
+    const tn = useTranslations('WebHub.v2.nav');
     const { me } = useWebHub();
     return (
         <Shell section="admin" title={t('title')} groupScoped={false}>
             {({ openGroups, wide }) => (
                 <>
                     <PageIntro title={t('title')} lead={t('lead')} wide={wide} openGroups={openGroups} groupScoped={false} />
+                    {me?.is_bot_admin && (
+                        <Link href="/dashboard/admin/audit"
+                            className="inline-flex h-11 items-center justify-center gap-2 self-start rounded-full bg-cb-brown-900 px-5 text-[15px] font-semibold text-cb-cream-50 no-underline transition-transform active:scale-[0.97]">
+                            {tn('adminAudit')}<Icon name="chevronRight" className="size-4" />
+                        </Link>
+                    )}
                     {me?.is_bot_admin ? <Body wide={wide} /> : <NotAvailable />}
                 </>
             )}

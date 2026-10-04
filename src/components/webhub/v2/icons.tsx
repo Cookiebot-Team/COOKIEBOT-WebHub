@@ -26,6 +26,9 @@ const OUTLINE = {
     chevronUpDown: 'M8 9l4-4 4 4 M8 15l4 4 4-4',
     logout: 'M14 4h4a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-4 M9 8l-4 4 4 4 M5 12h11',
     reset: 'M4 12a8 8 0 1 0 2.4-5.7 M4 4v4h4',
+    chart: 'M4 20V10 M10 20V4 M16 20v-7 M22 20H2',
+    log: 'M5 4h14v16H5z M9 9h6 M9 13h6 M9 17h3',
+    fleet: 'M12 3l9 5-9 5-9-5 9-5z M3 13l9 5 9-5',
 } as const;
 
 export type IconName = keyof typeof FILLED | keyof typeof OUTLINE;

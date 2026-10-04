@@ -13,7 +13,7 @@ import { GroupPopover, GroupSheet, groupName } from './GroupPicker';
 import { Icon, IconName } from './icons';
 import { GroupAvatar } from './ui';
 
-export type Section = 'overview' | 'general' | 'moderation' | 'posts' | 'events' | 'stats' | 'audit' | 'admin';
+export type Section = 'overview' | 'general' | 'moderation' | 'posts' | 'events' | 'stats' | 'audit' | 'admin' | 'adminAudit';
 
 const NAV: { section: Section; href: string; icon: IconName; soon?: boolean }[] = [
     { section: 'overview', href: '/dashboard', icon: 'home' },
@@ -21,6 +21,14 @@ const NAV: { section: Section; href: string; icon: IconName; soon?: boolean }[] 
     { section: 'moderation', href: '/dashboard/moderation', icon: 'shield' },
     { section: 'posts', href: '/dashboard/posts', icon: 'photo' },
     { section: 'events', href: '/dashboard/events', icon: 'calendar', soon: true },
+    { section: 'stats', href: '/dashboard/stats', icon: 'chart' },
+    { section: 'audit', href: '/dashboard/audit', icon: 'log' },
+];
+
+// Bot owners only (`me.is_bot_admin`); these work with no group selected.
+export const ADMIN_NAV: { section: Section; href: string; icon: IconName }[] = [
+    { section: 'admin', href: '/dashboard/admin', icon: 'fleet' },
+    { section: 'adminAudit', href: '/dashboard/admin/audit', icon: 'log' },
 ];
 
 export const COMMUNITY: { key: 'publications' | 'testGroup' | 'privacy'; href: string; icon: IconName }[] = [
@@ -74,6 +82,24 @@ function Sidebar({ section }: { section: Section }) {
     const { open, setOpen, ref } = usePopover();
     const group = me?.groups.find((g) => g.group_id === groupId);
 
+    const renderItem = (item: { section: Section; href: string; icon: IconName; soon?: boolean }) => {
+            const active = item.section === section;
+            return (
+                <Link key={item.section} href={item.href} aria-current={active ? 'page' : undefined}
+                    className={clsx(
+                        'flex h-11 items-center gap-3 rounded-cb-md px-3 text-[15px] font-medium no-underline transition-colors',
+                        active ? 'bg-cb-cream-100 text-cb-brown-900' : 'text-cb-cream-100/90 hover:bg-cb-cream-100/10',
+                    )}>
+                    <Icon name={item.icon} className="size-5" />
+                    <span className="grow">{t(`v2.nav.${item.section}`)}</span>
+                    {item.soon && (
+                        <span className={clsx('rounded-full px-[7px] py-0.5 text-[10px] font-bold uppercase tracking-[0.06em]',
+                            active ? 'bg-cb-brown-900/10' : 'bg-cb-cream-100/15')}>{t('v2.soon')}</span>
+                    )}
+                </Link>
+            );
+    };
+
     return (
         <aside className="flex flex-col gap-5 bg-[linear-gradient(rgba(42,27,1,.93),rgba(42,27,1,.93)),url('/bg1.jpg')] bg-cover bg-center px-4 py-[22px] text-cb-cream-100 lg:sticky lg:top-0 lg:h-dvh">
             <div className="flex items-center gap-3 px-1.5">
@@ -100,23 +126,13 @@ function Sidebar({ section }: { section: Section }) {
             )}
 
             <nav aria-label={t('v2.sections')} className="flex flex-col gap-1">
-                {NAV.map((item) => {
-                    const active = item.section === section;
-                    return (
-                        <Link key={item.section} href={item.href} aria-current={active ? 'page' : undefined}
-                            className={clsx(
-                                'flex h-11 items-center gap-3 rounded-cb-md px-3 text-[15px] font-medium no-underline transition-colors',
-                                active ? 'bg-cb-cream-100 text-cb-brown-900' : 'text-cb-cream-100/90 hover:bg-cb-cream-100/10',
-                            )}>
-                            <Icon name={item.icon} className="size-5" />
-                            <span className="grow">{t(`v2.nav.${item.section}`)}</span>
-                            {item.soon && (
-                                <span className={clsx('rounded-full px-[7px] py-0.5 text-[10px] font-bold uppercase tracking-[0.06em]',
-                                    active ? 'bg-cb-brown-900/10' : 'bg-cb-cream-100/15')}>{t('v2.soon')}</span>
-                            )}
-                        </Link>
-                    );
-                })}
+                {NAV.map(renderItem)}
+                {me?.is_bot_admin && (
+                    <>
+                        <p className="m-0 mb-0.5 mt-3 px-3 text-[11px] uppercase tracking-[0.08em] text-cb-cream-100/55">{t('v2.nav.adminGroup')}</p>
+                        {ADMIN_NAV.map(renderItem)}
+                    </>
+                )}
             </nav>
 
             <div className="grow" />

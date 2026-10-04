@@ -197,6 +197,11 @@
                 "general": "Configuración general",
                 "moderation": "Moderación",
                 "posts": "Posts y publicaciones",
+                "stats": "Estadísticas",
+                "audit": "Registro de actividad",
+                "admin": "Estadísticas globales",
+                "adminAudit": "Auditoría global",
+                "adminGroup": "Dueño del bot",
                 "events": "Eventos"
             },
             "links": {
@@ -217,6 +222,10 @@
                 "captcha": "Captcha {seconds} s",
                 "perDay": "{count, plural, one {# post al día} other {# posts al día}}",
                 "notReceiving": "No recibe posts",
+                "stats": "Gráficos y tendencias",
+                "audit": "Quién cambió qué",
+                "admin": "Todos los grupos",
+                "adminAudit": "Cada cambio, en todas partes",
                 "drafts": "Borradores de eventos"
             },
             "lead": {
@@ -251,6 +260,7 @@
                 "stickers": "Stickers seguidos antes de un aviso de spam.",
                 "media": "Minutos que espera un nuevo miembro antes de enviar imágenes.",
                 "externalMedia": "Permitir videos y documentos de fuera del grupo",
+                "auditLog": "Quién cambió qué ajuste y cuándo",
                 "banLog": "Quién fue baneado, por quién y por qué",
                 "share": "Permitir que el contenido de este grupo vaya a otros",
                 "receive": "Recibir posts compartidos por otros grupos",

@@ -197,6 +197,11 @@
                 "general": "General settings",
                 "moderation": "Moderation",
                 "posts": "Posts & publications",
+                "stats": "Stats",
+                "audit": "Activity log",
+                "admin": "Fleet stats",
+                "adminAudit": "Fleet audit log",
+                "adminGroup": "Bot owner",
                 "events": "Events"
             },
             "links": {
@@ -217,6 +222,10 @@
                 "captcha": "Captcha {seconds} s",
                 "perDay": "{count, plural, one {# post a day} other {# posts a day}}",
                 "notReceiving": "Not receiving posts",
+                "stats": "Charts and trends",
+                "audit": "Who changed what",
+                "admin": "Every group",
+                "adminAudit": "Every change, everywhere",
                 "drafts": "Draft events"
             },
             "lead": {
@@ -251,6 +260,7 @@
                 "stickers": "Stickers in a row before a spam warning is sent.",
                 "media": "Minutes a new member waits before sending images.",
                 "externalMedia": "Allow videos and documents from outside the group",
+                "auditLog": "Who changed which setting, and when",
                 "banLog": "Who was banned, by whom and why",
                 "share": "Allow content from this group to be sent to others",
                 "receive": "Get posts shared by other groups",

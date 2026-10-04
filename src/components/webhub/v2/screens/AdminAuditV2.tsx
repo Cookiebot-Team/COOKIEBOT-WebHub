@@ -61,7 +61,7 @@ export default function AdminAuditV2() {
     const t = useTranslations('WebHub.v2.admin.audit');
     const { me } = useWebHub();
     return (
-        <Shell section="admin" title={t('title')} groupScoped={false}>
+        <Shell section="adminAudit" title={t('title')} groupScoped={false}>
             {({ openGroups, wide }) => (
                 <>
                     <PageIntro title={t('title')} lead={t('lead')} wide={wide} openGroups={openGroups} groupScoped={false} />
