@@ -1,0 +1,158 @@
+name: Container image
+
+# Builds the WebHub image (Dockerfile: bun + scriptc -> one static binary on
+# scratch) for linux/amd64 and linux/arm64 on native runners, smoke-tests each
+# one, then publishes a multi-arch manifest to GHCR:
+#   ghcr.io/<owner>/cookiebot-webhub:<branch>   every push to a branch
+#   ghcr.io/<owner>/cookiebot-webhub:sha-<sha>  every push
+#   ghcr.io/<owner>/cookiebot-webhub:latest     the default branch
+#   ghcr.io/<owner>/cookiebot-webhub:<version>  v* tags
+# Pull requests build and test but never push.
+
+on:
+  push:
+    branches: ['**']
+    tags: ['v*']
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+
+concurrency:
+  group: container-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  REGISTRY: ghcr.io
+  PUBLISH: ${{ github.event_name != 'pull_request' }}
+
+jobs:
+  build:
+    name: build (${{ matrix.platform }})
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 45
+    strategy:
+      fail-fast: true
+      matrix:
+        include:
+          - platform: linux/amd64
+            runner: ubuntu-24.04
+          - platform: linux/arm64
+            runner: ubuntu-24.04-arm
+    outputs:
+      image: ${{ steps.image.outputs.name }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Image name
+        id: image
+        run: |
+          echo "name=${REGISTRY}/${GITHUB_REPOSITORY_OWNER,,}/cookiebot-webhub" >> "$GITHUB_OUTPUT"
+          platform='${{ matrix.platform }}'
+          echo "pair=${platform//\//-}" >> "$GITHUB_OUTPUT"
+
+      - uses: docker/setup-buildx-action@v3
+
+      - name: Build for the smoke test
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          platforms: ${{ matrix.platform }}
+          load: true
+          tags: webhub:test
+          cache-from: type=gha,scope=${{ steps.image.outputs.pair }}
+          cache-to: type=gha,mode=max,scope=${{ steps.image.outputs.pair }}
+
+      - name: Smoke test
+        run: |
+          docker run -d --name webhub -p 3000:3000 \
+            -e CB_API_URL=https://api.example.invalid \
+            -e TELEGRAM_BOT_USERNAME=CookieMWbot \
+            webhub:test
+          for i in $(seq 1 20); do curl -fsS http://127.0.0.1:3000/healthz && break; sleep 0.5; done
+          curl -fsS http://127.0.0.1:3000/ | grep -q '<html'
+          curl -fsS http://127.0.0.1:3000/dashboard | grep -q '<html'
+          curl -fsS http://127.0.0.1:3000/runtime-config.js | tee /dev/stderr | grep -q '"envs":\["prd"\]'
+          test "$(curl -s -o /dev/null -w '%{http_code}' http://127.0.0.1:3000/missing)" = 404
+          test "$(curl -s -o /dev/null -w '%{http_code}' http://127.0.0.1:3000/cb/local/me)" = 503
+          docker stop -t 10 webhub
+          docker logs webhub
+          echo "image size: $(docker image inspect webhub:test --format '{{.Size}}') bytes"
+
+      - name: Log in to GHCR
+        if: env.PUBLISH == 'true'
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Push by digest
+        id: push
+        if: env.PUBLISH == 'true'
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          platforms: ${{ matrix.platform }}
+          outputs: type=image,name=${{ steps.image.outputs.name }},push-by-digest=true,name-canonical=true,push=true
+          labels: |
+            org.opencontainers.image.source=${{ github.server_url }}/${{ github.repository }}
+            org.opencontainers.image.revision=${{ github.sha }}
+            org.opencontainers.image.title=cookiebot-webhub
+          cache-from: type=gha,scope=${{ steps.image.outputs.pair }}
+
+      - name: Export digest
+        if: env.PUBLISH == 'true'
+        run: |
+          mkdir -p /tmp/digests
+          digest='${{ steps.push.outputs.digest }}'
+          touch "/tmp/digests/${digest#sha256:}"
+
+      - uses: actions/upload-artifact@v4
+        if: env.PUBLISH == 'true'
+        with:
+          name: digest-${{ steps.image.outputs.pair }}
+          path: /tmp/digests/*
+          if-no-files-found: error
+          retention-days: 1
+
+  publish:
+    needs: build
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: /tmp/digests
+          pattern: digest-*
+          merge-multiple: true
+
+      - uses: docker/setup-buildx-action@v3
+
+      - uses: docker/metadata-action@v5
+        id: meta
+        with:
+          images: ${{ needs.build.outputs.image }}
+          tags: |
+            type=ref,event=branch
+            type=sha,format=short
+            type=semver,pattern={{version}}
+            type=raw,value=latest,enable={{is_default_branch}}
+
+      - uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create multi-arch manifest
+        working-directory: /tmp/digests
+        run: |
+          docker buildx imagetools create \
+            $(jq -cr '.tags | map("-t " + .) | join(" ")' <<< "$DOCKER_METADATA_OUTPUT_JSON") \
+            $(printf '${{ needs.build.outputs.image }}@sha256:%s ' *)
+
+      - name: Inspect
+        run: docker buildx imagetools inspect '${{ needs.build.outputs.image }}:${{ steps.meta.outputs.version }}'

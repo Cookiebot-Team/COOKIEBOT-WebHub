@@ -36,3 +36,7 @@ yarn-error.log*
 next-env.d.ts
 
 *.crt
+# native server build (bun run build:binary)
+/dist/
+/.scriptc/
+/server/assets.gen.ts

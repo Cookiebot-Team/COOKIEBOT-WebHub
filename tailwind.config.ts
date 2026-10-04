@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import { animation, colors as cbColors, keyframes, radii, shadows } from "./src/lib/design/tokens";
 
 const config: Config = {
   content: [
@@ -21,12 +22,20 @@ const config: Config = {
 
         warning: "rgba(var(--warning))",
         success: "rgba(var(--success))",
-        error: "rgba(var(--error))"
+        error: "rgba(var(--error))",
+
+        cb: cbColors,
       },
       fontFamily: {
         sans: "var(--font-chakra)",
-        mono: "var(--font-lobster)"
+        mono: "var(--font-lobster)",
+        jost: ["var(--font-jost)", "sans-serif"],
+        inter: ["var(--font-inter)", "sans-serif"]
       },
+      borderRadius: radii,
+      boxShadow: shadows,
+      keyframes,
+      animation,
     },
   },
   plugins: [],
