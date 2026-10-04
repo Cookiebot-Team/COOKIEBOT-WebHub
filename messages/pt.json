@@ -271,6 +271,72 @@
             "saved": "Salvo em {group}",
             "publishingSoon": "Publicação em breve",
             "events": { "wip": { "title": "Em construção", "body": "Os eventos estão em prévia: você pode testar o formulário, mas nada é salvo nem publicado ainda." } },
+            "audit": {
+                "title": "Registro de atividade",
+                "lead": "Quem alterou o quê neste grupo e quando.",
+                "error": "Não foi possível carregar o registro de atividade.",
+                "any": "Qualquer",
+                "selectGroup": "Selecione um grupo para ver o registro de atividade.",
+                "switchGroup": "Trocar de grupo",
+                "filters": {
+                    "toggle": "Filtros",
+                    "action": "Ação",
+                    "surface": "Origem",
+                    "actor": "ID de usuário do autor",
+                    "group": "ID do grupo",
+                    "from": "De",
+                    "to": "Até",
+                    "apply": "Aplicar",
+                    "reset": "Redefinir",
+                    "error": {
+                        "range": "«De» deve ser igual ou anterior a «Até».",
+                        "actor": "O autor deve ser um ID de usuário numérico.",
+                        "group": "O grupo deve ser um ID numérico."
+                    }
+                },
+                "actions": {
+                    "config.updated": "Configurações atualizadas",
+                    "rules.updated": "Regras atualizadas",
+                    "welcome.updated": "Mensagem de boas-vindas atualizada",
+                    "session.started": "Sessão iniciada"
+                },
+                "surfaces": {
+                    "telegram": "Telegram",
+                    "miniapp": "Mini App",
+                    "api": "API",
+                    "system": "Sistema"
+                },
+                "actorKinds": {
+                    "admin": "Admin",
+                    "user": "Usuário",
+                    "anonymous_admin": "Admin anônimo",
+                    "system": "Sistema"
+                },
+                "actor": {
+                    "user": "Usuário {id}",
+                    "none": "Sem autor"
+                },
+                "group": "Grupo: {name}",
+                "diff": {
+                    "show": "Ver alterações",
+                    "hide": "Ocultar alterações",
+                    "none": "Nenhuma alteração nos campos.",
+                    "empty": "(vazio)",
+                    "to": "alterado para"
+                },
+                "pager": {
+                    "label": "Paginação",
+                    "newer": "Mais recentes",
+                    "older": "Mais antigos",
+                    "page": "Página {page}"
+                },
+                "empty": {
+                    "title": "Ainda sem atividade",
+                    "body": "As alterações feitas neste grupo aparecerão aqui.",
+                    "filteredTitle": "Nenhum evento encontrado",
+                    "filteredBody": "Tente outros filtros ou um intervalo de datas maior."
+                }
+            },
             "stats": {
                 "title": "Estatísticas",
                 "lead": "Veja como o grupo tem se movimentado.",

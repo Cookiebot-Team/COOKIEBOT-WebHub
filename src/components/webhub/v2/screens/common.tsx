@@ -144,13 +144,13 @@ export function RangePicker({ value, onChange, className }: {
 
 // Query failure for the stats screens: 404 not an admin, 403 token lacks
 // permission (sign in again), anything else is retryable.
-export function StatsError({ error, onRetry }: { error: unknown; onRetry: () => void }) {
+export function StatsError({ error, onRetry, title }: { error: unknown; onRetry: () => void; title?: string }) {
     const t = useTranslations('WebHub');
     const { logout } = useWebHub();
     const status = error instanceof CbError ? error.status : -1;
     const message = status === 404 ? t('groups.notAdmin')
         : status === 403 ? t('v2.stats.error.reauth')
-        : status === 0 ? t('auth.networkError') : t('v2.stats.error.generic');
+        : status === 0 ? t('auth.networkError') : title ?? t('v2.stats.error.generic');
     const action = 'h-10 self-start rounded-cb-md bg-cb-brown-700 px-4 text-sm font-semibold text-cb-cream-50';
     return (
         <div role="alert" className="flex flex-col gap-3 rounded-cb-xl bg-cb-cream-50 p-4 text-black shadow-cb-card">

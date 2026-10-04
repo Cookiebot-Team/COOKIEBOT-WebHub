@@ -13,7 +13,7 @@ import { GroupPopover, GroupSheet, groupName } from './GroupPicker';
 import { Icon, IconName } from './icons';
 import { GroupAvatar } from './ui';
 
-export type Section = 'overview' | 'general' | 'moderation' | 'posts' | 'events' | 'stats' | 'admin';
+export type Section = 'overview' | 'general' | 'moderation' | 'posts' | 'events' | 'stats' | 'audit' | 'admin';
 
 const NAV: { section: Section; href: string; icon: IconName; soon?: boolean }[] = [
     { section: 'overview', href: '/dashboard', icon: 'home' },

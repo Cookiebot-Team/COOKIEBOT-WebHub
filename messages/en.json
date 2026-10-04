@@ -271,6 +271,72 @@
             "saved": "Saved to {group}",
             "publishingSoon": "Publishing soon",
             "events": { "wip": { "title": "Work in progress", "body": "Events are a preview: you can try the form, but nothing is saved or published yet." } },
+            "audit": {
+                "title": "Activity log",
+                "lead": "Who changed what in this group, and when.",
+                "error": "Could not load the activity log.",
+                "any": "Any",
+                "selectGroup": "Select a group to see its activity log.",
+                "switchGroup": "Switch group",
+                "filters": {
+                    "toggle": "Filters",
+                    "action": "Action",
+                    "surface": "Surface",
+                    "actor": "Actor user ID",
+                    "group": "Group ID",
+                    "from": "From",
+                    "to": "To",
+                    "apply": "Apply",
+                    "reset": "Reset",
+                    "error": {
+                        "range": "From must be on or before To.",
+                        "actor": "Actor must be a numeric user ID.",
+                        "group": "Group must be a numeric ID."
+                    }
+                },
+                "actions": {
+                    "config.updated": "Settings updated",
+                    "rules.updated": "Rules updated",
+                    "welcome.updated": "Welcome message updated",
+                    "session.started": "Session started"
+                },
+                "surfaces": {
+                    "telegram": "Telegram",
+                    "miniapp": "Mini App",
+                    "api": "API",
+                    "system": "System"
+                },
+                "actorKinds": {
+                    "admin": "Admin",
+                    "user": "User",
+                    "anonymous_admin": "Anonymous admin",
+                    "system": "System"
+                },
+                "actor": {
+                    "user": "User {id}",
+                    "none": "No actor"
+                },
+                "group": "Group: {name}",
+                "diff": {
+                    "show": "Show changes",
+                    "hide": "Hide changes",
+                    "none": "No field changes.",
+                    "empty": "(none)",
+                    "to": "changed to"
+                },
+                "pager": {
+                    "label": "Pagination",
+                    "newer": "Newer",
+                    "older": "Older",
+                    "page": "Page {page}"
+                },
+                "empty": {
+                    "title": "No activity yet",
+                    "body": "Changes made to this group will show up here.",
+                    "filteredTitle": "No matching events",
+                    "filteredBody": "Try different filters or a wider date range."
+                }
+            },
             "stats": {
                 "title": "Stats",
                 "lead": "How active the group has been.",
