@@ -69,7 +69,7 @@ export function AuditFilters({ onApply, showGroup = false, busy }: {
     const select = (key: 'action' | 'surface', values: readonly string[], group: 'actions' | 'surfaces') => (
         <select id={fid(key)} className={cls} value={draft[key]} onChange={(e) => set(key)(e.target.value)}>
             <option value="">{t('any')}</option>
-            {values.map((v) => <option key={v} value={v}>{t(`${group}.${v}`)}</option>)}
+            {values.map((v) => <option key={v} value={v}>{t(`${group}.${v.replace(/\./g, "_")}`)}</option>)}
         </select>
     );
     const text = (key: keyof Draft, type = 'text', mode?: 'numeric') => (

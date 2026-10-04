@@ -49,7 +49,7 @@ function Row({ e, showGroup }: { e: AuditRow; showGroup: boolean }) {
     const [open, setOpen] = useState(false);
     const panel = useId();
     const label = (group: 'actions' | 'surfaces' | 'actorKinds', v: string) =>
-        (KNOWN[group] as readonly string[]).includes(v) ? t(`${group}.${v}`) : v;
+        (KNOWN[group] as readonly string[]).includes(v) ? t(`${group}.${v.replace(/\./g, "_")}`) : v;
     const abs = new Intl.DateTimeFormat(locale, { dateStyle: 'medium', timeStyle: 'medium' }).format(Date.parse(e.ts));
     const hasDiff = e.before !== null || e.after !== null;
     const actor = e.actor_user_id === null ? t('actor.none') : t('actor.user', { id: e.actor_user_id });

@@ -89,13 +89,13 @@ export function KpiTile({ label, value, hint, tone = 'light' }: {
             tone === 'dark' ? 'bg-white/10 text-cb-cream-50' : 'bg-cb-cream-50 text-black')}>
             <p title={label} className={clsx('m-0 line-clamp-2 text-xs font-semibold uppercase tracking-wide',
                 tone === 'dark' ? 'text-cb-cream-200' : 'text-cb-muted')}>{label}</p>
-            <p className="m-0 mt-1 min-w-0 break-words text-[22px] font-bold leading-tight tabular-nums sm:text-[26px]">{value}</p>
+            <p className="m-0 mt-1 min-w-0 [overflow-wrap:normal] text-[22px] font-bold leading-tight tabular-nums sm:text-[26px]">{value}</p>
             {hint && <p title={hint} className={clsx('m-0 mt-0.5 line-clamp-2 text-xs', tone === 'dark' ? 'text-cb-cream-200' : 'text-cb-muted')}>{hint}</p>}
         </div>
     );
 }
 
-export const KPI_GRID = 'grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6';
+export const KPI_GRID = 'grid grid-cols-2 gap-3 sm:grid-cols-3 xl:grid-cols-6';
 
 export const RANGES = [7, 30, 90] as const;
 export type RangeDays = (typeof RANGES)[number];

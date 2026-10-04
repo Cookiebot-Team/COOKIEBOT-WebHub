@@ -49,9 +49,9 @@ function Budget({ overview }: { overview: AdminOverview }) {
     const money = (v: number) => usdFormat(locale, v).format(v);
     return (
         <KpiTile label={t('kpi.budget.label')}
-            value={budget === null ? money(spent) : t('kpi.budget.of', { spent: money(spent), budget: money(budget) })}
+            value={money(spent)}
             hint={budget === null || remaining === null ? t('kpi.budget.none')
-                : t('kpi.budget.remaining', { remaining: money(Math.max(0, remaining)) })} />
+                : `${t('kpi.budget.of', { budget: money(budget) })} · ${t('kpi.budget.remaining', { remaining: money(Math.max(0, remaining)) })}`} />
     );
 }
 

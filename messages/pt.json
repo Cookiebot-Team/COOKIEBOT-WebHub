@@ -305,10 +305,10 @@
                     }
                 },
                 "actions": {
-                    "config.updated": "Configurações atualizadas",
-                    "rules.updated": "Regras atualizadas",
-                    "welcome.updated": "Mensagem de boas-vindas atualizada",
-                    "session.started": "Sessão iniciada"
+                    "config_updated": "Configurações atualizadas",
+                    "rules_updated": "Regras atualizadas",
+                    "welcome_updated": "Mensagem de boas-vindas atualizada",
+                    "session_started": "Sessão iniciada"
                 },
                 "surfaces": {
                     "telegram": "Telegram",
@@ -422,7 +422,7 @@
                     "errors": { "label": "Erros", "hint": "no período" },
                     "budget": {
                         "label": "Orçamento LLM",
-                        "of": "{spent} / {budget}",
+                        "of": "de {budget}",
                         "remaining": "{remaining} restantes neste mês",
                         "none": "gasto neste mês, sem orçamento definido"
                     }

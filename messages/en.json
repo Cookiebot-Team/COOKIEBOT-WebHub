@@ -305,10 +305,10 @@
                     }
                 },
                 "actions": {
-                    "config.updated": "Settings updated",
-                    "rules.updated": "Rules updated",
-                    "welcome.updated": "Welcome message updated",
-                    "session.started": "Session started"
+                    "config_updated": "Settings updated",
+                    "rules_updated": "Rules updated",
+                    "welcome_updated": "Welcome message updated",
+                    "session_started": "Session started"
                 },
                 "surfaces": {
                     "telegram": "Telegram",
@@ -422,7 +422,7 @@
                     "errors": { "label": "Errors", "hint": "in the period" },
                     "budget": {
                         "label": "LLM budget",
-                        "of": "{spent} / {budget}",
+                        "of": "of {budget}",
                         "remaining": "{remaining} left this month",
                         "none": "spent this month, no budget set"
                     }
