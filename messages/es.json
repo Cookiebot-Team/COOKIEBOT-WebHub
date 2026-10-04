@@ -271,6 +271,65 @@
             "saved": "Guardado en {group}",
             "publishingSoon": "Publicación pronto",
             "events": { "wip": { "title": "En construcción", "body": "Los eventos están en vista previa: puedes probar el formulario, pero todavía no se guarda ni se publica nada." } },
+            "stats": {
+                "title": "Estadísticas",
+                "lead": "Qué tan activo ha estado el grupo.",
+                "range": {
+                    "label": "Rango de tiempo",
+                    "days": "{days} días"
+                },
+                "kpi": {
+                    "messages": {
+                        "label": "Mensajes",
+                        "hint": "en el periodo"
+                    },
+                    "commands": {
+                        "label": "Comandos",
+                        "hint": "comandos ejecutados"
+                    },
+                    "peak": {
+                        "label": "Pico de usuarios activos",
+                        "hint": "máximo en un día"
+                    },
+                    "joinsLeaves": {
+                        "label": "Ingresos / salidas",
+                        "hint": "nuevos vs salidas"
+                    },
+                    "captcha": {
+                        "label": "Captchas resueltos",
+                        "hint": "de los captchas emitidos"
+                    },
+                    "llmCost": {
+                        "label": "Costo de LLM",
+                        "hint": "estimado, USD"
+                    }
+                },
+                "chart": {
+                    "daily": "Actividad diaria",
+                    "joinsLeaves": "Ingresos vs. salidas",
+                    "topCommands": "Comandos principales"
+                },
+                "series": {
+                    "messages": "Mensajes",
+                    "commands": "Comandos",
+                    "activeUsers": "Usuarios activos",
+                    "joins": "Entradas",
+                    "leaves": "Salidas",
+                    "invocations": "Invocaciones"
+                },
+                "selectGroup": "Selecciona un grupo para ver sus estadísticas.",
+                "switchGroup": "Cambiar de grupo",
+                "empty": {
+                    "title": "Sin actividad en este periodo",
+                    "body": "Prueba un rango más largo o vuelve cuando el grupo tenga actividad.",
+                    "commands": "No se usaron comandos en este periodo."
+                },
+                "error": {
+                    "reauth": "Tu sesión no tiene permiso para leer las estadísticas. Inicia sesión de nuevo para actualizar tus permisos.",
+                    "generic": "No se pudieron cargar las estadísticas."
+                },
+                "na": "n/d"
+            },
             "eventName": "Nombre del evento",
             "eventDescription": "Descripción",
             "date": "Fecha",

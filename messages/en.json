@@ -271,6 +271,65 @@
             "saved": "Saved to {group}",
             "publishingSoon": "Publishing soon",
             "events": { "wip": { "title": "Work in progress", "body": "Events are a preview: you can try the form, but nothing is saved or published yet." } },
+            "stats": {
+                "title": "Stats",
+                "lead": "How active the group has been.",
+                "range": {
+                    "label": "Time range",
+                    "days": "{days} days"
+                },
+                "kpi": {
+                    "messages": {
+                        "label": "Messages",
+                        "hint": "in the period"
+                    },
+                    "commands": {
+                        "label": "Commands",
+                        "hint": "commands run"
+                    },
+                    "peak": {
+                        "label": "Peak active users",
+                        "hint": "most in one day"
+                    },
+                    "joinsLeaves": {
+                        "label": "Joins / leaves",
+                        "hint": "new vs left"
+                    },
+                    "captcha": {
+                        "label": "Captcha solved",
+                        "hint": "of captchas issued"
+                    },
+                    "llmCost": {
+                        "label": "LLM cost",
+                        "hint": "estimated, USD"
+                    }
+                },
+                "chart": {
+                    "daily": "Daily activity",
+                    "joinsLeaves": "Joins and leaves",
+                    "topCommands": "Top commands"
+                },
+                "series": {
+                    "messages": "Messages",
+                    "commands": "Commands",
+                    "activeUsers": "Active users",
+                    "joins": "Joins",
+                    "leaves": "Leaves",
+                    "invocations": "Invocations"
+                },
+                "selectGroup": "Select a group to see its stats.",
+                "switchGroup": "Switch group",
+                "empty": {
+                    "title": "No activity in this period",
+                    "body": "Try a longer range, or check back once the group has been active.",
+                    "commands": "No commands were used in this period."
+                },
+                "error": {
+                    "reauth": "Your session lacks permission to read stats. Sign in again to refresh your permissions.",
+                    "generic": "Could not load stats."
+                },
+                "na": "n/a"
+            },
             "eventName": "Event name",
             "eventDescription": "Description",
             "date": "Date",

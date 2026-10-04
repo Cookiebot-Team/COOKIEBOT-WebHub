@@ -2,7 +2,8 @@
 
 import clsx from 'clsx';
 import { useTranslations } from 'next-intl';
-import { ReactNode, useCallback, useId } from 'react';
+import { KeyboardEvent, ReactNode, useCallback, useEffect, useId, useRef } from 'react';
+import { CbError } from '@/lib/cb/client';
 import { useWebHub } from '../../WebHubProvider';
 import { groupName } from '../GroupPicker';
 import { GroupChip } from '../Shell';
@@ -84,12 +85,79 @@ export function KpiTile({ label, value, hint, tone = 'light' }: {
     return (
         <div className={clsx('min-w-0 rounded-cb-xl p-3.5',
             tone === 'dark' ? 'bg-white/10 text-cb-cream-50' : 'bg-cb-cream-50 text-black')}>
-            <p className={clsx('m-0 truncate text-xs font-semibold uppercase tracking-wide',
+            <p title={label} className={clsx('m-0 line-clamp-2 text-xs font-semibold uppercase tracking-wide',
                 tone === 'dark' ? 'text-cb-cream-200' : 'text-cb-muted')}>{label}</p>
-            <p className="m-0 mt-1 text-[26px] font-bold leading-tight tabular-nums">{value}</p>
-            {hint && <p className={clsx('m-0 mt-0.5 truncate text-xs', tone === 'dark' ? 'text-cb-cream-200' : 'text-cb-muted')}>{hint}</p>}
+            <p className="m-0 mt-1 min-w-0 break-words text-[22px] font-bold leading-tight tabular-nums sm:text-[26px]">{value}</p>
+            {hint && <p title={hint} className={clsx('m-0 mt-0.5 line-clamp-2 text-xs', tone === 'dark' ? 'text-cb-cream-200' : 'text-cb-muted')}>{hint}</p>}
         </div>
     );
 }
 
 export const KPI_GRID = 'grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6';
+
+export const RANGES = [7, 30, 90] as const;
+export type RangeDays = (typeof RANGES)[number];
+
+// Segmented 7/30/90 control. A radiogroup: one choice, arrow keys / Home / End move it.
+export function RangePicker({ value, onChange, className }: {
+    value: RangeDays; onChange: (days: RangeDays) => void; className?: string;
+}) {
+    const t = useTranslations('WebHub.v2.stats.range');
+    const refs = useRef<(HTMLButtonElement | null)[]>([]);
+    const moved = useRef(false);
+    // Focus follows the selection only after a keyboard move, never on mount.
+    useEffect(() => {
+        if (!moved.current) return;
+        moved.current = false;
+        refs.current[RANGES.indexOf(value)]?.focus();
+    }, [value]);
+    const move = (e: KeyboardEvent, i: number) => {
+        let next = -1;
+        if (e.key === 'ArrowRight' || e.key === 'ArrowDown') next = (i + 1) % RANGES.length;
+        else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') next = (i - 1 + RANGES.length) % RANGES.length;
+        else if (e.key === 'Home') next = 0;
+        else if (e.key === 'End') next = RANGES.length - 1;
+        if (next < 0) return;
+        e.preventDefault();
+        moved.current = true;
+        onChange(RANGES[next]);
+    };
+    return (
+        <div role="radiogroup" aria-label={t('label')}
+            className={clsx('inline-flex self-start rounded-full bg-cb-cream-50 p-1 shadow-cb-card', className)}>
+            {RANGES.map((days, i) => {
+                const active = days === value;
+                return (
+                    <button key={days} ref={(el) => { refs.current[i] = el; }} type="button" role="radio" aria-checked={active}
+                        tabIndex={active ? 0 : -1} onClick={() => onChange(days)} onKeyDown={(e) => move(e, i)}
+                        className={clsx('min-h-[44px] min-w-[72px] rounded-full px-4 text-sm font-semibold transition-colors',
+                            active ? 'bg-cb-brown-700 text-cb-cream-50' : 'text-cb-brown-900 hover:bg-cb-cream-100')}>
+                        {t('days', { days })}
+                    </button>
+                );
+            })}
+        </div>
+    );
+}
+
+// Query failure for the stats screens: 404 not an admin, 403 token lacks
+// permission (sign in again), anything else is retryable.
+export function StatsError({ error, onRetry }: { error: unknown; onRetry: () => void }) {
+    const t = useTranslations('WebHub');
+    const { logout } = useWebHub();
+    const status = error instanceof CbError ? error.status : -1;
+    const message = status === 404 ? t('groups.notAdmin')
+        : status === 403 ? t('v2.stats.error.reauth')
+        : status === 0 ? t('auth.networkError') : t('v2.stats.error.generic');
+    const action = 'h-10 self-start rounded-cb-md bg-cb-brown-700 px-4 text-sm font-semibold text-cb-cream-50';
+    return (
+        <div role="alert" className="flex flex-col gap-3 rounded-cb-xl bg-cb-cream-50 p-4 text-black shadow-cb-card">
+            <p className="m-0 text-[15px]">{message}</p>
+            {status === 403 ? (
+                <button type="button" onClick={() => void logout()} className={action}>{t('v2.signOut')}</button>
+            ) : status !== 404 && (
+                <button type="button" onClick={onRetry} className={action}>{t('retry')}</button>
+            )}
+        </div>
+    );
+}
