@@ -11,6 +11,7 @@ import { LANGUAGES, useLocaleSwitch, usePopover } from '../shared';
 import { useWebHub } from '../WebHubProvider';
 import { GroupPopover, GroupSheet, groupName } from './GroupPicker';
 import { Icon, IconName } from './icons';
+import { TID } from './testids';
 import { GroupAvatar } from './ui';
 
 export type Section = 'overview' | 'general' | 'moderation' | 'posts' | 'events' | 'stats' | 'audit' | 'admin' | 'adminAudit';
@@ -45,7 +46,7 @@ function LanguageButton({ compact }: { compact?: boolean }) {
 
     return (
         <div ref={ref} className="relative">
-            <button type="button" aria-label={t('title')} aria-expanded={open} onClick={() => setOpen(!open)}
+            <button type="button" data-testid={TID.languageButton} aria-label={t('title')} aria-expanded={open} onClick={() => setOpen(!open)}
                 className={clsx(
                     'flex h-10 items-center gap-2 rounded-cb-md border border-cb-brown-700/25 bg-cb-cream-100 text-sm text-cb-brown-900 transition-transform active:scale-[0.97]',
                     compact ? 'w-10 justify-center' : 'px-3',
@@ -60,7 +61,7 @@ function LanguageButton({ compact }: { compact?: boolean }) {
                     {LANGUAGES.map((option) => {
                         const active = option.value === locale;
                         return (
-                            <button key={option.value} type="button" role="radio" aria-checked={active} disabled={pending}
+                            <button key={option.value} type="button" role="radio" data-testid={TID.language(option.value)} aria-checked={active} disabled={pending}
                                 onClick={() => change(option.value, () => setOpen(false))}
                                 className="flex h-11 w-full items-center justify-between px-4 text-left text-base hover:bg-cb-cream-100/60">
                                 {option.label}
@@ -85,7 +86,7 @@ function Sidebar({ section }: { section: Section }) {
     const renderItem = (item: { section: Section; href: string; icon: IconName; soon?: boolean }) => {
             const active = item.section === section;
             return (
-                <Link key={item.section} href={item.href} aria-current={active ? 'page' : undefined}
+                <Link key={item.section} href={item.href} data-testid={TID.nav(item.section)} aria-current={active ? 'page' : undefined}
                     className={clsx(
                         'flex h-11 items-center gap-3 rounded-cb-md px-3 text-[15px] font-medium no-underline transition-colors',
                         active ? 'bg-cb-cream-100 text-cb-brown-900' : 'text-cb-cream-100/90 hover:bg-cb-cream-100/10',
@@ -101,7 +102,7 @@ function Sidebar({ section }: { section: Section }) {
     };
 
     return (
-        <aside className="flex flex-col gap-5 bg-[linear-gradient(rgba(42,27,1,.93),rgba(42,27,1,.93)),url('/bg1.jpg')] bg-cover bg-center px-4 py-[22px] text-cb-cream-100 lg:sticky lg:top-0 lg:h-dvh">
+        <aside data-testid={TID.sidebar} className="flex flex-col gap-5 bg-[linear-gradient(rgba(42,27,1,.93),rgba(42,27,1,.93)),url('/bg1.jpg')] bg-cover bg-center px-4 py-[22px] text-cb-cream-100 lg:sticky lg:top-0 lg:h-dvh">
             <div className="flex items-center gap-3 px-1.5">
                 <img src="/cookiebot_avatar.jpeg" alt="" className="size-10 rounded-full object-cover shadow-[0_0_0_2px_#FFE9C9]" />
                 <div className="flex flex-col leading-tight">
@@ -112,7 +113,7 @@ function Sidebar({ section }: { section: Section }) {
 
             {group && (
                 <div ref={ref} className="relative">
-                    <button type="button" onClick={() => setOpen(!open)} aria-haspopup="listbox" aria-expanded={open}
+                    <button type="button" data-testid={TID.sidebarGroup} onClick={() => setOpen(!open)} aria-haspopup="listbox" aria-expanded={open}
                         className="flex w-full items-center gap-3 rounded-cb-lg border border-cb-cream-100/20 bg-cb-cream-100/10 px-3 py-2.5 text-left text-cb-cream-50 transition-[filter] hover:brightness-110">
                         <GroupAvatar id={group.group_id} name={groupName(group)} />
                         <span className="flex min-w-0 grow flex-col">
@@ -140,7 +141,7 @@ function Sidebar({ section }: { section: Section }) {
             <div className="flex flex-col gap-0.5">
                 <p className="m-0 mb-1.5 px-3 text-[11px] uppercase tracking-[0.08em] text-cb-cream-100/55">{t('v2.community')}</p>
                 {COMMUNITY.map((link) => (
-                    <a key={link.key} href={link.href} {...(link.href.startsWith('http') ? { target: '_blank', rel: 'noreferrer' } : {})}
+                    <a key={link.key} href={link.href} data-testid={TID.community(link.key)} {...(link.href.startsWith('http') ? { target: '_blank', rel: 'noreferrer' } : {})}
                         className="flex h-9 items-center rounded-cb-sm px-3 text-sm text-cb-cream-100/85 no-underline hover:bg-cb-cream-100/10">
                         {t(`v2.links.${link.key}`)}
                     </a>
@@ -153,7 +154,7 @@ function Sidebar({ section }: { section: Section }) {
                     <span className="text-sm font-semibold text-cb-cream-50">ID {me?.user_id}</span>
                     <span className="text-xs text-cb-cream-100/65">{t('v2.signedIn')}</span>
                 </span>
-                <button type="button" onClick={logout} aria-label={t('v2.signOut')}
+                <button type="button" data-testid={TID.signOut} onClick={logout} aria-label={t('v2.signOut')}
                     className="grid size-9 place-items-center rounded-cb-sm text-cb-cream-100 hover:bg-cb-cream-100/10">
                     <Icon name="logout" className="size-[18px]" />
                 </button>
@@ -167,7 +168,7 @@ export function GroupChip({ onOpen }: { onOpen: () => void }) {
     const group = me?.groups.find((g) => g.group_id === groupId);
     if (!group) return null;
     return (
-        <button type="button" onClick={onOpen}
+        <button type="button" data-testid={TID.groupChip} onClick={onOpen}
             className="flex h-8 items-center gap-2 self-start rounded-full bg-cb-cream-100/95 pl-1.5 pr-3 text-sm font-medium text-cb-brown-900 transition-transform active:scale-[0.97]">
             <GroupAvatar id={group.group_id} name={groupName(group)} size="sm" />
             {groupName(group)}
@@ -219,7 +220,7 @@ export function Shell({ section, title, groupScoped = true, children }: {
                             : "bg-[#3B3E40] bg-[url('/bg1.jpg')] bg-cover bg-fixed"),
                     )}>
                         {/* Phone / Mini App header */}
-                        <header className={clsx(
+                        <header data-testid={TID.headerMobile} className={clsx(
                             'sticky top-0 z-30 flex h-14 shrink-0 items-center gap-2.5 bg-cb-cream-50/80 px-3 shadow-[0_1px_0_rgba(58,38,1,0.12)] backdrop-blur-xl',
                             wide && 'lg:hidden',
                         )}>
@@ -237,20 +238,20 @@ export function Shell({ section, title, groupScoped = true, children }: {
                                 <>
                                     <span className="w-12 shrink-0 sm:w-[84px]">
                                         {!isMiniApp && (
-                                            <button type="button" onClick={back}
+                                            <button type="button" data-testid={TID.headerBack} onClick={back}
                                                 className="flex h-10 items-center gap-0.5 rounded-cb-md px-2 text-base text-cb-telegram hover:bg-cb-cream-100/60">
                                                 <Icon name="chevronLeft" className="size-5" /><span className="sr-only sm:not-sr-only">{t('back')}</span>
                                             </button>
                                         )}
                                     </span>
-                                    <h1 className="m-0 min-w-0 grow truncate text-center text-[17px] font-bold">{title}</h1>
+                                    <h1 data-testid={TID.headerTitle} className="m-0 min-w-0 grow truncate text-center text-[17px] font-bold">{title}</h1>
                                     <span className="w-12 shrink-0 sm:w-[84px]" />
                                 </>
                             )}
                         </header>
 
                         {/* Desktop top bar */}
-                        <header className={clsx(
+                        <header data-testid={TID.headerDesktop} className={clsx(
                             'sticky top-0 z-30 h-[68px] shrink-0 items-center gap-3 border-b border-cb-brown-700/10 bg-cb-cream-50/80 px-10 backdrop-blur-xl',
                             wide ? 'hidden lg:flex' : 'hidden',
                         )}>
@@ -263,7 +264,7 @@ export function Shell({ section, title, groupScoped = true, children }: {
                             <LanguageButton />
                         </header>
 
-                        <div key={section} className="mx-auto flex w-full max-w-[1080px] grow animate-cb-in flex-col gap-4 px-3.5 pb-28 pt-4 lg:animate-cb-rise lg:gap-6 lg:px-10 lg:pb-32 lg:pt-8">
+                        <div key={section} data-testid={TID.screen(section)} className="mx-auto flex w-full max-w-[1080px] grow animate-cb-in flex-col gap-4 px-3.5 pb-28 pt-4 lg:animate-cb-rise lg:gap-6 lg:px-10 lg:pb-32 lg:pt-8">
                             {children({ openGroups, wide })}
                         </div>
                     </main>

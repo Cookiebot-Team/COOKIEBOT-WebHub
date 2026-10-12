@@ -97,9 +97,9 @@ T1 → T2 → T3 → T4 → T5 → T6
 
 **Done when**:
 
-- [ ] Group picker IDs asserted by test (`GroupList` rendered with a stub `WebHubProvider` context), incl. negative group id
-- [ ] Shell/nav/home IDs verified in browser
-- [ ] Gate check passes: `bun test`
+- [x] Group picker IDs asserted by test (`GroupList` rendered with a stub `WebHubProvider` context), incl. negative group id
+- [x] Shell/nav/home IDs verified in browser
+- [x] Gate check passes: `bun test`
 
 **Tests**: unit
 **Gate**: quick
