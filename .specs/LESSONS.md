@@ -26,6 +26,18 @@ Seen once or not yet corroborated. Tracked, not trusted.
 - evidence: validation.md G2/G3 (spec AC T9, T10) (testids)
 - last seen: 2026-10-12T01:29:32Z
 
+### L-003 - When a React context has a no-op default, test that the required provider is mounted, since removing it fails silently
+- signal: `ac_gap` · recurrence: 1 feature(s) · scope: `layouts` · harmful: 0
+- features: remove-v1-design
+- evidence: AC6 / validation.md M5 (layouts)
+- last seen: 2026-10-12T01:41:20Z
+
+### L-004 - Prove a must-not-render UI requirement with a render-level absence assertion, not only a file-deleted check
+- signal: `surviving_mutant` · recurrence: 1 feature(s) · scope: `routes` · harmful: 0
+- features: remove-v1-design
+- evidence: AC2 / validation.md M6 (routes)
+- last seen: 2026-10-12T01:41:20Z
+
 ## Quarantined (failed when applied - ignore)
 
 A confirmed lesson that recurred alongside failure. Kept for the maintainer to review.

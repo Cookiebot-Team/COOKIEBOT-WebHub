@@ -62,9 +62,9 @@ The WebHub ships two designs behind a V1/V2 switcher (floating "DESIGN V1 V2" pi
 
 | Requirement ID | Story | Phase | Status |
 | -------------- | ----- | ----- | ------ |
-| NOV1-01 | P1 (AC1, AC2, AC6, edge case) | Execute | Implementing |
-| NOV1-02 | P1 (AC3) | Execute | Implementing |
-| NOV1-03 | P1 (AC4, AC5) | Execute | Implementing |
+| NOV1-01 | P1 (AC1, AC2, AC6, edge case) | Verify | Verified |
+| NOV1-02 | P1 (AC3) | Verify | Verified |
+| NOV1-03 | P1 (AC4, AC5) | Verify | Verified |
 
 **Coverage:** 3 total, 3 mapped, 0 unmapped
 

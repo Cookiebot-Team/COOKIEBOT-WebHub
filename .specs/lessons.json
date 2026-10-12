@@ -3,7 +3,7 @@
   "promote_threshold": 2,
   "window_days": 45,
   "quarantine_threshold": 2,
-  "next_id": 3,
+  "next_id": 5,
   "lessons": [
     {
       "id": "L-001",
@@ -40,6 +40,42 @@
       ],
       "created": "2026-10-12T01:29:32Z",
       "last_seen": "2026-10-12T01:29:32Z"
+    },
+    {
+      "id": "L-003",
+      "key": "ac_gap::when a react context has a no op default test that the required provider is mounted since removing it fails silently",
+      "text": "When a React context has a no-op default, test that the required provider is mounted, since removing it fails silently",
+      "signal": "ac_gap",
+      "scope": "layouts",
+      "status": "candidate",
+      "features": [
+        "remove-v1-design"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "AC6 / validation.md M5 (layouts)"
+      ],
+      "created": "2026-10-12T01:41:20Z",
+      "last_seen": "2026-10-12T01:41:20Z"
+    },
+    {
+      "id": "L-004",
+      "key": "surviving_mutant::prove a must not render ui requirement with a render level absence assertion not only a file deleted check",
+      "text": "Prove a must-not-render UI requirement with a render-level absence assertion, not only a file-deleted check",
+      "signal": "surviving_mutant",
+      "scope": "routes",
+      "status": "candidate",
+      "features": [
+        "remove-v1-design"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "AC2 / validation.md M6 (routes)"
+      ],
+      "created": "2026-10-12T01:41:20Z",
+      "last_seen": "2026-10-12T01:41:20Z"
     }
   ]
 }
