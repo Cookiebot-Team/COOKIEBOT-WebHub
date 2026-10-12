@@ -10,4 +10,12 @@ export const TID = {
         discard: 'savebar-discard',
         save: 'savebar-save',
     },
+    /** Switch for a group config key, e.g. `setting-sfw`. */
+    setting: (key: string) => `setting-${key}`,
+    slider: (key: string) => `slider-${key}`,
+    sliderValue: (key: string) => `slider-${key}-value`,
+    textarea: (key: string) => `textarea-${key}`,
+    textareaCount: (key: string) => `textarea-${key}-count`,
+    errorBanner: 'error-banner',
+    toast: 'toast',
 } as const;

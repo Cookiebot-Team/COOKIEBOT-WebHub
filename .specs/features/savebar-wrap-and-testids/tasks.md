@@ -78,9 +78,9 @@ T1 → T2 → T3 → T4 → T5 → T6
 
 **Done when**:
 
-- [ ] Spec AC1-5 IDs asserted on the right element by tests
-- [ ] Rendering without a `testId` prop leaves markup unchanged apart from the always-on IDs
-- [ ] Gate check passes: `bun test`
+- [x] Spec AC1-5 IDs asserted on the right element by tests
+- [x] Rendering without a `testId` prop leaves markup unchanged apart from the always-on IDs
+- [x] Gate check passes: `bun test`
 
 **Tests**: unit
 **Gate**: quick
