@@ -5,6 +5,7 @@ import { useTranslations } from 'next-intl';
 import { createContext, ReactNode, useCallback, useContext, useEffect, useId, useRef, useState } from 'react';
 import { groupTone, initials } from '@/lib/design/tokens';
 import { Icon } from './icons';
+import { TID } from './testids';
 
 export function Card({ children, className, delay = 0 }: { children: ReactNode; className?: string; delay?: 0 | 1 | 2 }) {
     return (
@@ -134,18 +135,19 @@ export function SaveBar({ count, groupName, onDiscard, onSave, saving, floating 
     const t = useTranslations('WebHub.v2');
     if (count === 0) return null;
     return (
-        <div className={clsx(
+        <div data-testid={floating ? TID.savebar.floating : TID.savebar.docked} className={clsx(
             'z-20 flex animate-cb-bar items-center gap-2 rounded-cb-lg bg-cb-brown-900 py-2.5 pl-4 pr-2.5 text-cb-cream-50 shadow-cb-float',
             floating ? 'fixed inset-x-3 bottom-4 lg:hidden' : 'sticky bottom-6 mx-auto hidden w-full max-w-[640px] lg:flex',
         )}>
             <span className="size-2 shrink-0 rounded-full bg-cb-warning" />
-            <span className="grow text-sm lg:text-[15px]">{t('unsaved', { count, group: groupName })}</span>
-            <button type="button" onClick={onDiscard} disabled={saving}
-                className="h-10 rounded-cb-md px-3.5 text-[15px] text-cb-cream-100 hover:bg-white/10">
+            {/* The message gives way to the buttons: it wraps (2 lines max), they never do. */}
+            <span data-testid={TID.savebar.message} className="line-clamp-2 min-w-0 grow text-sm lg:text-[15px]">{t('unsaved', { count, group: groupName })}</span>
+            <button type="button" data-testid={TID.savebar.discard} onClick={onDiscard} disabled={saving}
+                className="h-10 shrink-0 whitespace-nowrap rounded-cb-md px-3.5 text-[15px] text-cb-cream-100 hover:bg-white/10">
                 {t('discard')}
             </button>
-            <button type="button" onClick={onSave} disabled={saving}
-                className="h-10 rounded-cb-md bg-cb-cream-100 px-5 text-[15px] font-semibold text-cb-brown-900 transition-transform active:scale-[0.97] disabled:opacity-60">
+            <button type="button" data-testid={TID.savebar.save} onClick={onSave} disabled={saving}
+                className="h-10 shrink-0 whitespace-nowrap rounded-cb-md bg-cb-cream-100 px-5 text-[15px] font-semibold text-cb-brown-900 transition-transform active:scale-[0.97] disabled:opacity-60">
                 {saving ? t('saving') : t('save')}
             </button>
         </div>
