@@ -9,7 +9,7 @@ import { PageIntro, SaveBars, Skeleton } from './common';
 
 export default function PostsV2() {
     const t = useTranslations('WebHub');
-    const { config, update, save, discard, dirtyCount, saving, error } = useGroupConfig([], { stayOnSave: true });
+    const { config, update, save, discard, dirtyCount, saving, error } = useGroupConfig();
 
     return (
         <Shell section="posts" title={t('v2.nav.posts')}>

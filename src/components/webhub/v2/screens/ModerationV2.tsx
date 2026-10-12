@@ -12,7 +12,7 @@ import { PageIntro, SaveBars, Skeleton } from './common';
 
 export default function ModerationV2() {
     const t = useTranslations('WebHub');
-    const { config, update, save, discard, dirtyCount, saving, error } = useGroupConfig([], { stayOnSave: true });
+    const { config, update, save, discard, dirtyCount, saving, error } = useGroupConfig();
 
     return (
         <Shell section="moderation" title={t('v2.nav.moderation')}>

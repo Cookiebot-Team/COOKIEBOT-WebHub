@@ -1,5 +1,5 @@
-// Cookiebot design tokens — the single source both WebHub designs (v1, v2)
-// and tailwind.config.ts read. Values come from the "COOKIEBOT UI 3" design
+// Cookiebot design tokens — the single source the WebHub and
+// tailwind.config.ts read. Values come from the "COOKIEBOT UI 3" design
 // system; add a token here rather than a hex in a component.
 
 export const colors = {

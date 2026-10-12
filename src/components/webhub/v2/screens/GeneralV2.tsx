@@ -12,7 +12,7 @@ const TELEGRAM_MESSAGE_LIMIT = 4096;
 export default function GeneralV2() {
     const t = useTranslations('WebHub');
     const { config, texts, update, updateText, save, discard, dirtyCount, saving, error } =
-        useGroupConfig(['welcome', 'rules'], { stayOnSave: true });
+        useGroupConfig(['welcome', 'rules']);
 
     return (
         <Shell section="general" title={t('v2.nav.general')}>
