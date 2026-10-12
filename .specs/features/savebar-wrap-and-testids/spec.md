@@ -97,7 +97,7 @@ QA reported (Cookiebot-QA#3, V2.0 UAT, 3/3 repro) that the floating "unsaved cha
 | TESTID-02 | P1: Test IDs (AC6-8) shell, nav, home, group picker | Execute | Implementing |
 | TESTID-03 | P1: Test IDs (AC2-4) settings screens pass keys | Execute | Implementing |
 | TESTID-04 | P1: Test IDs (AC9-10) stats, audit, admin, events | Execute | Implementing |
-| TESTID-05 | P1: Test IDs (AC11) QA doc | Tasks | Pending |
+| TESTID-05 | P1: Test IDs (AC11) QA doc | Execute | Implementing |
 
 **Coverage:** 7 total, 7 mapped to tasks, 0 unmapped
 

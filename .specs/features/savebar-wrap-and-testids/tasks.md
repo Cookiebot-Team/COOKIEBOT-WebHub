@@ -152,8 +152,8 @@ T1 → T2 → T3 → T4 → T5 → T6
 
 **Done when**:
 
-- [ ] Every ID in `testids.ts` appears in the doc
-- [ ] Gate check passes: `bun test && npm run lint && bun run build:static`
+- [x] Every ID in `testids.ts` appears in the doc
+- [x] Gate check passes: `bun test && npm run lint && bun run build:static`
 
 **Tests**: none
 **Gate**: build
