@@ -116,8 +116,8 @@ T1 → T2 → T3 → T4 → T5 → T6
 
 **Done when**:
 
-- [ ] Every switch/slider/textarea on the three screens has its key-based ID (browser check)
-- [ ] Gate check passes: `bun test && npm run lint && bun run build:static`
+- [x] Every switch/slider/textarea on the three screens has its key-based ID (browser check)
+- [x] Gate check passes: `bun test && npm run lint && bun run build:static`
 
 **Tests**: none
 **Gate**: build

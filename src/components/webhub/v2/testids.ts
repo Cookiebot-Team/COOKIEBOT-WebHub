@@ -40,5 +40,6 @@ export const TID = {
     groupSearch: 'group-search',
     groupOption: (groupId: number) => `group-option-${groupId}`,
     groupAddAnother: 'group-add-another',
+    moderationAuditLink: 'moderation-audit-link',
     toast: 'toast',
 } as const;

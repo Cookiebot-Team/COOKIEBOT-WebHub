@@ -95,7 +95,7 @@ QA reported (Cookiebot-QA#3, V2.0 UAT, 3/3 repro) that the floating "unsaved cha
 | SAVEBAR-02 | P1: Save-bar buttons (AC2) | Execute | Implementing |
 | TESTID-01 | P1: Test IDs (AC1-5, AC11-12) primitives + registry | Execute | Implementing |
 | TESTID-02 | P1: Test IDs (AC6-8) shell, nav, home, group picker | Execute | Implementing |
-| TESTID-03 | P1: Test IDs (AC2-4) settings screens pass keys | Tasks | Pending |
+| TESTID-03 | P1: Test IDs (AC2-4) settings screens pass keys | Execute | Implementing |
 | TESTID-04 | P1: Test IDs (AC9-10) stats, audit, admin, events | Tasks | Pending |
 | TESTID-05 | P1: Test IDs (AC11) QA doc | Tasks | Pending |
 

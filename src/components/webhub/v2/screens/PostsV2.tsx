@@ -21,14 +21,14 @@ export default function PostsV2() {
                         <div className={clsx('grid items-start gap-4', wide && 'lg:grid-cols-2 lg:gap-5')}>
                             <Card className="overflow-hidden">
                                 <SwitchRow first label={t('v2.toggles.share')} hint={t('v2.hints.share')}
-                                    checked={config.publisher_ask} onChange={(v) => update('publisher_ask', v)} />
+                                    testId="publisher_ask" checked={config.publisher_ask} onChange={(v) => update('publisher_ask', v)} />
                                 <SwitchRow label={t('v2.toggles.receive')} hint={t('v2.hints.receive')}
-                                    checked={config.publisher_post} onChange={(v) => update('publisher_post', v)} />
+                                    testId="publisher_post" checked={config.publisher_post} onChange={(v) => update('publisher_post', v)} />
                             </Card>
                             {/* The limit only matters while the group receives posts. */}
                             <SliderCard delay={1} label={t('v2.sliders.posts')}
                                 hint={config.publisher_post ? t('v2.hints.posts') : t('v2.hints.postsOff')}
-                                min={0} max={500} value={Math.min(config.max_posts, 500)} disabled={!config.publisher_post}
+                                testId="max_posts" min={0} max={500} value={Math.min(config.max_posts, 500)} disabled={!config.publisher_post}
                                 onChange={(v) => update('max_posts', v)} />
                         </div>
                     )}
