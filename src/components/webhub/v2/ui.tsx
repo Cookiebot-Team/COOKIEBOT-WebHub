@@ -7,9 +7,11 @@ import { groupTone, initials } from '@/lib/design/tokens';
 import { Icon } from './icons';
 import { TID } from './testids';
 
-export function Card({ children, className, delay = 0 }: { children: ReactNode; className?: string; delay?: 0 | 1 | 2 }) {
+export function Card({ children, className, delay = 0, testId }: {
+    children: ReactNode; className?: string; delay?: 0 | 1 | 2; testId?: string;
+}) {
     return (
-        <section className={clsx(
+        <section data-testid={testId} className={clsx(
             'animate-cb-rise rounded-cb-xl bg-cb-cream-50 shadow-cb-card',
             delay === 1 && '[animation-delay:60ms]',
             delay === 2 && '[animation-delay:120ms]',

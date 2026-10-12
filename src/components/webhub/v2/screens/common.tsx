@@ -9,6 +9,7 @@ import { CbError } from '@/lib/cb/client';
 import { useWebHub } from '../../WebHubProvider';
 import { groupName } from '../GroupPicker';
 import { GroupChip } from '../Shell';
+import { TID } from '../testids';
 import { Card, SaveBar, SectionLabel, useToast } from '../ui';
 
 export function PageIntro({ title, lead, wide, openGroups, aside, groupScoped = true }: {
@@ -81,11 +82,13 @@ export function SaveBars({ dirtyCount, save, discard, saving }: {
     );
 }
 
-export function KpiTile({ label, value, hint, tone = 'light' }: {
+export function KpiTile({ label, value, hint, tone = 'light', testId }: {
     label: string; value: ReactNode; hint?: string; tone?: 'light' | 'dark';
+    /** Becomes `kpi-<name>`. */
+    testId?: string;
 }) {
     return (
-        <div className={clsx('min-w-0 rounded-cb-xl p-3.5',
+        <div data-testid={testId && TID.kpi(testId)} className={clsx('min-w-0 rounded-cb-xl p-3.5',
             tone === 'dark' ? 'bg-white/10 text-cb-cream-50' : 'bg-cb-cream-50 text-black')}>
             <p title={label} className={clsx('m-0 line-clamp-2 text-xs font-semibold uppercase tracking-wide',
                 tone === 'dark' ? 'text-cb-cream-200' : 'text-cb-muted')}>{label}</p>
@@ -125,12 +128,12 @@ export function RangePicker({ value, onChange, className }: {
         onChange(RANGES[next]);
     };
     return (
-        <div role="radiogroup" aria-label={t('label')}
+        <div role="radiogroup" data-testid={TID.rangePicker} aria-label={t('label')}
             className={clsx('inline-flex self-start rounded-full bg-cb-cream-50 p-1 shadow-cb-card', className)}>
             {RANGES.map((days, i) => {
                 const active = days === value;
                 return (
-                    <button key={days} ref={(el) => { refs.current[i] = el; }} type="button" role="radio" aria-checked={active}
+                    <button key={days} ref={(el) => { refs.current[i] = el; }} type="button" role="radio" data-testid={TID.range(days)} aria-checked={active}
                         tabIndex={active ? 0 : -1} onClick={() => onChange(days)} onKeyDown={(e) => move(e, i)}
                         className={clsx('min-h-[44px] min-w-[72px] rounded-full px-4 text-sm font-semibold transition-colors',
                             active ? 'bg-cb-brown-700 text-cb-cream-50' : 'text-cb-brown-900 hover:bg-cb-cream-100')}>
@@ -153,12 +156,12 @@ export function StatsError({ error, onRetry, title }: { error: unknown; onRetry:
         : status === 0 ? t('auth.networkError') : title ?? t('v2.stats.error.generic');
     const action = 'h-10 self-start rounded-cb-md bg-cb-brown-700 px-4 text-sm font-semibold text-cb-cream-50';
     return (
-        <div role="alert" className="flex flex-col gap-3 rounded-cb-xl bg-cb-cream-50 p-4 text-black shadow-cb-card">
+        <div role="alert" data-testid={TID.statsError} className="flex flex-col gap-3 rounded-cb-xl bg-cb-cream-50 p-4 text-black shadow-cb-card">
             <p className="m-0 text-[15px]">{message}</p>
             {status === 403 ? (
-                <button type="button" onClick={() => void logout()} className={action}>{t('v2.signOut')}</button>
+                <button type="button" data-testid={TID.statsErrorSignOut} onClick={() => void logout()} className={action}>{t('v2.signOut')}</button>
             ) : status !== 404 && (
-                <button type="button" onClick={onRetry} className={action}>{t('retry')}</button>
+                <button type="button" data-testid={TID.statsErrorRetry} onClick={onRetry} className={action}>{t('retry')}</button>
             )}
         </div>
     );
@@ -211,9 +214,13 @@ export function usdFormat(locale: string, amount: number) {
 
 // Charts always sit on a cream Card (phone, Mini App and desktop alike), so
 // they use the light tone; the page background behind the cards does not matter.
-export function ChartCard({ title, delay, children }: { title: string; delay?: 0 | 1 | 2; children: ReactNode }) {
+export function ChartCard({ title, delay, children, testId }: {
+    title: string; delay?: 0 | 1 | 2; children: ReactNode;
+    /** Becomes `chart-<name>`. */
+    testId?: string;
+}) {
     return (
-        <Card delay={delay} className="flex min-w-0 flex-col gap-2 p-4 lg:p-[22px]">
+        <Card delay={delay} testId={testId && TID.chart(testId)} className="flex min-w-0 flex-col gap-2 p-4 lg:p-[22px]">
             <SectionLabel>{title}</SectionLabel>
             {children}
         </Card>

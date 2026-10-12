@@ -7,6 +7,7 @@ import { useGroupAuditPage } from '@/lib/hooks/useAuditPage';
 import type { AuditFilters as Filters } from '@/lib/cb/types';
 import { useWebHub } from '../../WebHubProvider';
 import { Shell } from '../Shell';
+import { TID } from '../testids';
 import { Card } from '../ui';
 import { AuditFilters } from '../audit/AuditFilters';
 import { AuditList } from '../audit/AuditList';
@@ -31,7 +32,7 @@ export default function AuditV2() {
                     <AuditFilters onApply={setFilters} />
                     {error ? <StatsError error={error} onRetry={() => void refetch()} title={t('error')} />
                         : idle ? (
-                            <Card className="flex flex-col items-start gap-3 p-5">
+                            <Card testId={TID.selectGroupPrompt} className="flex flex-col items-start gap-3 p-5">
                                 <p className="m-0 text-[15px]">{t('selectGroup')}</p>
                                 <button type="button" onClick={openGroups}
                                     className="h-11 rounded-cb-md bg-cb-brown-700 px-4 text-sm font-semibold text-cb-cream-50">{t('switchGroup')}</button>
@@ -41,7 +42,7 @@ export default function AuditV2() {
                         : data && (
                             <>
                                 {data.events.length === 0 ? (
-                                    <Card className="p-6 text-center">
+                                    <Card testId={TID.auditEmpty} className="p-6 text-center">
                                         <p className="m-0 text-[17px] font-semibold">{t(filtered ? 'empty.filteredTitle' : 'empty.title')}</p>
                                         <p className="m-0 mt-1 text-sm text-cb-muted">{t(filtered ? 'empty.filteredBody' : 'empty.body')}</p>
                                     </Card>

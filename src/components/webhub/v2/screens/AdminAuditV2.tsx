@@ -7,6 +7,7 @@ import { useAdminAuditPage } from '@/lib/hooks/useAuditPage';
 import type { AuditFilters as Filters } from '@/lib/cb/types';
 import { useWebHub } from '../../WebHubProvider';
 import { Shell } from '../Shell';
+import { TID } from '../testids';
 import { Card } from '../ui';
 import { AuditFilters } from '../audit/AuditFilters';
 import { AuditList } from '../audit/AuditList';
@@ -17,7 +18,7 @@ import { PageIntro, Skeleton, StatsError } from './common';
 function NotAvailable() {
     const t = useTranslations('WebHub.v2.admin');
     return (
-        <Card className="p-6 text-center">
+        <Card testId={TID.adminNotAvailable} className="p-6 text-center">
             <p className="m-0 text-[17px] font-semibold">{t('notAvailable.title')}</p>
             <p className="m-0 mt-1 text-sm text-cb-muted">{t('notAvailable.body')}</p>
         </Card>
@@ -38,7 +39,7 @@ function Body() {
                 : data && (
                     <>
                         {data.events.length === 0 ? (
-                            <Card className="p-6 text-center">
+                            <Card testId={TID.auditEmpty} className="p-6 text-center">
                                 <p className="m-0 text-[17px] font-semibold">{t(filtered ? 'empty.filteredTitle' : 'empty.title')}</p>
                                 <p className="m-0 mt-1 text-sm text-cb-muted">{t(filtered ? 'empty.filteredBody' : 'empty.body')}</p>
                             </Card>

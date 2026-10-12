@@ -134,8 +134,8 @@ T1 → T2 → T3 → T4 → T5 → T6
 
 **Done when**:
 
-- [ ] Spec AC9-10 IDs asserted by tests on common + audit components
-- [ ] Gate check passes: `bun test`
+- [x] Spec AC9-10 IDs asserted by tests on common + audit components
+- [x] Gate check passes: `bun test`
 
 **Tests**: unit
 **Gate**: quick
