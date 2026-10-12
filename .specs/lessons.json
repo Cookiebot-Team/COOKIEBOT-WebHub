@@ -1,0 +1,81 @@
+{
+  "schema": 1,
+  "promote_threshold": 2,
+  "window_days": 45,
+  "quarantine_threshold": 2,
+  "next_id": 5,
+  "lessons": [
+    {
+      "id": "L-001",
+      "key": "surviving_mutant::when the test harness is static render only expose state dependent ui errors toasts through an initial state prop so its markup can be asserted or assign it explicitly to the browser layer in the coverage matrix",
+      "text": "When the test harness is static render only, expose state-dependent UI (errors, toasts) through an initial-state prop so its markup can be asserted, or assign it explicitly to the browser layer in the coverage matrix",
+      "signal": "surviving_mutant",
+      "scope": "webhub/v2 tests",
+      "status": "candidate",
+      "features": [
+        "savebar-wrap-and-testids"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "validation.md M16/M17 (ui.tsx:197, audit/AuditFilters.tsx:96) (webhub/v2 tests)"
+      ],
+      "created": "2026-10-12T01:29:32Z",
+      "last_seen": "2026-10-12T01:29:32Z"
+    },
+    {
+      "id": "L-002",
+      "key": "spec_precision_gap::when an ac defines an id or key pattern with a placeholder enumerate the allowed placeholder values in the spec so tests can pin the full set",
+      "text": "When an AC defines an ID or key pattern with a placeholder, enumerate the allowed placeholder values in the spec so tests can pin the full set",
+      "signal": "spec_precision_gap",
+      "scope": "testids",
+      "status": "candidate",
+      "features": [
+        "savebar-wrap-and-testids"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "validation.md G2/G3 (spec AC T9, T10) (testids)"
+      ],
+      "created": "2026-10-12T01:29:32Z",
+      "last_seen": "2026-10-12T01:29:32Z"
+    },
+    {
+      "id": "L-003",
+      "key": "ac_gap::when a react context has a no op default test that the required provider is mounted since removing it fails silently",
+      "text": "When a React context has a no-op default, test that the required provider is mounted, since removing it fails silently",
+      "signal": "ac_gap",
+      "scope": "layouts",
+      "status": "candidate",
+      "features": [
+        "remove-v1-design"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "AC6 / validation.md M5 (layouts)"
+      ],
+      "created": "2026-10-12T01:41:20Z",
+      "last_seen": "2026-10-12T01:41:20Z"
+    },
+    {
+      "id": "L-004",
+      "key": "surviving_mutant::prove a must not render ui requirement with a render level absence assertion not only a file deleted check",
+      "text": "Prove a must-not-render UI requirement with a render-level absence assertion, not only a file-deleted check",
+      "signal": "surviving_mutant",
+      "scope": "routes",
+      "status": "candidate",
+      "features": [
+        "remove-v1-design"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "AC2 / validation.md M6 (routes)"
+      ],
+      "created": "2026-10-12T01:41:20Z",
+      "last_seen": "2026-10-12T01:41:20Z"
+    }
+  ]
+}

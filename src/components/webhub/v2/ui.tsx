@@ -5,10 +5,13 @@ import { useTranslations } from 'next-intl';
 import { createContext, ReactNode, useCallback, useContext, useEffect, useId, useRef, useState } from 'react';
 import { groupTone, initials } from '@/lib/design/tokens';
 import { Icon } from './icons';
+import { TID } from './testids';
 
-export function Card({ children, className, delay = 0 }: { children: ReactNode; className?: string; delay?: 0 | 1 | 2 }) {
+export function Card({ children, className, delay = 0, testId }: {
+    children: ReactNode; className?: string; delay?: 0 | 1 | 2; testId?: string;
+}) {
     return (
-        <section className={clsx(
+        <section data-testid={testId} className={clsx(
             'animate-cb-rise rounded-cb-xl bg-cb-cream-50 shadow-cb-card',
             delay === 1 && '[animation-delay:60ms]',
             delay === 2 && '[animation-delay:120ms]',
@@ -44,13 +47,16 @@ export function GroupAvatar({ id, name, size = 'md' }: { id: number; name: strin
     );
 }
 
-export function Switch({ checked, onChange, label, disabled }: {
+export function Switch({ checked, onChange, label, disabled, testId }: {
     checked: boolean; onChange?: (value: boolean) => void; label: string; disabled?: boolean;
+    /** Config key; becomes `setting-<key>`. */
+    testId?: string;
 }) {
     return (
         <button
             type="button"
             role="switch"
+            data-testid={testId && TID.setting(testId)}
             aria-checked={checked}
             aria-label={label}
             disabled={disabled}
@@ -68,9 +74,9 @@ export function Switch({ checked, onChange, label, disabled }: {
     );
 }
 
-export function SwitchRow({ label, hint, checked, onChange, disabled, badge, first }: {
+export function SwitchRow({ label, hint, checked, onChange, disabled, badge, first, testId }: {
     label: string; hint: string; checked: boolean; onChange?: (value: boolean) => void;
-    disabled?: boolean; badge?: ReactNode; first?: boolean;
+    disabled?: boolean; badge?: ReactNode; first?: boolean; testId?: string;
 }) {
     return (
         <div className={clsx('flex items-center gap-3.5 px-4 py-3.5 lg:px-[22px]', !first && 'border-t border-cb-brown-700/10')}>
@@ -78,26 +84,29 @@ export function SwitchRow({ label, hint, checked, onChange, disabled, badge, fir
                 <span className="flex items-center gap-2 text-base font-medium">{label}{badge}</span>
                 <span className="text-[13px] leading-snug text-cb-muted">{hint}</span>
             </div>
-            <Switch checked={checked} onChange={onChange} label={label} disabled={disabled} />
+            <Switch checked={checked} onChange={onChange} label={label} disabled={disabled} testId={testId} />
         </div>
     );
 }
 
-export function SliderCard({ label, hint, value, min, max, unit, onChange, disabled, delay }: {
+export function SliderCard({ label, hint, value, min, max, unit, onChange, disabled, delay, testId }: {
     label: string; hint: string; value: number; min: number; max: number; unit?: string;
     onChange: (value: number) => void; disabled?: boolean; delay?: 0 | 1 | 2;
+    /** Config key; becomes `slider-<key>` / `slider-<key>-value`. */
+    testId?: string;
 }) {
     const id = useId();
     return (
         <Card delay={delay} className="flex flex-col gap-2 p-4 lg:p-5">
             <div className="flex items-center justify-between gap-2">
                 <label htmlFor={id} className="text-base font-semibold">{label}</label>
-                <span className="rounded-full bg-cb-brown-900 px-2.5 py-1 text-sm font-semibold tabular-nums text-cb-cream-100">
+                <span data-testid={testId && TID.sliderValue(testId)} className="rounded-full bg-cb-brown-900 px-2.5 py-1 text-sm font-semibold tabular-nums text-cb-cream-100">
                     {value}{unit ? ` ${unit}` : ''}
                 </span>
             </div>
             <input
                 id={id}
+                data-testid={testId && TID.slider(testId)}
                 type="range"
                 min={min}
                 max={max}
@@ -114,16 +123,18 @@ export function SliderCard({ label, hint, value, min, max, unit, onChange, disab
 
 export const fieldClass = 'w-full rounded-cb-md border border-cb-line bg-white px-3 font-[inherit] text-[15px] text-cb-brown-900 transition-[border-color,box-shadow] duration-150 placeholder:text-cb-muted/70 focus:border-cb-brown-700 focus:outline-none focus:ring-[3px] focus:ring-cb-brown-700/20 disabled:opacity-60';
 
-export function TextArea({ label, placeholder, value, onChange, maxLength, rows = 3 }: {
+export function TextArea({ label, placeholder, value, onChange, maxLength, rows = 3, testId }: {
     label: string; placeholder: string; value: string; onChange: (value: string) => void; maxLength?: number; rows?: number;
+    /** Text key; becomes `textarea-<key>` / `textarea-<key>-count`. */
+    testId?: string;
 }) {
     const id = useId();
     return (
         <div className="flex flex-col gap-1.5">
             <label htmlFor={id} className="text-[15px] font-semibold">{label}</label>
-            <textarea id={id} rows={rows} value={value} maxLength={maxLength} placeholder={placeholder}
+            <textarea id={id} data-testid={testId && TID.textarea(testId)} rows={rows} value={value} maxLength={maxLength} placeholder={placeholder}
                 onChange={(e) => onChange(e.target.value)} className={clsx(fieldClass, 'resize-y py-3')} />
-            {maxLength && <span className="self-end text-xs tabular-nums text-cb-brown-500">{value.length} / {maxLength}</span>}
+            {maxLength && <span data-testid={testId && TID.textareaCount(testId)} className="self-end text-xs tabular-nums text-cb-brown-500">{value.length} / {maxLength}</span>}
         </div>
     );
 }
@@ -134,18 +145,19 @@ export function SaveBar({ count, groupName, onDiscard, onSave, saving, floating 
     const t = useTranslations('WebHub.v2');
     if (count === 0) return null;
     return (
-        <div className={clsx(
+        <div data-testid={floating ? TID.savebar.floating : TID.savebar.docked} className={clsx(
             'z-20 flex animate-cb-bar items-center gap-2 rounded-cb-lg bg-cb-brown-900 py-2.5 pl-4 pr-2.5 text-cb-cream-50 shadow-cb-float',
             floating ? 'fixed inset-x-3 bottom-4 lg:hidden' : 'sticky bottom-6 mx-auto hidden w-full max-w-[640px] lg:flex',
         )}>
             <span className="size-2 shrink-0 rounded-full bg-cb-warning" />
-            <span className="grow text-sm lg:text-[15px]">{t('unsaved', { count, group: groupName })}</span>
-            <button type="button" onClick={onDiscard} disabled={saving}
-                className="h-10 rounded-cb-md px-3.5 text-[15px] text-cb-cream-100 hover:bg-white/10">
+            {/* The message gives way to the buttons: it wraps (2 lines max), they never do. */}
+            <span data-testid={TID.savebar.message} className="line-clamp-2 min-w-0 grow text-sm lg:text-[15px]">{t('unsaved', { count, group: groupName })}</span>
+            <button type="button" data-testid={TID.savebar.discard} onClick={onDiscard} disabled={saving}
+                className="h-10 shrink-0 whitespace-nowrap rounded-cb-md px-3.5 text-[15px] text-cb-cream-100 hover:bg-white/10">
                 {t('discard')}
             </button>
-            <button type="button" onClick={onSave} disabled={saving}
-                className="h-10 rounded-cb-md bg-cb-cream-100 px-5 text-[15px] font-semibold text-cb-brown-900 transition-transform active:scale-[0.97] disabled:opacity-60">
+            <button type="button" data-testid={TID.savebar.save} onClick={onSave} disabled={saving}
+                className="h-10 shrink-0 whitespace-nowrap rounded-cb-md bg-cb-cream-100 px-5 text-[15px] font-semibold text-cb-brown-900 transition-transform active:scale-[0.97] disabled:opacity-60">
                 {saving ? t('saving') : t('save')}
             </button>
         </div>
@@ -157,7 +169,7 @@ export function ErrorBanner({ error }: { error: { status: number; detail: string
     if (!error) return null;
     const message = error.status === 404 ? t('groups.notAdmin') : error.status === 0 ? t('auth.networkError') : error.detail;
     return (
-        <div role="alert" className="flex animate-cb-fade items-center gap-2 rounded-cb-md bg-cb-danger px-4 py-2.5 text-sm text-white">
+        <div role="alert" data-testid={TID.errorBanner} className="flex animate-cb-fade items-center gap-2 rounded-cb-md bg-cb-danger px-4 py-2.5 text-sm text-white">
             <Icon name="error" className="size-[18px] shrink-0" />{message}
         </div>
     );
@@ -182,7 +194,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
             {children}
             <div aria-live="polite" className="pointer-events-none fixed inset-x-0 top-16 z-[70] flex justify-center font-jost lg:justify-end lg:px-10">
                 {message && (
-                    <div key={message} role="status"
+                    <div key={message} role="status" data-testid={TID.toast}
                         className="flex animate-cb-pop items-center gap-2 rounded-full bg-cb-brown-900 px-4 py-2.5 text-sm text-cb-cream-50 shadow-cb-float lg:rounded-cb-md">
                         <Icon name="check" className="size-[18px] text-cb-cream-100" />{message}
                     </div>

@@ -12,7 +12,7 @@ const TELEGRAM_MESSAGE_LIMIT = 4096;
 export default function GeneralV2() {
     const t = useTranslations('WebHub');
     const { config, texts, update, updateText, save, discard, dirtyCount, saving, error } =
-        useGroupConfig(['welcome', 'rules'], { stayOnSave: true });
+        useGroupConfig(['welcome', 'rules']);
 
     return (
         <Shell section="general" title={t('v2.nav.general')}>
@@ -25,20 +25,20 @@ export default function GeneralV2() {
                             <Card className="flex flex-col gap-4 p-4 lg:p-[22px]">
                                 <SectionLabel>{t('v2.messages')}</SectionLabel>
                                 <TextArea label={t('general.welcome')} placeholder={t('v2.placeholder.welcome')}
-                                    value={texts.welcome ?? ''} onChange={(v) => updateText('welcome', v)} maxLength={TELEGRAM_MESSAGE_LIMIT} />
+                                    value={texts.welcome ?? ''} testId="welcome" onChange={(v) => updateText('welcome', v)} maxLength={TELEGRAM_MESSAGE_LIMIT} />
                                 <TextArea label={t('general.rules')} placeholder={t('v2.placeholder.rules')}
-                                    value={texts.rules ?? ''} onChange={(v) => updateText('rules', v)} maxLength={TELEGRAM_MESSAGE_LIMIT} />
+                                    value={texts.rules ?? ''} testId="rules" onChange={(v) => updateText('rules', v)} maxLength={TELEGRAM_MESSAGE_LIMIT} />
                             </Card>
                             <Card delay={1} className="overflow-hidden">
                                 <SectionLabel className="px-4 pb-2 pt-4 lg:px-[22px] lg:pt-[22px]">{t('v2.behaviour')}</SectionLabel>
                                 <SwitchRow first label={t('v2.toggles.furbots')} hint={t('v2.hints.furbots')}
-                                    checked={config.allow_furbots} onChange={(v) => update('allow_furbots', v)} />
+                                    testId="allow_furbots" checked={config.allow_furbots} onChange={(v) => update('allow_furbots', v)} />
                                 <SwitchRow label={t('v2.toggles.sfw')} hint={t('v2.hints.sfw')}
-                                    checked={config.sfw} onChange={(v) => update('sfw', v)} />
+                                    testId="sfw" checked={config.sfw} onChange={(v) => update('sfw', v)} />
                                 <SwitchRow label={t('v2.toggles.fun')} hint={t('v2.hints.fun')}
-                                    checked={config.functions_fun} onChange={(v) => update('functions_fun', v)} />
+                                    testId="functions_fun" checked={config.functions_fun} onChange={(v) => update('functions_fun', v)} />
                                 <SwitchRow label={t('v2.toggles.utility')} hint={t('v2.hints.utility')}
-                                    checked={config.functions_utility} onChange={(v) => update('functions_utility', v)} />
+                                    testId="functions_utility" checked={config.functions_utility} onChange={(v) => update('functions_utility', v)} />
                             </Card>
                         </div>
                     )}

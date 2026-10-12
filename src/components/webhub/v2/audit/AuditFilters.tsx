@@ -4,6 +4,7 @@ import clsx from 'clsx';
 import { useTranslations } from 'next-intl';
 import { FormEvent, useId, useState } from 'react';
 import { AUDIT_ACTIONS, AUDIT_SURFACES, type AuditAction, type AuditFilters as Filters, type AuditSurface } from '@/lib/cb/types';
+import { TID } from '../testids';
 import { Card, fieldClass } from '../ui';
 
 type Draft = { action: string; surface: string; actor: string; group: string; from: string; to: string };
@@ -67,23 +68,23 @@ export function AuditFilters({ onApply, showGroup = false, busy }: {
         </div>
     );
     const select = (key: 'action' | 'surface', values: readonly string[], group: 'actions' | 'surfaces') => (
-        <select id={fid(key)} className={cls} value={draft[key]} onChange={(e) => set(key)(e.target.value)}>
+        <select id={fid(key)} data-testid={TID.auditFilter(key)} className={cls} value={draft[key]} onChange={(e) => set(key)(e.target.value)}>
             <option value="">{t('any')}</option>
             {values.map((v) => <option key={v} value={v}>{t(`${group}.${v.replace(/\./g, "_")}`)}</option>)}
         </select>
     );
     const text = (key: keyof Draft, type = 'text', mode?: 'numeric') => (
-        <input id={fid(key)} className={cls} type={type} inputMode={mode} value={draft[key]} onChange={(e) => set(key)(e.target.value)} />
+        <input id={fid(key)} data-testid={TID.auditFilter(key)} className={cls} type={type} inputMode={mode} value={draft[key]} onChange={(e) => set(key)(e.target.value)} />
     );
 
     return (
         <Card className="p-3.5">
-            <button type="button" aria-expanded={open} aria-controls={panelId} onClick={() => setOpen((o) => !o)}
+            <button type="button" data-testid={TID.auditFiltersToggle} aria-expanded={open} aria-controls={panelId} onClick={() => setOpen((o) => !o)}
                 className="flex h-11 w-full items-center justify-between text-left text-[15px] font-semibold sm:hidden">
                 {t('filters.toggle')}
                 <span aria-hidden>{open ? '−' : '+'}</span>
             </button>
-            <form id={panelId} onSubmit={submit} noValidate className={clsx('flex-col gap-3 sm:flex', open ? 'mt-2 flex' : 'hidden')}>
+            <form id={panelId} data-testid={TID.auditFilters} onSubmit={submit} noValidate className={clsx('flex-col gap-3 sm:flex', open ? 'mt-2 flex' : 'hidden')}>
                 <div className="grid min-w-0 gap-3 sm:grid-cols-2 lg:grid-cols-3">
                     {field('action', t('filters.action'), select('action', AUDIT_ACTIONS, 'actions'))}
                     {field('surface', t('filters.surface'), select('surface', AUDIT_SURFACES, 'surfaces'))}
@@ -92,11 +93,11 @@ export function AuditFilters({ onApply, showGroup = false, busy }: {
                     {field('from', t('filters.from'), text('from', 'date'))}
                     {field('to', t('filters.to'), text('to', 'date'))}
                 </div>
-                {error && <p role="alert" className="m-0 text-sm text-red-700">{t(`filters.error.${error}`)}</p>}
+                {error && <p role="alert" data-testid={TID.auditFilterError} className="m-0 text-sm text-red-700">{t(`filters.error.${error}`)}</p>}
                 <div className="flex gap-2">
-                    <button type="submit" disabled={busy}
+                    <button type="submit" data-testid={TID.auditFilterApply} disabled={busy}
                         className="h-11 rounded-cb-md bg-cb-brown-700 px-5 text-sm font-semibold text-cb-cream-50 disabled:opacity-60">{t('filters.apply')}</button>
-                    <button type="button" onClick={reset}
+                    <button type="button" data-testid={TID.auditFilterReset} onClick={reset}
                         className="h-11 rounded-cb-md border border-cb-line bg-white px-5 text-sm font-semibold text-cb-brown-900">{t('filters.reset')}</button>
                 </div>
             </form>

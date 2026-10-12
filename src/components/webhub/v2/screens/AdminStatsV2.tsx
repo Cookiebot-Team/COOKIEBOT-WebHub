@@ -15,6 +15,7 @@ import { useWebHub } from '../../WebHubProvider';
 import Link from 'next/link';
 import { Icon } from '../icons';
 import { Shell } from '../Shell';
+import { TID } from '../testids';
 import { Card } from '../ui';
 import {
     ChartCard, KPI_GRID, KpiTile, PageIntro, RangeDays, RangePicker, Skeleton, StatsError,
@@ -28,11 +29,11 @@ const emptyDay = (day: string): AdminDailyRow => ({
 
 // Each panel owns its query: its own skeleton and error, so one failing
 // read never blanks the page.
-function Panel<T>({ query, title, delay, children }: {
-    query: UseQueryResult<T>; title: string; delay?: 0 | 1 | 2; children: (data: T) => ReactNode;
+function Panel<T>({ query, title, delay, children, testId }: {
+    query: UseQueryResult<T>; title: string; delay?: 0 | 1 | 2; children: (data: T) => ReactNode; testId: string;
 }) {
     return (
-        <ChartCard title={title} delay={delay}>
+        <ChartCard title={title} delay={delay} testId={testId}>
             {query.error ? <StatsError error={query.error} onRetry={() => void query.refetch()} />
                 : query.data === undefined ? <div className="h-[200px] animate-pulse rounded-cb-md bg-cb-cream-100/60" aria-busy="true" />
                 : children(query.data)}
@@ -48,7 +49,7 @@ function Budget({ overview }: { overview: AdminOverview }) {
     const { monthly_llm_budget_usd: budget, spent_usd: spent, remaining_usd: remaining } = overview.budget;
     const money = (v: number) => usdFormat(locale, v).format(v);
     return (
-        <KpiTile label={t('kpi.budget.label')}
+        <KpiTile testId="budget" label={t('kpi.budget.label')}
             value={money(spent)}
             hint={budget === null || remaining === null ? t('kpi.budget.none')
                 : `${t('kpi.budget.of', { budget: money(budget) })} · ${t('kpi.budget.remaining', { remaining: money(Math.max(0, remaining)) })}`} />
@@ -62,12 +63,12 @@ function Kpis({ overview }: { overview: AdminOverview }) {
     const { reach, totals } = overview;
     return (
         <div className={KPI_GRID}>
-            <KpiTile label={t('kpi.groups.label')} value={n(reach.groups)}
+            <KpiTile testId="groups" label={t('kpi.groups.label')} value={n(reach.groups)}
                 hint={t('kpi.groups.hint', { left: n(reach.groups_left) })} />
-            <KpiTile label={t('kpi.members.label')} value={n(reach.members)} hint={t('kpi.members.hint', { admins: n(reach.admins) })} />
-            <KpiTile label={t('kpi.messages.label')} value={n(totals.messages)} hint={t('kpi.messages.hint')} />
-            <KpiTile label={t('kpi.commands.label')} value={n(totals.commands)} hint={t('kpi.commands.hint')} />
-            <KpiTile label={t('kpi.errors.label')} value={n(totals.errors)} hint={t('kpi.errors.hint')} />
+            <KpiTile testId="members" label={t('kpi.members.label')} value={n(reach.members)} hint={t('kpi.members.hint', { admins: n(reach.admins) })} />
+            <KpiTile testId="messages" label={t('kpi.messages.label')} value={n(totals.messages)} hint={t('kpi.messages.hint')} />
+            <KpiTile testId="commands" label={t('kpi.commands.label')} value={n(totals.commands)} hint={t('kpi.commands.hint')} />
+            <KpiTile testId="errors" label={t('kpi.errors.label')} value={n(totals.errors)} hint={t('kpi.errors.hint')} />
             <Budget overview={overview} />
         </div>
     );
@@ -136,7 +137,7 @@ function LlmChart({ llm, narrow }: { llm: LlmUsage; narrow: boolean }) {
 function NotAvailable() {
     const t = useTranslations('WebHub.v2.admin');
     return (
-        <Card className="p-6 text-center">
+        <Card testId={TID.adminNotAvailable} className="p-6 text-center">
             <p className="m-0 text-[17px] font-semibold">{t('notAvailable.title')}</p>
             <p className="m-0 mt-1 text-sm text-cb-muted">{t('notAvailable.body')}</p>
         </Card>
@@ -155,18 +156,18 @@ function Body({ wide }: { wide: boolean }) {
             <RangePicker value={days} onChange={setDays} />
             {overview.error ? <StatsError error={overview.error} onRetry={() => void overview.refetch()} />
                 : overview.data ? <Kpis overview={overview.data} /> : <Skeleton rows={1} />}
-            <Panel query={daily} title={t('chart.daily')}>
+            <Panel query={daily} title={t('chart.daily')} testId="daily">
                 {(rows) => <DailyChart rows={rows} range={range} wide={wide} />}
             </Panel>
             <div className={clsx('grid min-w-0 gap-4', wide && 'lg:grid-cols-2')}>
-                <Panel query={topGroups} title={t('chart.topGroups')} delay={1}>
+                <Panel query={topGroups} title={t('chart.topGroups')} delay={1} testId="top-groups">
                     {(rows) => <TopGroupsChart rows={rows} narrow={narrow} />}
                 </Panel>
-                <Panel query={commands} title={t('chart.topCommands')} delay={2}>
+                <Panel query={commands} title={t('chart.topCommands')} delay={2} testId="top-commands">
                     {(rows) => <CommandsChart rows={rows} narrow={narrow} />}
                 </Panel>
             </div>
-            <Panel query={llm} title={t('chart.llm')}>
+            <Panel query={llm} title={t('chart.llm')} testId="llm">
                 {(data) => <LlmChart llm={data} narrow={narrow} />}
             </Panel>
         </>
@@ -183,7 +184,7 @@ export default function AdminStatsV2() {
                 <>
                     <PageIntro title={t('title')} lead={t('lead')} wide={wide} openGroups={openGroups} groupScoped={false} />
                     {me?.is_bot_admin && (
-                        <Link href="/dashboard/admin/audit"
+                        <Link href="/dashboard/admin/audit" data-testid={TID.adminAuditLink}
                             className="inline-flex h-11 items-center justify-center gap-2 self-start rounded-full bg-cb-brown-900 px-5 text-[15px] font-semibold text-cb-cream-50 no-underline transition-transform active:scale-[0.97]">
                             {tn('adminAudit')}<Icon name="chevronRight" className="size-4" />
                         </Link>

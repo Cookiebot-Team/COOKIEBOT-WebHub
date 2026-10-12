@@ -168,9 +168,6 @@
             "save": "Salvar e divulgar evento",
             "delete": "Excluir evento atual"
         },
-        "design": {
-            "label": "Design"
-        },
         "v2": {
             "panel": "Painel de Configuração",
             "back": "Voltar",

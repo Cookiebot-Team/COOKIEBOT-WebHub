@@ -168,9 +168,6 @@
             "save": "Save and Divulge Event",
             "delete": "Delete Current Event"
         },
-        "design": {
-            "label": "Design"
-        },
         "v2": {
             "panel": "Set Up Panel",
             "back": "Back",

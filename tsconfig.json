@@ -38,6 +38,7 @@
     "node_modules",
     "out",
     "scripts",
-    "server"
+    "server",
+    "**/__tests__/**"
   ]
 }
