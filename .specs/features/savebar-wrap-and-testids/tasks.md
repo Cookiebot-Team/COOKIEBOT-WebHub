@@ -11,7 +11,7 @@ Implement these tasks with the `tlc-spec-driven` skill: **activate it by name an
 **Spec**: `.specs/features/savebar-wrap-and-testids/spec.md`
 **Design**: inline (no new architecture: one registry module + optional `testId` props on existing primitives)
 **Branch**: `fix/savebar-wrap-and-testids` (from `team/master`)
-**Status**: In Progress
+**Status**: Done
 
 ---
 

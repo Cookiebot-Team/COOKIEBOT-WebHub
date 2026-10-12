@@ -1,0 +1,45 @@
+{
+  "schema": 1,
+  "promote_threshold": 2,
+  "window_days": 45,
+  "quarantine_threshold": 2,
+  "next_id": 3,
+  "lessons": [
+    {
+      "id": "L-001",
+      "key": "surviving_mutant::when the test harness is static render only expose state dependent ui errors toasts through an initial state prop so its markup can be asserted or assign it explicitly to the browser layer in the coverage matrix",
+      "text": "When the test harness is static render only, expose state-dependent UI (errors, toasts) through an initial-state prop so its markup can be asserted, or assign it explicitly to the browser layer in the coverage matrix",
+      "signal": "surviving_mutant",
+      "scope": "webhub/v2 tests",
+      "status": "candidate",
+      "features": [
+        "savebar-wrap-and-testids"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "validation.md M16/M17 (ui.tsx:197, audit/AuditFilters.tsx:96) (webhub/v2 tests)"
+      ],
+      "created": "2026-10-12T01:29:32Z",
+      "last_seen": "2026-10-12T01:29:32Z"
+    },
+    {
+      "id": "L-002",
+      "key": "spec_precision_gap::when an ac defines an id or key pattern with a placeholder enumerate the allowed placeholder values in the spec so tests can pin the full set",
+      "text": "When an AC defines an ID or key pattern with a placeholder, enumerate the allowed placeholder values in the spec so tests can pin the full set",
+      "signal": "spec_precision_gap",
+      "scope": "testids",
+      "status": "candidate",
+      "features": [
+        "savebar-wrap-and-testids"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "validation.md G2/G3 (spec AC T9, T10) (testids)"
+      ],
+      "created": "2026-10-12T01:29:32Z",
+      "last_seen": "2026-10-12T01:29:32Z"
+    }
+  ]
+}

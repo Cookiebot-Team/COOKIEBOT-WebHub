@@ -70,8 +70,8 @@ QA reported (Cookiebot-QA#3, V2.0 UAT, 3/3 repro) that the floating "unsaved cha
 6. The Shell SHALL mark the content area of every screen with `screen-<section>` (sections: overview, general, moderation, posts, events, stats, audit, admin, adminAudit).
 7. Every sidebar nav link SHALL carry `nav-<section>`, every home tile `tile-<section>`.
 8. The group picker SHALL expose `group-chip`, `group-sheet`, `group-search`, `group-option-<group_id>` (with `aria-selected`) and `group-add-another`.
-9. The range picker SHALL expose `range-picker` and `range-<days>` per option; each KPI tile SHALL expose `kpi-<name>`; each chart card SHALL expose `chart-<name>`.
-10. The audit screens SHALL expose `audit-filters`, `audit-filter-<field>`, `audit-filter-apply`, `audit-filter-reset`, `audit-filter-error`, `audit-list`, `audit-row-<id>`, `audit-row-diff-toggle`, `audit-pager-newer`, `audit-pager-older`, `audit-pager-page`, and `audit-empty`.
+9. The range picker SHALL expose `range-picker` and `range-<days>` per option; each KPI tile SHALL expose `kpi-<name>`; each chart card SHALL expose `chart-<name>`. Names: group KPIs `messages`, `commands`, `peak`, `joins-leaves`, `captcha`, `llm-cost`; fleet KPIs `groups`, `members`, `messages`, `commands`, `errors`, `budget`; group charts `daily`, `joins-leaves`, `top-commands`; fleet charts `daily`, `top-groups`, `top-commands`, `llm`.
+10. The audit screens SHALL expose `audit-filters`, `audit-filter-<field>` (fields `action`, `surface`, `actor`, `from`, `to`, fleet-only `group`), `audit-filter-apply`, `audit-filter-reset`, `audit-filter-error`, `audit-list`, `audit-row-<id>`, `audit-row-diff-toggle`, `audit-pager-newer`, `audit-pager-older`, `audit-pager-page`, and `audit-empty`.
 11. The test-ID values SHALL be defined in one module (`src/components/webhub/v2/testids.ts`) and documented in `docs/testids.md`.
 12. Adding test IDs SHALL NOT change any rendered text, ARIA attribute or class list other than the save-bar fix.
 
@@ -91,13 +91,13 @@ QA reported (Cookiebot-QA#3, V2.0 UAT, 3/3 repro) that the floating "unsaved cha
 
 | Requirement ID | Story | Phase | Status |
 | -------------- | ----- | ----- | ------ |
-| SAVEBAR-01 | P1: Save-bar buttons (AC1, AC3) | Execute | Implementing |
-| SAVEBAR-02 | P1: Save-bar buttons (AC2) | Execute | Implementing |
-| TESTID-01 | P1: Test IDs (AC1-5, AC11-12) primitives + registry | Execute | Implementing |
-| TESTID-02 | P1: Test IDs (AC6-8) shell, nav, home, group picker | Execute | Implementing |
-| TESTID-03 | P1: Test IDs (AC2-4) settings screens pass keys | Execute | Implementing |
-| TESTID-04 | P1: Test IDs (AC9-10) stats, audit, admin, events | Execute | Implementing |
-| TESTID-05 | P1: Test IDs (AC11) QA doc | Execute | Implementing |
+| SAVEBAR-01 | P1: Save-bar buttons (AC1, AC3) | Verify | Verified |
+| SAVEBAR-02 | P1: Save-bar buttons (AC2) | Verify | Verified |
+| TESTID-01 | P1: Test IDs (AC1-5, AC11-12) primitives + registry | Verify | Verified |
+| TESTID-02 | P1: Test IDs (AC6-8) shell, nav, home, group picker | Verify | Verified |
+| TESTID-03 | P1: Test IDs (AC2-4) settings screens pass keys | Verify | Verified |
+| TESTID-04 | P1: Test IDs (AC9-10) stats, audit, admin, events | Verify | Verified |
+| TESTID-05 | P1: Test IDs (AC11) QA doc | Verify | Verified |
 
 **Coverage:** 7 total, 7 mapped to tasks, 0 unmapped
 
