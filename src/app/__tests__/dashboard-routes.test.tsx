@@ -1,5 +1,7 @@
 // remove-v1-design: every dashboard route is the v2 screen; no design settings.
-import { describe, expect, test } from 'bun:test';
+import { describe, expect, mock, test } from 'bun:test';
+import type { ReactNode } from 'react';
+import { render } from '@/components/webhub/v2/__tests__/render';
 import { existsSync } from 'node:fs';
 import { resolveConfig } from '@/lib/cb/server-config';
 
@@ -40,5 +42,18 @@ describe('design settings and v1 code are gone (NOV1-03)', () => {
     test('v1 screens and the design provider are deleted', () => {
         expect(existsSync('src/components/webhub/screens')).toBe(false);
         expect(existsSync('src/components/webhub/design/DesignProvider.tsx')).toBe(false);
+    });
+});
+
+describe('dashboard layout (NOV1-01: AC2, AC6)', () => {
+    test('wraps screens in the toast provider and renders no design switcher', async () => {
+        mock.module('@/components/webhub/WebHubProvider', () => ({ WebHubProvider: ({ children }: { children: ReactNode }) => <>{children}</> }));
+        const { default: DashboardLayout } = await import('../dashboard/layout');
+        const html = render(<DashboardLayout><p id="screen">screen</p></DashboardLayout>);
+        expect(html).toContain('<p id="screen">screen</p>');
+        // ToastProvider's live region: without the provider, useToast() is a silent no-op.
+        expect(html).toMatch(/<div aria-live="polite" class="pointer-events-none fixed[^"]*">/);
+        expect(html).not.toContain('role="radiogroup"');
+        expect(html).not.toMatch(/>V1</);
     });
 });
