@@ -10,8 +10,6 @@
 //                          every one that is set; local defaults to :8000)
 //   TELEGRAM_BOT_USERNAME  bot behind the Telegram Login Widget
 //   SETTINGS_BACKEND       "mock" serves settings from memory (no API calls)
-//   DESIGN_SWITCHER        "false" hides the v1/v2 design switcher
-//   DESIGN_DEFAULT         v1 | v2, the design shown first (default v2)
 //   BOTSERVER_URL          v1 botserver behind /api/botserver (group count)
 
 export type Env = { [key: string]: string | undefined };
@@ -23,13 +21,11 @@ export class ServerConfig {
     selectable: boolean;
     botUsername: string;
     settingsBackend: string;
-    designSwitcher: boolean;
-    designDefault: string;
     botserverUrl: string;
 
     constructor(
         apiUrls: string[], envs: string[], defaultEnv: string, selectable: boolean, botUsername: string,
-        settingsBackend: string, designSwitcher: boolean, designDefault: string, botserverUrl: string,
+        settingsBackend: string, botserverUrl: string,
     ) {
         this.apiUrls = apiUrls;
         this.envs = envs;
@@ -37,8 +33,6 @@ export class ServerConfig {
         this.selectable = selectable;
         this.botUsername = botUsername;
         this.settingsBackend = settingsBackend;
-        this.designSwitcher = designSwitcher;
-        this.designDefault = designDefault;
         this.botserverUrl = botserverUrl;
     }
 
@@ -58,8 +52,6 @@ export class ServerConfig {
             envSelectable: this.selectable,
             telegramBotUsername: this.botUsername,
             settingsBackend: this.settingsBackend,
-            designSwitcher: this.designSwitcher,
-            designDefault: this.designDefault,
         });
         return "window.__CB_CONFIG__=" + body + ";\n";
     }
@@ -101,7 +93,6 @@ export function resolveConfig(env: Env, development: boolean): ServerConfig {
     const defaultEnv = envs.indexOf(pinned) >= 0 ? pinned : (envs.length > 0 ? envs[0] : pinned);
 
     const backend = value(env, "SETTINGS_BACKEND") === "mock" ? "mock" : "http";
-    const designDefault = value(env, "DESIGN_DEFAULT") === "v1" ? "v1" : "v2";
     const botUsername = value(env, "TELEGRAM_BOT_USERNAME");
     const botserver = value(env, "BOTSERVER_URL");
 
@@ -109,8 +100,6 @@ export function resolveConfig(env: Env, development: boolean): ServerConfig {
         urls, envs, defaultEnv, development,
         botUsername === "" ? "CookieMWbot" : botUsername,
         backend,
-        value(env, "DESIGN_SWITCHER") !== "false",
-        designDefault,
         trimSlash(botserver === "" ? "https://botserver.cookiebotfur.net" : botserver),
     );
 }

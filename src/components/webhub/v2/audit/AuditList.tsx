@@ -3,6 +3,7 @@
 import { useLocale, useTranslations } from 'next-intl';
 import { useId, useState } from 'react';
 import { AUDIT_ACTIONS, AUDIT_SURFACES, type AdminAuditEvent, type AuditEvent } from '@/lib/cb/types';
+import { TID } from '../testids';
 import { Card } from '../ui';
 
 export type AuditRow = AuditEvent & Partial<Pick<AdminAuditEvent, 'group_id' | 'group_title'>>;
@@ -55,7 +56,7 @@ function Row({ e, showGroup }: { e: AuditRow; showGroup: boolean }) {
     const actor = e.actor_user_id === null ? t('actor.none') : t('actor.user', { id: e.actor_user_id });
 
     return (
-        <li>
+        <li data-testid={TID.auditRow(e.id)}>
             <Card className="flex min-w-0 flex-col gap-2 p-3.5">
                 <div className="flex flex-wrap items-baseline justify-between gap-x-3">
                     <p className="m-0 min-w-0 break-words text-[15px] font-semibold">{label('actions', e.action)}</p>
@@ -76,11 +77,11 @@ function Row({ e, showGroup }: { e: AuditRow; showGroup: boolean }) {
                 </p>
                 {hasDiff && (
                     <>
-                        <button type="button" aria-expanded={open} aria-controls={panel} onClick={() => setOpen((o) => !o)}
+                        <button type="button" data-testid={TID.auditRowDiffToggle} aria-expanded={open} aria-controls={panel} onClick={() => setOpen((o) => !o)}
                             className="h-11 self-start rounded-cb-md border border-cb-line bg-white px-4 text-sm font-semibold text-cb-brown-900">
                             {open ? t('diff.hide') : t('diff.show')}
                         </button>
-                        <div id={panel} hidden={!open}>{open && <Diff before={e.before} after={e.after} />}</div>
+                        <div id={panel} data-testid={TID.auditRowDiff} hidden={!open}>{open && <Diff before={e.before} after={e.after} />}</div>
                     </>
                 )}
             </Card>
@@ -90,7 +91,7 @@ function Row({ e, showGroup }: { e: AuditRow; showGroup: boolean }) {
 
 export function AuditList({ events, showGroup = false }: { events: AuditRow[]; showGroup?: boolean }) {
     return (
-        <ul className="m-0 flex list-none flex-col gap-3 p-0">
+        <ul data-testid={TID.auditList} className="m-0 flex list-none flex-col gap-3 p-0">
             {events.map((e) => <Row key={e.id} e={e} showGroup={showGroup} />)}
         </ul>
     );

@@ -9,6 +9,7 @@ import type { DailyRow, DateRange, GroupAnalytics } from '@/lib/cb/types';
 import { barOption, lineOption } from '../charts/theme';
 import { EChart } from '../charts/EChart';
 import { Shell } from '../Shell';
+import { TID } from '../testids';
 import { Card } from '../ui';
 import {
     ChartCard, KPI_GRID, KpiTile, PageIntro, RangeDays, RangePicker, Skeleton, StatsError,
@@ -49,14 +50,14 @@ function Charts({ data, wide, narrow }: { data: GroupAnalytics; wide: boolean; n
 
     return (
         <>
-            <ChartCard title={t('chart.daily')}>
+            <ChartCard title={t('chart.daily')} testId="daily">
                 <EChart option={model.line} ariaLabel={t('chart.daily')} height={wide ? 300 : 240} />
             </ChartCard>
             <div className={clsx('grid min-w-0 gap-4', wide && 'lg:grid-cols-2')}>
-                <ChartCard title={t('chart.joinsLeaves')} delay={1}>
+                <ChartCard title={t('chart.joinsLeaves')} delay={1} testId="joins-leaves">
                     <EChart option={model.joins} ariaLabel={t('chart.joinsLeaves')} height={wide ? 280 : 240} />
                 </ChartCard>
-                <ChartCard title={t('chart.topCommands')} delay={2}>
+                <ChartCard title={t('chart.topCommands')} delay={2} testId="top-commands">
                     {model.topCount === 0 ? (
                         <p className="m-0 py-8 text-center text-sm text-cb-muted">{t('empty.commands')}</p>
                     ) : (
@@ -81,13 +82,13 @@ function Kpis({ data }: { data: GroupAnalytics }) {
     });
     return (
         <div className={KPI_GRID}>
-            <KpiTile label={t('kpi.messages.label')} value={n(s.messages)} hint={t('kpi.messages.hint')} />
-            <KpiTile label={t('kpi.commands.label')} value={n(s.commands)} hint={t('kpi.commands.hint')} />
-            <KpiTile label={t('kpi.peak.label')} value={n(s.peak_active_users)} hint={t('kpi.peak.hint')} />
-            <KpiTile label={t('kpi.joinsLeaves.label')} value={`${n(s.joins)} / ${n(s.leaves)}`} hint={t('kpi.joinsLeaves.hint')} />
-            <KpiTile label={t('kpi.captcha.label')} value={s.captcha_solve_rate === null ? t('na') : pct.format(s.captcha_solve_rate)}
+            <KpiTile testId="messages" label={t('kpi.messages.label')} value={n(s.messages)} hint={t('kpi.messages.hint')} />
+            <KpiTile testId="commands" label={t('kpi.commands.label')} value={n(s.commands)} hint={t('kpi.commands.hint')} />
+            <KpiTile testId="peak" label={t('kpi.peak.label')} value={n(s.peak_active_users)} hint={t('kpi.peak.hint')} />
+            <KpiTile testId="joins-leaves" label={t('kpi.joinsLeaves.label')} value={`${n(s.joins)} / ${n(s.leaves)}`} hint={t('kpi.joinsLeaves.hint')} />
+            <KpiTile testId="captcha" label={t('kpi.captcha.label')} value={s.captcha_solve_rate === null ? t('na') : pct.format(s.captcha_solve_rate)}
                 hint={t('kpi.captcha.hint')} />
-            <KpiTile label={t('kpi.llmCost.label')} value={usd.format(cost)} hint={t('kpi.llmCost.hint')} />
+            <KpiTile testId="llm-cost" label={t('kpi.llmCost.label')} value={usd.format(cost)} hint={t('kpi.llmCost.hint')} />
         </div>
     );
 }
@@ -112,7 +113,7 @@ export default function StatsV2() {
                     {error ? <StatsError error={error} onRetry={() => void refetch()} />
                         : idle ? (
                             // No group selected / session not ready (AuthGate normally prevents this).
-                            <Card className="flex flex-col items-start gap-3 p-5">
+                            <Card testId={TID.selectGroupPrompt} className="flex flex-col items-start gap-3 p-5">
                                 <p className="m-0 text-[15px]">{t('selectGroup')}</p>
                                 <button type="button" onClick={openGroups}
                                     className="h-11 rounded-cb-md bg-cb-brown-700 px-4 text-sm font-semibold text-cb-cream-50">{t('switchGroup')}</button>
@@ -120,7 +121,7 @@ export default function StatsV2() {
                         )
                         : isPending ? <Skeleton rows={4} />
                         : data && isQuiet(data) && data.summary.messages === 0 && data.summary.commands === 0 ? (
-                            <Card className="p-6 text-center">
+                            <Card testId={TID.statsEmpty} className="p-6 text-center">
                                 <p className="m-0 text-[17px] font-semibold">{t('empty.title')}</p>
                                 <p className="m-0 mt-1 text-sm text-cb-muted">{t('empty.body')}</p>
                             </Card>

@@ -9,8 +9,6 @@ export type RuntimeConfig = {
     envSelectable: boolean;
     telegramBotUsername: string;
     settingsBackend: 'http' | 'mock';
-    designSwitcher: boolean;
-    designDefault: 'v1' | 'v2';
 };
 
 const FALLBACK: RuntimeConfig = {
@@ -19,8 +17,6 @@ const FALLBACK: RuntimeConfig = {
     envSelectable: false,
     telegramBotUsername: 'CookieMWbot',
     settingsBackend: 'http',
-    designSwitcher: true,
-    designDefault: 'v2',
 };
 
 declare global {

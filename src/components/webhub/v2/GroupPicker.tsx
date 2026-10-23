@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from 'react';
 import { AdministeredGroup } from '@/lib/cb/repository';
 import { useWebHub } from '../WebHubProvider';
 import { Icon } from './icons';
+import { TID } from './testids';
 import { GroupAvatar, fieldClass, useToast } from './ui';
 
 export const groupName = (g: AdministeredGroup) => g.title ?? (g.username ? `@${g.username}` : String(g.group_id));
@@ -30,7 +31,7 @@ function GroupList({ onPicked }: { onPicked: () => void }) {
             {groups.length > 4 && (
                 <label className="relative block">
                     <span className="absolute left-3 top-3 text-cb-brown-500"><Icon name="search" className="size-5" /></span>
-                    <input ref={input} type="search" value={query} onChange={(e) => setQuery(e.target.value)}
+                    <input ref={input} data-testid={TID.groupSearch} type="search" value={query} onChange={(e) => setQuery(e.target.value)}
                         aria-label={t('searchGroups')} placeholder={t('searchGroups')}
                         className={clsx(fieldClass, 'h-11 pl-10')} />
                 </label>
@@ -39,7 +40,7 @@ function GroupList({ onPicked }: { onPicked: () => void }) {
                 {shown.map((g) => {
                     const selected = g.group_id === groupId;
                     return (
-                        <button key={g.group_id} type="button" role="option" aria-selected={selected}
+                        <button key={g.group_id} type="button" role="option" data-testid={TID.groupOption(g.group_id)} aria-selected={selected}
                             onClick={() => {
                                 if (!selected) {
                                     setGroupId(g.group_id);
@@ -62,7 +63,7 @@ function GroupList({ onPicked }: { onPicked: () => void }) {
                 })}
                 {shown.length === 0 && <p className="my-2 text-center text-sm text-cb-muted">{t('noMatch', { query })}</p>}
             </div>
-            <a href="https://t.me/CookieMWbot?startgroup=new" target="_blank" rel="noreferrer"
+            <a href="https://t.me/CookieMWbot?startgroup=new" target="_blank" rel="noreferrer" data-testid={TID.groupAddAnother}
                 className="flex min-h-11 items-center justify-center gap-2 rounded-cb-md border border-dashed border-cb-sand text-[15px] font-semibold text-cb-brown-700 no-underline hover:bg-cb-cream-100/60">
                 <Icon name="add" className="size-[18px]" />{t('addAnother')}
             </a>
@@ -84,7 +85,7 @@ export function GroupSheet({ open, onClose }: { open: boolean; onClose: () => vo
     return (
         <div className="webhub fixed inset-0 z-50 font-jost text-cb-brown-900">
             <button type="button" aria-label={t('close')} onClick={onClose} className="absolute inset-0 animate-cb-fade bg-[rgba(20,12,0,0.48)]" />
-            <div role="dialog" aria-modal="true" aria-label={t('chooseGroup')}
+            <div role="dialog" aria-modal="true" data-testid={TID.groupSheet} aria-label={t('chooseGroup')}
                 className="absolute inset-x-0 bottom-0 mx-auto flex max-h-[80%] max-w-[480px] animate-cb-sheet flex-col gap-3 rounded-t-cb-2xl bg-cb-cream-50 px-4 pb-6 pt-2.5 shadow-cb-sheet">
                 <span className="h-[5px] w-10 self-center rounded-full bg-cb-cream-200" />
                 <div className="flex items-baseline justify-between">
@@ -99,7 +100,7 @@ export function GroupSheet({ open, onClose }: { open: boolean; onClose: () => vo
 
 export function GroupPopover({ onClose }: { onClose: () => void }) {
     return (
-        <div className="absolute left-0 top-[calc(100%+8px)] z-40 flex w-80 origin-top-left animate-cb-pop flex-col gap-2.5 rounded-cb-lg bg-cb-cream-50 p-3 text-cb-brown-900 shadow-cb-float">
+        <div data-testid={TID.groupPopover} className="absolute left-0 top-[calc(100%+8px)] z-40 flex w-80 origin-top-left animate-cb-pop flex-col gap-2.5 rounded-cb-lg bg-cb-cream-50 p-3 text-cb-brown-900 shadow-cb-float">
             <GroupList onPicked={onClose} />
         </div>
     );

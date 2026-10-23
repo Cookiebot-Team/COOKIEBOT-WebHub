@@ -9,7 +9,8 @@ import { useGroupConfig } from '../../useGroupConfig';
 import { useWebHub } from '../../WebHubProvider';
 import { groupName } from '../GroupPicker';
 import { Icon, IconName } from '../icons';
-import { ADMIN_NAV, COMMUNITY, Shell } from '../Shell';
+import { ADMIN_NAV, COMMUNITY, Section, Shell } from '../Shell';
+import { TID } from '../testids';
 import { GroupAvatar, SectionLabel } from '../ui';
 
 export default function HomeV2() {
@@ -21,26 +22,26 @@ export default function HomeV2() {
     const group = me?.groups.find((g) => g.group_id === groupId);
 
     // Each tile shows the group's live setting, so the overview doubles as a summary.
-    const tiles: { href: string; icon: IconName; title: string; value: string; soon?: boolean }[] = [
+    const tiles: { section: Section; href: string; icon: IconName; title: string; value: string; soon?: boolean }[] = [
         {
-            href: '/dashboard/general', icon: 'settings', title: t('v2.nav.general'),
+            section: 'general', href: '/dashboard/general', icon: 'settings', title: t('v2.nav.general'),
             value: config ? t(config.sfw ? 'v2.glance.nsfwBlocked' : 'v2.glance.nsfwAllowed') : '…',
         },
         {
-            href: '/dashboard/moderation', icon: 'shield', title: t('v2.nav.moderation'),
+            section: 'moderation', href: '/dashboard/moderation', icon: 'shield', title: t('v2.nav.moderation'),
             value: config ? t('v2.glance.captcha', { seconds: config.captcha_timeout_seconds }) : '…',
         },
         {
-            href: '/dashboard/posts', icon: 'photo', title: t('v2.nav.posts'),
+            section: 'posts', href: '/dashboard/posts', icon: 'photo', title: t('v2.nav.posts'),
             value: config ? (config.publisher_post ? t('v2.glance.perDay', { count: config.max_posts }) : t('v2.glance.notReceiving')) : '…',
         },
-        { href: '/dashboard/events', icon: 'calendar', title: t('v2.nav.events'), value: t('v2.glance.drafts'), soon: true },
-        { href: '/dashboard/stats', icon: 'chart', title: t('v2.nav.stats'), value: t('v2.glance.stats') },
-        { href: '/dashboard/audit', icon: 'log', title: t('v2.nav.audit'), value: t('v2.glance.audit') },
+        { section: 'events', href: '/dashboard/events', icon: 'calendar', title: t('v2.nav.events'), value: t('v2.glance.drafts'), soon: true },
+        { section: 'stats', href: '/dashboard/stats', icon: 'chart', title: t('v2.nav.stats'), value: t('v2.glance.stats') },
+        { section: 'audit', href: '/dashboard/audit', icon: 'log', title: t('v2.nav.audit'), value: t('v2.glance.audit') },
     ];
     // Bot owners also get the fleet screens, which need no group.
     const adminTiles: typeof tiles = ADMIN_NAV.map((item) => ({
-        href: item.href, icon: item.icon, title: t(`v2.nav.${item.section}`),
+        section: item.section, href: item.href, icon: item.icon, title: t(`v2.nav.${item.section}`),
         value: t(item.section === 'admin' ? 'v2.glance.admin' : 'v2.glance.adminAudit'),
     }));
 
@@ -58,7 +59,7 @@ export default function HomeV2() {
                                     {t('v2.activeIn', { count })} {t('v2.intro')}
                                 </p>
                                 <div className="flex flex-wrap gap-2.5">
-                                    <a href="https://t.me/CookieMWbot?startgroup=new" target="_blank" rel="noreferrer"
+                                    <a href="https://t.me/CookieMWbot?startgroup=new" target="_blank" rel="noreferrer" data-testid={TID.homeAddBot}
                                         className="inline-flex h-11 grow items-center justify-center gap-2 rounded-full bg-cb-brown-900 px-5 text-[15px] font-semibold text-cb-cream-50 no-underline transition-transform active:scale-[0.97] lg:grow-0">
                                         <Icon name="add" className="size-[18px]" />{t('v2.addMe')}
                                     </a>
@@ -71,7 +72,7 @@ export default function HomeV2() {
                         </section>
 
                         {group && (
-                            <button type="button" onClick={openGroups}
+                            <button type="button" data-testid={TID.homeGroupCard} onClick={openGroups}
                                 className="flex animate-cb-rise items-center gap-3 rounded-cb-xl bg-cb-brown-900 p-4 text-left text-cb-cream-50 shadow-cb-raised transition-transform [animation-delay:60ms] active:scale-[0.98] lg:flex-col lg:items-stretch lg:gap-3.5 lg:p-6">
                                 <span className="flex min-w-0 grow items-center gap-3">
                                     <GroupAvatar id={group.group_id} name={groupName(group)} size={wide ? 'lg' : 'md'} />
@@ -95,7 +96,7 @@ export default function HomeV2() {
                             {key === 'admin' && <SectionLabel className="mx-1 animate-cb-rise text-cb-brown-700">{t('v2.nav.adminGroup')}</SectionLabel>}
                         <div className={clsx('grid animate-cb-rise grid-cols-2 gap-2.5 [animation-delay:120ms]', wide && 'lg:grid-cols-4 lg:gap-4')}>
                             {list.map((tile) => (
-                                <Link key={tile.href} href={tile.href}
+                                <Link key={tile.href} href={tile.href} data-testid={TID.tile(tile.section)}
                                     className="group flex min-h-[116px] min-w-0 flex-col gap-2.5 rounded-cb-lg bg-white/90 p-3.5 text-cb-brown-900 no-underline shadow-[0_1px_0_rgba(94,65,13,0.08)] transition-[transform,box-shadow] duration-200 hover:-translate-y-0.5 hover:shadow-cb-raised active:scale-[0.98] lg:min-h-[150px] lg:p-5">
                                     <span className="flex items-center justify-between">
                                         <span className="grid size-[38px] place-items-center rounded-cb-md bg-cb-cream-100 text-cb-brown-700">
@@ -118,7 +119,7 @@ export default function HomeV2() {
                         <SectionLabel className="mx-1 text-cb-brown-700">{t('v2.community')}</SectionLabel>
                         <nav aria-label={t('v2.community')} className="overflow-hidden rounded-cb-lg bg-white/90">
                             {COMMUNITY.map((link, i) => (
-                                <a key={link.key} href={link.href} {...(link.href.startsWith('http') ? { target: '_blank', rel: 'noreferrer' } : {})}
+                                <a key={link.key} href={link.href} data-testid={TID.community(link.key)} {...(link.href.startsWith('http') ? { target: '_blank', rel: 'noreferrer' } : {})}
                                     className={clsx('flex min-h-[52px] items-center gap-3 px-4 text-cb-brown-900 no-underline transition-colors hover:bg-cb-cream-100/60',
                                         i > 0 && 'border-t border-cb-brown-700/10')}>
                                     <Icon name={link.icon} className="size-5 shrink-0 text-cb-brown-500" />

@@ -10,7 +10,7 @@
 # Runtime configuration is environment variables only (one image for every
 # environment); see src/lib/cb/server-config.ts and .env.example:
 #   CB_API_URL, CB_ENV, TELEGRAM_BOT_USERNAME, SETTINGS_BACKEND,
-#   DESIGN_SWITCHER, DESIGN_DEFAULT, BOTSERVER_URL, PORT, HOST
+#   BOTSERVER_URL, PORT, HOST
 #
 #   docker build --platform linux/amd64 -t cookiebot-webhub .
 #   docker run -p 3000:3000 -e CB_API_URL=https://api.example.org cookiebot-webhub

@@ -1,6 +1,5 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
 import { useCallback, useEffect, useState } from 'react';
 import { CbError } from '@/lib/cb/client';
 import { changedFields, GroupConfig, GroupText } from '@/lib/cb/repository';
@@ -8,10 +7,8 @@ import { useWebHub } from './WebHubProvider';
 
 type Texts = Partial<Record<GroupText, string>>;
 
-// v1 returns to the Set Up screen after saving; v2 stays put and confirms
-// with a toast, so it asks for `stayOnSave` and reads `save()`'s result.
-export function useGroupConfig(textKinds: GroupText[] = [], { stayOnSave = false } = {}) {
-    const router = useRouter();
+// Saving stays on the screen; callers confirm with a toast from `save()`'s result.
+export function useGroupConfig(textKinds: GroupText[] = []) {
     const { repo, groupId } = useWebHub();
     const [original, setOriginal] = useState<GroupConfig | null>(null);
     const [config, setConfig] = useState<GroupConfig | null>(null);
@@ -61,11 +58,10 @@ export function useGroupConfig(textKinds: GroupText[] = [], { stayOnSave = false
             if (Object.keys(patch).length > 0) {
                 const saved = await repo.patchConfig(groupId, patch);
                 setOriginal(saved);
-                if (stayOnSave) setConfig(saved);
+                setConfig(saved);
             }
             for (const kind of changedTexts) await repo.putText(groupId, kind, texts[kind] ?? '');
             setOriginalTexts(texts);
-            if (!stayOnSave) router.push('/dashboard');
             return true;
         } catch (e) {
             // Keep the edited values so a 422 can be fixed in place.
@@ -74,7 +70,7 @@ export function useGroupConfig(textKinds: GroupText[] = [], { stayOnSave = false
         } finally {
             setSaving(false);
         }
-    }, [original, config, texts, originalTexts, groupId, repo, router, stayOnSave]);
+    }, [original, config, texts, originalTexts, groupId, repo]);
 
     const discard = useCallback(() => {
         setConfig(original);
