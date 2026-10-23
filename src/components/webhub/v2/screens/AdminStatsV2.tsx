@@ -18,7 +18,7 @@ import { Shell } from '../Shell';
 import { TID } from '../testids';
 import { Card } from '../ui';
 import {
-    ChartCard, KPI_GRID, KpiTile, PageIntro, RangeDays, RangePicker, Skeleton, StatsError,
+    ChartCard, KPI_GRID, KpiTile, PageIntro, RangeDays, RangePicker, LiveStamp, Skeleton, StatsError,
     countFormat, rangeFor, singleSeries, useNarrow, useToday, usdFormat,
 } from './common';
 
@@ -151,9 +151,14 @@ function Body({ wide }: { wide: boolean }) {
     const [days, setDays] = useState<RangeDays>(30);
     const range = useMemo(() => rangeFor(days, today), [days, today]);
     const { overview, daily, topGroups, commands, llm } = useAdminStats(range);
+    const all = [overview, daily, topGroups, commands, llm];
     return (
         <>
-            <RangePicker value={days} onChange={setDays} />
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+                <RangePicker value={days} onChange={setDays} />
+                <LiveStamp updatedAt={Math.max(0, ...all.map((q) => q.dataUpdatedAt))}
+                    refreshing={all.some((q) => q.isFetching && !q.isPending)} />
+            </div>
             {overview.error ? <StatsError error={overview.error} onRetry={() => void overview.refetch()} />
                 : overview.data ? <Kpis overview={overview.data} /> : <Skeleton rows={1} />}
             <Panel query={daily} title={t('chart.daily')} testId="daily">

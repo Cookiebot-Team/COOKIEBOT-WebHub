@@ -12,7 +12,7 @@ import { Shell } from '../Shell';
 import { TID } from '../testids';
 import { Card } from '../ui';
 import {
-    ChartCard, KPI_GRID, KpiTile, PageIntro, RangeDays, RangePicker, Skeleton, StatsError,
+    ChartCard, KPI_GRID, KpiTile, PageIntro, RangeDays, RangePicker, LiveStamp, Skeleton, StatsError,
     countFormat, rangeFor, singleSeries, useNarrow, useToday,
 } from './common';
 
@@ -101,7 +101,7 @@ export default function StatsV2() {
     const today = useToday();
     const [days, setDays] = useState<RangeDays>(30);
     const range = useMemo(() => rangeFor(days, today), [days, today]);
-    const { data, error, isPending, fetchStatus, refetch } = useGroupStats(range);
+    const { data, error, isPending, isFetching, dataUpdatedAt, fetchStatus, refetch } = useGroupStats(range);
     const idle = isPending && fetchStatus === 'idle';
 
     return (
@@ -109,7 +109,10 @@ export default function StatsV2() {
             {({ openGroups, wide }) => (
                 <>
                     <PageIntro title={t('title')} lead={t('lead')} wide={wide} openGroups={openGroups} />
-                    <RangePicker value={days} onChange={setDays} />
+                    <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+                        <RangePicker value={days} onChange={setDays} />
+                        <LiveStamp updatedAt={dataUpdatedAt} refreshing={isFetching && !isPending} />
+                    </div>
                     {error ? <StatsError error={error} onRetry={() => void refetch()} />
                         : idle ? (
                             // No group selected / session not ready (AuthGate normally prevents this).
